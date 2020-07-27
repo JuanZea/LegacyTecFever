@@ -52,7 +52,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             @if (Auth::user()->isAdmin)
-                                <a class="dropdown-item" href="#{{-- {{ route('accounts.controlPanel') }} --}}">
+                                <a class="dropdown-item" href="{{ route('controlPanel') }}">
                                     Panel de control
                                 </a>
                             @endif

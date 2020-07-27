@@ -25,4 +25,9 @@ class RouteController extends Controller
     {
     	return view('home');
     }
+
+    public function controlPanel() : Object
+    {
+        return view('controlPanel');
+    }
 }
