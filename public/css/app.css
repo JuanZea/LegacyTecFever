@@ -10988,3 +10988,14 @@ a.text-dark:focus {
   text-transform: uppercase;
 }
 
+#register {
+  background-image: url(/images/Background1.jpg?6fb8cd7e97195c554da3eab3c1ee5dea);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: "Baloo Da 2", cursive;
+  font-weight: bold;
+  color: white;
+  min-height: 100vh;
+  margin: 0;
+}
+
