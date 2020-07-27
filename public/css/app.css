@@ -10968,3 +10968,23 @@ a.text-dark:focus {
   padding-bottom: 100px;
 }
 
+#login {
+  background-image: url(/images/Background1.jpg?6fb8cd7e97195c554da3eab3c1ee5dea);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: "Baloo Da 2", cursive;
+  font-weight: bold;
+  color: white;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#login .link {
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
