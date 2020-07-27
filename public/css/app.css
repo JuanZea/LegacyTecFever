@@ -1,11 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;
 
-/*!
- * Bootstrap v4.5.0 (https://getbootstrap.com/)
- * Copyright 2011-2020 The Bootstrap Authors
- * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
+700&display=swap);@charset "UTF-8";
 
 :root {
   --blue: #3490dc;
@@ -10926,5 +10921,50 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+#welcome {
+  background-image: url(/images/Background1.jpg?6fb8cd7e97195c554da3eab3c1ee5dea);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: "Baloo Da 2", cursive;
+  font-weight: bold;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#welcome .header {
+  height: 25vh;
+}
+
+#welcome .header > div > div > a {
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+#welcome .header > div > div > a:hover {
+  transition: background-color 1s ease;
+  background-color: #5cb85c;
+}
+
+#welcome .facts {
+  padding-top: 150px;
+  padding-bottom: 100px;
+  background: #C3C3C3;
+}
+
+#welcome .poster > img {
+  padding-top: 100px;
+  width: 100%;
+}
+
+#welcome .steps {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
