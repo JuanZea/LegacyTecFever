@@ -1,8 +1,47 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;700&display=swap');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+#welcome {
+    background-image: url('public/images/commercial/Background1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Baloo Da 2', cursive;
+    font-weight: bold;
+    min-height: 100vh;
+    margin: 0;
+}
+#welcome .header {
+    height: 25vh;
+}
+#welcome .header>div>div>a {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: rgba(white, 0.5);
+}
+#welcome .header>div>div>a:hover {
+	transition: background-color 1s ease;
+	background-color: #5cb85c;
+}
+#welcome .facts {
+    padding-top: 150px;
+    padding-bottom: 100px;
+    background: #C3C3C3;
+}
+#welcome .poster>img {
+    padding-top: 100px;
+    width: 100%;
+}
+#welcome .steps {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
