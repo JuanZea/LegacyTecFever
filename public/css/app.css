@@ -10999,3 +10999,16 @@ a.text-dark:focus {
   margin: 0;
 }
 
+#app {
+  font-family: "Baloo Da 2", cursive;
+  font-size: 20px;
+}
+
+#app > nav > a > img {
+  height: 50px;
+}
+
+#app > nav {
+  background: #0D1931;
+}
+
