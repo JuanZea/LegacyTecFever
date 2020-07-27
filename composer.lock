@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8b2c9b8e7a8021ec3a9b04291c5979c",
+    "content-hash": "c742fb01a1b71988fe978293a44acd0b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4870,6 +4870,48 @@
                 "stub"
             ],
             "time": "2020-07-08T12:44:21+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "0.12.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "46e698a0452526a05c4a351d7c47c4b8c37a548d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/46e698a0452526a05c4a351d7c47c4b8c37a548d",
+                "reference": "46e698a0452526a05c4a351d7c47c4b8c37a548d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "time": "2020-07-19T22:10:11+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

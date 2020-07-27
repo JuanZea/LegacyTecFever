@@ -19,6 +19,8 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
+        'isAdmin' => false,
+        'isEnabled' => $faker->boolean($chanceOfGettingTrue = 70),
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
