@@ -3,6 +3,7 @@
 
 // Variables
 @import 'variables';
+$tec-color: #0D1931;
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -82,4 +83,20 @@
 }
 #app>nav {
     background: #0D1931;
+}
+#users-index {
+    background-image: url('images/commercial/Background3.jpg');
+    background-size: cover;
+    // background-attachment: fixed;
+}
+#users-index .header>div>a>img {
+    height: 50px;
+}
+.title-tec {
+    font-weight: 800;
+}
+.btn-tec {
+    color: white;
+    font-size: inherit;
+    background-color: $tec-color
 }

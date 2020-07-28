@@ -14,7 +14,7 @@
                                 <i class="fas fa-users fa-7x"></i>
                             </div>
                             <div>
-                                <a class="btn btn-dark" href="#{{-- {{ route('users.index') }} --}}">Ir a gestión de usuarios</a>
+                                <a class="btn btn-dark" href="{{ route('users.index') }}">Ir a gestión de usuarios</a>
                             </div>
                         </div>
                         <div class="card-footer text-center">

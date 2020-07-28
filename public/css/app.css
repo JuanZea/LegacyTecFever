@@ -11012,3 +11012,22 @@ a.text-dark:focus {
   background: #0D1931;
 }
 
+#users-index {
+  background-image: url(/images/Background3.jpg?556539b76df945b464f3896e2c709a04);
+  background-size: cover;
+}
+
+#users-index .header > div > a > img {
+  height: 50px;
+}
+
+.title-tec {
+  font-weight: 800;
+}
+
+.btn-tec {
+  color: white;
+  font-size: inherit;
+  background-color: #0D1931;
+}
+

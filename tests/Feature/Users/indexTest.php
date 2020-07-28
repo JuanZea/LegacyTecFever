@@ -27,7 +27,6 @@ class IndexTest extends TestCase
         $response->assertViewHas('users');
         $responseUsers = $response->getOriginalContent()['users'];
         $this->assertTrue($responseUsers->contains($user));
-
     }
 
     /**
