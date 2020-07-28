@@ -84,7 +84,6 @@ class RouteControllerTest extends TestCase
      */
     public function RouteIsAllowedOnlyForAdminUser()
     {
-        $this->withoutExceptionHandling();
         // Arrange
         $routeNames = ['controlPanel'];
         $user = factory(User::class)->create(['isAdmin' => true]);

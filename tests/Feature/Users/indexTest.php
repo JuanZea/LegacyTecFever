@@ -15,14 +15,17 @@ class IndexTest extends TestCase
      *
      * @test
      */
-    public function anAdminUserCanListUsers()
+    public function anAdminCanListUsers()
     {
+        // Arrange
         $user = factory(User::class)->create(['isAdmin' => true]);
-        $this->actingAs($user);
+
         // Act
+        $this->actingAs($user);
         $response = $this->get(route('users.index'));
 
         // Assert
+        $response->assertOk();
         $response->assertViewIs('users.index');
         $response->assertViewHas('users');
         $responseUsers = $response->getOriginalContent()['users'];
@@ -36,9 +39,11 @@ class IndexTest extends TestCase
      */
     public function anUserCannotListUsers()
     {
+        // Arrange
         $user = factory(User::class)->create(['isAdmin' => false]);
-        $this->actingAs($user);
+
         // Act
+        $this->actingAs($user);
         $response = $this->get(route('users.index'));
 
         // Assert

@@ -5,7 +5,7 @@
 <section id="users-index">
     <div class="container pb-5">
         {{-- Header --}}
-        <div class="header row py-4">
+        <div class="s-header row py-4">
             <div class="col-1 px-0">
                     <a class="align-self-start" href="{{ route('controlPanel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back"></a>
             </div>
@@ -18,20 +18,20 @@
         {{-- /Header --}}
 
         {{-- Table --}}
-        <div class="row">
+        <div class="s-table row">
             <table class="table table-striped table-light">
                 <thead>
                     <tr>
-                        <th class="text-center" scope="col">
+                        <th scope="col">
                             {{ __('Id') }}
                         </th>
-                        <th class="text-center" scope="col">
+                        <th class="text-left" scope="col">
                             {{ __('Name') }}
                         </th>
-                        <th class="text-center" scope="col">
+                        <th scope="col">
                             {{ __('Status') }}
                         </th>
-                        <th class="text-center" scope="col">
+                        <th scope="col">
                             &nbsp;
                         </th>
                     </tr>
@@ -39,26 +39,26 @@
                 <tbody>
                     @foreach($users as $user)
                     <tr>
-                        <th class="text-center" scope="row" style="vertical-align: middle">
+                        <th scope="row">
                             {{ $idx }}
                         </th>
-                        <td class="text-center" style="vertical-align: middle">
+                        <td class="text-left">
                             {{ $user->name }}
                         </td>
                         @if($user->isEnabled)
-                        <td class="text-center" style="vertical-align: middle">
+                        <td>
                             <span class="rounded-pill p-2 bg-success text-white">
                                 {{ __('Enabled') }}
                             </span>
                         </td>
                         @else
-                        <td class="text-center" style="vertical-align: middle">
+                        <td>
                             <span class="rounded-pill p-2 bg-danger text-white">
                                 {{ __('Disabled') }}
                             </span>
                         </td>
                         @endif
-                        <td class="text-center" style="vertical-align: middle">
+                        <td>
                             <a class="btn btn-tec" href="{{ route('users.show',$user) }}">
                                 {{ __('Show') }}
                             </a>
