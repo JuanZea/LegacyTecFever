@@ -14,7 +14,7 @@ class RouteControllerTest extends TestCase
     // use WithoutMiddleware;
 
     /*Variables*/
-    protected $routeNames = ['welcome','home','login','register','controlPanel'];
+    protected array $routeNames = ['welcome','home','login','register','controlPanel'];
 
     /**
      * Tests for RouteController
@@ -23,17 +23,15 @@ class RouteControllerTest extends TestCase
      * @param Array $routeNames
      * @param bool $isAllowed
      */
-    public function RouteIsAllowedOrForbiddenForGuestUser(Array $routeNames, bool $isAllowed)
+    public function RouteIsAllowedOrForbiddenForGuest(Array $routeNames, bool $isAllowed)
     {
-        // Arrange
-
         if ($isAllowed) {
             foreach ($routeNames as $route) { // Allowed Routes
                 // Act
                 $response = $this->get(route($route));
 
                 // Assert
-                $response->assertStatus(200);
+                $response->assertOk();
             }
         } else {
             foreach ($routeNames as $route) { // Forbidden Routes
@@ -49,11 +47,11 @@ class RouteControllerTest extends TestCase
     /**
      * Tests for RouteController
      * @test
-     * @dataProvider RoutesForAuthDataProvider
+     * @dataProvider RoutesForUserDataProvider
      * @param Array $routeNames
      * @param bool $isAllowed
      */
-    public function RouteIsAllowedOrForbiddenForAuthenticatedUser(Array $routeNames, bool $isAllowed)
+    public function RouteIsAllowedOrForbiddenForUser(Array $routeNames, bool $isAllowed)
     {
         // Arrange
         $user = factory(User::class)->create();
@@ -66,7 +64,7 @@ class RouteControllerTest extends TestCase
                 $response = $this->get(route($route));
 
                 // Assert
-                $response->assertStatus(200);
+                $response->assertOk();
             }
         } else {
             foreach ($routeNames as $route) { // Forbidden Routes
@@ -84,8 +82,9 @@ class RouteControllerTest extends TestCase
      * Tests for RouteController
      * @test
      */
-    public function RouteIsAllowedOrForbiddenForAdminUser()
+    public function RouteIsAllowedOnlyForAdminUser()
     {
+        $this->withoutExceptionHandling();
         // Arrange
         $routeNames = ['controlPanel'];
         $user = factory(User::class)->create(['isAdmin' => true]);
@@ -97,7 +96,7 @@ class RouteControllerTest extends TestCase
             $response = $this->get(route($route));
 
             // Assert
-            $response->assertStatus(200);
+            $response->assertOk();
         }
     }
 
@@ -111,7 +110,7 @@ class RouteControllerTest extends TestCase
         ];
     }
 
-    public function RoutesForAuthDataProvider() : array
+    public function RoutesForUserDataProvider() : array
     {
         $allowed = ['home'];
         $forbidden = array_diff($this->routeNames, $allowed);
