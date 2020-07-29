@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Test Documentation</title>
+        <style>
+            body {
+                text-rendering: optimizeLegibility;
+                font-variant-ligatures: common-ligatures;
+                font-kerning: normal;
+                margin-left: 2em;
+            }
+
+            body > ul > li {
+                font-family: Source Serif Pro, PT Sans, Trebuchet MS, Helvetica, Arial;
+                font-size: 2em;
+            }
+
+            h2 {
+                font-family: Tahoma, Helvetica, Arial;
+                font-size: 3em;
+            }
+
+            ul {
+                list-style: none;
+                margin-bottom: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 id="Tests\Feature\RouteControllerTest">Route Controller (Tests\Feature\RouteController)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Route is allowed or forbidden for guest with data set "allowed Routes"</li>
+            <li style="color: #555753;">✓ Route is allowed or forbidden for guest with data set "forbidden Routes"</li>
+            <li style="color: #555753;">✓ Route is allowed or forbidden for user with data set "allowed Routes"</li>
+            <li style="color: #555753;">✓ Route is allowed or forbidden for user with data set "forbidden Routes"</li>
+            <li style="color: #555753;">✓ Route is allowed only for admin user</li>
+        </ul>
+        <h2 id="Tests\Feature\Users\editTest">edit (Tests\Feature\Users\edit)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An admin can edit users</li>
+            <li style="color: #555753;">✓ An user cannot edit users</li>
+            <li style="color: #555753;">✓ An guest cannot edit users</li>
+        </ul>
+        <h2 id="Tests\Feature\User\indexTest">index (Tests\Feature\User\index)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An admin can list users</li>
+            <li style="color: #555753;">✓ An user cannot list users</li>
+            <li style="color: #555753;">✓ An guest cannot list users</li>
+        </ul>
+        <h2 id="Tests\Feature\Users\showTest">show (Tests\Feature\Users\show)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An admin can show users</li>
+            <li style="color: #555753;">✓ An user cannot show users</li>
+            <li style="color: #555753;">✓ An guest cannot show users</li>
+        </ul>
+        <h2 id="Tests\Feature\Users\updateTest">update (Tests\Feature\Users\update)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "New data"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "Same data"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "Same name"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "same email"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "Same isAdmin status"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "Same isEnabled status"</li>
+            <li style="color: #555753;">✓ An admin cannot update users with invalid user inputs with data set "No name"</li>
+            <li style="color: #555753;">✓ An admin cannot update users with invalid user inputs with data set "A name too short"</li>
+            <li style="color: #555753;">✓ An admin cannot update users with invalid user inputs with data set "A name too large"</li>
+            <li style="color: #555753;">✓ An admin cannot update users with invalid user inputs with data set "No email"</li>
+            <li style="color: #555753;">✓ An admin cannot update users with invalid user inputs with data set "A email too large"</li>
+            <li style="color: #555753;">✓ An admin cannot update users with invalid user inputs with data set "A repeated email"</li>
+            <li style="color: #555753;">✓ An admin cannot update users with invalid user inputs with data set "Email is not an email"</li>
+            <li style="color: #555753;">✓ An user cannot update users</li>
+            <li style="color: #555753;">✓ An guest cannot update users</li>
+        </ul>
+    </body>
+</html>

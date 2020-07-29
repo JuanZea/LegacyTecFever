@@ -10,7 +10,7 @@
                     <a class="align-self-start" href="{{ route('controlPanel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back"></a>
             </div>
             <div class="col-10 px-0 d-flex align-items-center justify-content-center">
-                <h1 class="mb-0 title-tec">
+                <h1 class="title-tec">
                     {{ __('Users Management') }}
                 </h1>
             </div>

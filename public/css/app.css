@@ -11017,7 +11017,9 @@ a.text-dark:focus {
   background-size: cover;
 }
 
-#users-index .s-header > div > a > img {
+#users-index .s-header > div > a > img,
+#users-show .s-header > div > a > img,
+#users-edit .s-header > div > a > img {
   height: 50px;
 }
 
@@ -11031,8 +11033,29 @@ a.text-dark:focus {
   vertical-align: middle;
 }
 
+#users-show {
+  background-image: url(/images/Background2.jpg?556539b76df945b464f3896e2c709a04);
+  background-size: cover;
+  min-height: 100vh;
+}
+
+#users-show .s-header > div > a > i {
+  font-size: 45px;
+  color: black;
+}
+
+#users-show .s-userInfo > div > div {
+  height: 210px;
+}
+
+#users-edit .s-header > div > h1 > i {
+  font-size: 45px;
+  color: black;
+}
+
 .title-tec {
   font-weight: 800;
+  margin: 0;
 }
 
 .btn-tec {

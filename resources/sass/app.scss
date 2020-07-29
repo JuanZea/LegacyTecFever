@@ -89,7 +89,9 @@ $tec-color: #0D1931;
     background-size: cover;
     // background-attachment: fixed;
 }
-#users-index .s-header>div>a>img {
+#users-index .s-header>div>a>img,
+#users-show .s-header>div>a>img,
+#users-edit .s-header>div>a>img {
     height: 50px;
 }
 #users-index .s-table th {
@@ -100,8 +102,25 @@ $tec-color: #0D1931;
     text-align: center;
     vertical-align: middle;
 }
+#users-show {
+    background-image: url('images/commercial/Background2.jpg');
+    background-size: cover;
+    min-height: 100vh;
+}
+#users-show .s-header>div>a>i {
+    font-size: 45px;
+    color: black;
+}
+#users-show .s-userInfo>div>div {
+    height: 210px;
+}
+#users-edit .s-header>div>h1>i {
+    font-size: 45px;
+    color: black;
+}
 .title-tec {
     font-weight: 800;
+    margin: 0;
 }
 .btn-tec {
     color: white;

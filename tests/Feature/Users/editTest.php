@@ -8,15 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 include_once 'tests/TestHelpers.php';
 
-class showTest extends TestCase
+class editTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
-     * Tests for show Users
+     * Tests for edit Users
      *
      * @test
      */
-    public function anAdminCanShowUsers()
+    public function anAdminCanEditUsers()
     {
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
@@ -24,46 +25,46 @@ class showTest extends TestCase
 
         // Act
         $this->actingAs($admin);
-        $response = $this->get(route('users.show',$user));
+        $response = $this->get(route('users.edit',$user));
 
         // Assert
         $response->assertOk();
-        $response->assertViewIs('users.show');
+        $response->assertViewIs('users.edit');
         $response->assertViewHas('user');
         $responseUser = $response->getOriginalContent()['user']->toArray();
         $this->assertDatabaseHas('users',timeDiff($responseUser));
     }
 
     /**
-     * Tests for show Users
+     * Tests for edit Users
      *
      * @test
      */
-    public function anUserCannotShowUsers()
+    public function anUserCannotEditUsers()
     {
         // Arrange
-        $user = factory(User::class)->create(['isAdmin' => false]);
+        $user = factory(User::class)->create();
 
         // Act
         $this->actingAs($user);
-        $response = $this->get(route('users.show',$user));
+        $response = $this->get(route('users.edit',$user));
 
         // Assert
         $response->assertRedirect();
     }
 
     /**
-     * Tests for show Users
+     * Tests for edit Users
      *
      * @test
      */
-    public function anGuestCannotShowUsers()
+    public function anGuestCannotEditUsers()
     {
         // Arrange
         $user = factory(User::class)->create();
 
         // Act
-        $response = $this->get(route('users.show',$user));
+        $response = $this->get(route('users.edit',$user));
 
         // Assert
         $response->assertRedirect('login');

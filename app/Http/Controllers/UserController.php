@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -61,21 +62,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('users.edit',compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UpdateUserRequest
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $request= $request->validated();
+        if (!isset($request['isAdmin'])) {
+            $request += ['isAdmin' => '0'];
+        }
+        if (!isset($request['isEnabled'])) {
+            $request += ['isEnabled' => '0'];
+        }
+        $user->update($request);
+        return view('users.show', compact('user'));
     }
 
     /**

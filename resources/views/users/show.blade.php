@@ -1,25 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-    <section id="user-show">
+    <section id="users-show">
         <div class="container">
-            <div class="row rounded bg-dark mt-4 p-3 d-flex text-white align-items-center justify-content-between">
+            {{-- Header --}}
+            <div class="s-header row py-4 d-flex align-items-center justify-content-between">
                 <div>
-                    <a class="btn btn-bookend-alt" href="{{ route('users.index',$user) }}"><i class="fas fa-arrow-circle-left fa-2x"></i></a>
+                    <a href="{{ route('users.index') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
                 </div>
                 <div>
-                    <h1 class="my-0"><i class="far fa-user px-2"></i>Información del
-                        usuario </h1>
+                    <h1 class="title-tec"><i class="far fa-user px-2"></i>{{ __('User Information') }}</h1>
                 </div>
                 <div>
-                    <a class="btn btn-bookend-alt" href="{{ route('users.edit',$user) }}"><i class="fas fa-pencil-alt fa-2x"></i></i></a>
+                    <a href="{{ route('users.edit',$user) }}"><i class="fas fa-pencil-alt"></i></a>
                 </div>
             </div>
-            <div class="row rounded bg-dark my-4 py-4">
+            {{-- /Header --}}
+            {{-- UserInfo--}}
+            <div class="s-userInfo row my-5">
                 <div class="col-12 col-sm-6 col-md">
                     <div class="card bg-primary text-white">
                         <div class="card-header d-flex justify-content-center align-items-center">
-                            <h4 class="mb-0">Nombre</h4>
+                            <h4 class="mb-0">{{ __('Name') }}</h4>
                         </div>
                         <div class="card-body d-flex justify-content-center align-items-center text-uppercase">
                             <p>{{ $user->name }}</p>
@@ -29,14 +31,14 @@
                 <div class="col-12 col-sm-6 col-md">
                     <div class="card bg-primary text-white">
                         <div class="card-header card-header d-flex justify-content-center align-items-center">
-                            <h4 class="mb-0">Correo Electrónico</h4>
+                            <h4 class="mb-0">{{ __('Email') }}</h4>
                         </div>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             <p>{{ $user->email }}</p>
                             @if ($user->email_verified_at != null)
-                                <span class="rounded-pill bg-success p-2">{{ "VERIFICADO" }}</span>
+                                <span class="rounded-pill bg-success p-2">{{ __('Verified') }}</span>
                             @else
-                                <span class="rounded-pill bg-danger p-2">{{ "SIN VERIFICAR" }}</span>
+                                <span class="rounded-pill bg-danger p-2">{{ __('Unverified') }}</span>
                             @endif
                         </div>
                     </div>
@@ -49,13 +51,13 @@
                         bg-primary
                     @endif">
                         <div class="card-header card-header d-flex justify-content-center align-items-center">
-                            <h4 class="mb-0">Rango</h4>
+                            <h4 class="mb-0">{{ __('Rank') }}</h4>
                         </div>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             @if ($user->isAdmin)
-                                <p>ADMINISTRADOR</p>
+                                <p>{{ __('Administator') }}</p>
                             @else
-                                USUARIO COMÚN
+                                {{ __('Common User') }}
                             @endif
                         </div>
                     </div>
@@ -68,19 +70,19 @@
                         bg-danger
                     @endif">
                         <div class="card-header card-header d-flex justify-content-center align-items-center">
-                            <h4 class="mb-0">Estado</h4>
+                            <h4 class="mb-0">{{ __('Status') }}</h4>
                         </div>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             @if ($user->isEnabled)
-                                <p>HABILITADO</p>
+                                <p>{{ __('Enabled') }}</p>
                             @else
-                                <p>DESHABILITADO</p>
+                                <p>{{ __('Disabled') }}</p>
                             @endif
                         </div>
                     </div>
                 </div>
             </div>
+            {{-- /UserInfo--}}
         </div>
     </section>
-
 @endsection

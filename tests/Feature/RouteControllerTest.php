@@ -104,8 +104,8 @@ class RouteControllerTest extends TestCase
         $allowed = ['welcome','login','register'];
         $forbidden = array_diff($this->routeNames, $allowed);
         return [
-            'allowedRoutes' => [$allowed, true],
-            'forbiddenRoutes' => [$forbidden, false],
+            'allowed Routes' => [$allowed, true],
+            'forbidden Routes' => [$forbidden, false],
         ];
     }
 
@@ -114,8 +114,8 @@ class RouteControllerTest extends TestCase
         $allowed = ['home'];
         $forbidden = array_diff($this->routeNames, $allowed);
         return [
-            'allowedRoutes' => [$allowed, true],
-            'forbiddenRoutes' => [$forbidden, false],
+            'allowed Routes' => [$allowed, true],
+            'forbidden Routes' => [$forbidden, false],
         ];
     }
 }

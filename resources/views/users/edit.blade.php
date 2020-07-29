@@ -1,81 +1,87 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row d-flex rounded bg-dark mt-4 p-3 text-white align-items-center">
-        <div>
-            <a class="btn btn-bookend-alt" href="{{ route('users.show',$user) }}">
-                <i class="fas fa-arrow-circle-left fa-2x">
-                </i>
-            </a>
-        </div>
-        <div>
-            <h1 class="mb-0 ml-3">
-                Menú de edición de usuario
-            </h1>
-        </div>
-    </div>
-</div>
-<div class="row rounded bg-dark my-4 p-3">
-    <div class="col">
+    <section id="users-edit">
         <div class="container">
-            <div class="row rounded bg-bookend-secondary py-3">
+            {{-- Header --}}
+            <div class="s-header row py-4">
+                <div class="col-1 px-0">
+                     <a class="align-self-start" href="{{ route('users.show',$user) }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
+                </div>
+                <div class="col-10 px-0 d-flex align-items-center justify-content-center">
+                    <h1 class="title-tec">
+                        {{ __('Edit Menu') }}
+                    </h1>
+                </div>
+            </div>
+            {{-- /Header --}}
+            <div class="row">
                 <div class="col">
-                    <form action="{{ route('users.update',$user) }}" method="post">
-                        @csrf @method('PATCH')
-                        <div class="row">
+                    @if ($errors->any())
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                {{ $error }}
+                            </li>
+                        @endforeach
+                    </ul>
+                    @endif
+                    <hr>
+                    <form action="{{ route('users.update',$user) }}" method="POST">
+                        @csrf @method('PUT')
+                        <div class="form-row">
                             <div class="form-group col-12 col-md-4">
                                 <label class="text-md-left" for="name">
-                                    Nombre del usuario
+                                    {{ __('User Name') }}
                                 </label>
                                 <input class="form-control" name="name" type="text" value="{{ $user->name }}">
                                 </input>
                             </div>
                             <div class="form-group col-12 col-md-4">
                                 <label class="text-md-left" for="email">
-                                    Correo electrónico del
-                                usuario
+                                    {{ __('User Email') }}
                                 </label>
                                 <input class="form-control" name="email" type="text" value="{{ $user->email }}">
                                 </input>
                             </div>
                             <div class="form-group col-12 col-md-4 d-flex flex-column justify-content-end">
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="isEnabled" name="isEnabled" type="checkbox"
+                                    <input class="custom-control-input" id="isEnabled" name="isEnabled" type="checkbox" value="1"
                                     @if($user->isEnabled)
                                         checked
                                     @endif
                                     >
-                                    <label class="custom-control-label" for="isEnabled">
-                                        Habilitado
-                                    </label>
                                     </input>
+                                    <label class="custom-control-label" for="isEnabled">
+                                        {{ __('Enabled') }}
+                                    </label>
                                 </div>
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="isAdmin" name="isAdmin" type="checkbox"
+                                    <input class="custom-control-input" id="isAdmin" name="isAdmin" type="checkbox" value="1"
                                     @if($user->isAdmin)
                                         checked
-                                    @endif>
-                                        <label class="custom-control-label" for="isAdmin">
-                                            Permisos de administrador
-                                        </label>
+                                    @endif
+                                    >
                                     </input>
+                                    <label class="custom-control-label" for="isAdmin">
+                                        {{ __('Administrator Permission') }}
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         <hr>
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-12 col-md-3">
-                                    <button class="btn btn-block btn-danger">
-                                        Actualizar
-                                    </button>
-                                </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-12 col-md-3">
+                                {{-- <input name="isAdmin" type="hidden" value="0"> --}}
+                                {{-- <input name="isEnalbed" type="hidden" value="0"> --}}
+                                <button class="btn btn-block btn-danger">
+                                    {{ __('Update') }}
+                                </button>
                             </div>
-                        </hr>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-    @endsection
-</div>
+    </section>
+@endsection
