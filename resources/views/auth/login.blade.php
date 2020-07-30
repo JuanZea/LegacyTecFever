@@ -25,7 +25,7 @@
     <body>
         <section id="login">
             {{-- Header --}}
-            <div class="header container-fluid">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col my-2">
                         <a href="/"><img style="height: 50px;" src="{{ asset('images/main/BackIcon.png') }}" alt="Back"></a>
@@ -38,7 +38,7 @@
             {{-- /Header --}}
 
             {{-- Form --}}
-            <div class="form container">
+            <div class="s-form container">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="card bg-danger">

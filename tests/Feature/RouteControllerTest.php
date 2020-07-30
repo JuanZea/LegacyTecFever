@@ -11,75 +11,111 @@ use Tests\TestCase;
 class RouteControllerTest extends TestCase
 {
     use RefreshDatabase;
+    // use WithoutMiddleware;
+
+    /*Variables*/
+    protected array $routeNames = ['welcome','home','login','register','controlPanel'];
 
     /**
      * Tests for RouteController
      * @test
-     * @dataProvider RoutesForUsersDataProvider
-     * @param Array $allowed
-     * @param Array $both
-     * @param Array $forbidden
+     * @dataProvider RoutesForGuestDataProvider
+     * @param Array $routeNames
+     * @param bool $isAllowed
      */
-    public function RouteIsAllowedOrForbiddenForGuestUser(Array $allowed, Array $both, Array $forbidden)
+    public function RouteIsAllowedOrForbiddenForGuest(Array $routeNames, bool $isAllowed)
     {
-        // Arrange
-        $allowed = array_merge($allowed,$both);
+        if ($isAllowed) {
+            foreach ($routeNames as $route) { // Allowed Routes
+                // Act
+                $response = $this->get(route($route));
 
-        foreach ($allowed as $route) {
-            // Act
-            $response = $this->get($route);
+                // Assert
+                $response->assertOk();
+            }
+        } else {
+            foreach ($routeNames as $route) { // Forbidden Routes
+                // Act
+                $response = $this->get(route($route));
 
-            // Assert
-            $response->assertStatus(200);
-        }
-
-        foreach ($forbidden as $route) {
-            // Act
-            $response = $this->get($route);
-
-            // Assert
-            $response->assertRedirect(route('login'));
+                // Assert
+                $response->assertRedirect(route('login'));
+            }
         }
     }
 
     /**
      * Tests for RouteController
      * @test
-     * @dataProvider RoutesForUsersDataProvider
-     * @param Array $allowed
-     * @param Array $both
-     * @param Array $forbidden
+     * @dataProvider RoutesForUserDataProvider
+     * @param Array $routeNames
+     * @param bool $isAllowed
      */
-    public function RouteIsAllowedOrForbiddenForAuthenticatedUser(Array $forbidden, Array $both, Array $allowed)
+    public function RouteIsAllowedOrForbiddenForUser(Array $routeNames, bool $isAllowed)
     {
-        $this->withoutExceptionHandling();
         // Arrange
         $user = factory(User::class)->create();
-        $allowed = array_merge($allowed,$both);
 
         // Act
         $this->actingAs($user);
-        foreach ($allowed as $route) {
-            // Act
-            $response = $this->get($route);
+        if ($isAllowed) {
+            foreach ($routeNames as $route) { // Allowed Routes
+                // Act
+                $response = $this->get(route($route));
 
-            // Assert
-            $response->assertStatus(200);
-        }
+                // Assert
+                $response->assertOk();
+            }
+        } else {
+            foreach ($routeNames as $route) { // Forbidden Routes
+                // Act
+                $response = $this->get(route($route));
 
-        foreach ($forbidden as $route) {
-            // Act
-            $response = $this->get($route);
-
-            // Assert
-            $response->assertRedirect(route('home'));
+                // Assert
+                $response->assertRedirect();
+                // dd($route);
+            }
         }
     }
 
-    public function RoutesForUsersDataProvider() : array
+    /**
+     * Tests for RouteController
+     * @test
+     */
+    public function RouteIsAllowedOnlyForAdminUser()
     {
+        // Arrange
+        $routeNames = ['controlPanel'];
+        $user = factory(User::class)->create(['isAdmin' => true]);
+
+        // Act
+        $this->actingAs($user);
+        foreach ($routeNames as $route) {
+            // Act
+            $response = $this->get(route($route));
+
+            // Assert
+            $response->assertOk();
+        }
+    }
+
+    public function RoutesForGuestDataProvider() : array
+    {
+        $allowed = ['welcome','login','register'];
+        $forbidden = array_diff($this->routeNames, $allowed);
         return [
-            'routes' => ['allowedForGuest' => ['/'], 'allowedForBoth' => [], 'forbiddenForGuest' => ['/home']]
+            'allowed Routes' => [$allowed, true],
+            'forbidden Routes' => [$forbidden, false],
+        ];
+    }
+
+    public function RoutesForUserDataProvider() : array
+    {
+        $allowed = ['home'];
+        $forbidden = array_diff($this->routeNames, $allowed);
+        return [
+            'allowed Routes' => [$allowed, true],
+            'forbidden Routes' => [$forbidden, false],
         ];
     }
 }

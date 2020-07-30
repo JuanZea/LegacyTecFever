@@ -25,7 +25,7 @@
     <body>
         <section id="welcome">
             {{-- Header --}}
-            <div class="header container-fluid">
+            <div class="s-header container-fluid">
                 <div class="row">
                     <div class="col text-right my-2">
                         <a class="px-2 rounded" href="{{ route('login') }}">Ingresa</a>
@@ -38,7 +38,7 @@
             {{-- /Header --}}
 
             {{-- Facts --}}
-            <div class="facts text-center">
+            <div class="s-facts text-center">
                 <div>
                     <h1 class="mb-5 display-4">TENEMOS FIEBRE DE TECNOLOGÍA</h1>
                 </div>
@@ -60,13 +60,13 @@
             {{-- /Facts --}}
 
             {{-- Poster --}}
-            <div class="poster">
+            <div class="s-poster">
                 <img src="{{ asset('images/commercial/Poster1-1.png') }}" alt="Invitación para registrarse">
             </div>
             {{-- /Poster --}}
 
             {{-- Steps --}}
-            <div class="steps container d-flex">
+            <div class="s-steps container d-flex">
                 <img src="{{ asset('images/main/Sentence1.png') }}" alt="¡Únete Ahora!">
                 <a class="btn btn-lg btn-success btn-block align-self-center" href="{{ route('register') }}"><b>Registrate</b></a>
             </div>

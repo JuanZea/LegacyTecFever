@@ -10937,7 +10937,7 @@ a.text-dark:focus {
   height: 25vh;
 }
 
-#welcome .header > div > div > a {
+#welcome .s-header > div > div > a {
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -10947,23 +10947,23 @@ a.text-dark:focus {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-#welcome .header > div > div > a:hover {
+#welcome .s-header > div > div > a:hover {
   transition: background-color 1s ease;
   background-color: #5cb85c;
 }
 
-#welcome .facts {
+#welcome .s-facts {
   padding-top: 150px;
   padding-bottom: 100px;
   background: #C3C3C3;
 }
 
-#welcome .poster > img {
+#welcome .s-poster > img {
   padding-top: 100px;
   width: 100%;
 }
 
-#welcome .steps {
+#welcome .s-steps {
   padding-top: 100px;
   padding-bottom: 100px;
 }
@@ -10979,7 +10979,7 @@ a.text-dark:focus {
   margin: 0;
 }
 
-#login .link {
+#login .s-form .link {
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -10997,5 +10997,104 @@ a.text-dark:focus {
   color: white;
   min-height: 100vh;
   margin: 0;
+}
+
+#app {
+  font-family: "Baloo Da 2", cursive;
+  font-size: 20px;
+}
+
+#app > nav > a > img {
+  height: 50px;
+}
+
+#app > nav {
+  background: #0D1931;
+}
+
+#users-index,
+#users-show,
+#products-index {
+  background-image: url(/images/Background2.jpg?556539b76df945b464f3896e2c709a04);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+#users-index,
+#users-show,
+#users-edit,
+#products-index,
+#products-show {
+  padding-bottom: 30px;
+}
+
+#users-index .s-header > div > a > img,
+#users-show .s-header > div > a > img,
+#users-edit .s-header > div > a > img,
+#products-index .s-header > div > a > img,
+#products-create .s-header > div > a > img,
+#products-show .s-header > div > a > img,
+#products-edit .s-header > div > a > img {
+  height: 50px;
+}
+
+#users-show .s-header > div > a > i,
+#products-index .s-header > div > a > i {
+  font-size: 45px;
+  color: #D30303;
+}
+
+#users-index .s-table th,
+#products-index .s-table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#users-index .s-table td,
+#products-index .s-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#products-edit textarea {
+  height: 180px;
+}
+
+#users-show .s-userInfo > div > div {
+  height: 210px;
+}
+
+.title-tec {
+  font-weight: 800;
+  margin: 0;
+}
+
+.btn-tec {
+  color: white;
+  font-size: inherit;
+  background-color: #0D1931;
+}
+
+.btn-tec:hover {
+  color: white;
+  font-size: inherit;
+  background-color: #182D59;
+}
+
+.bg-computer {
+  background-color: #411f1f;
+}
+
+.bg-smartphone {
+  background-color: #f37121;
+}
+
+.bg-accessory {
+  background-color: #851de0;
+}
+
+.sizer {
+  font-size: 20px;
 }
 
