@@ -103,12 +103,15 @@ $tec-color: #0D1931;
 #users-show .s-header>div>a>img,
 #users-edit .s-header>div>a>img,
 #products-index .s-header>div>a>img,
-#products-show .s-header>div>a>img {
+#products-create .s-header>div>a>img,
+#products-show .s-header>div>a>img,
+#products-edit .s-header>div>a>img {
     height: 50px;
 }
-#users-show .s-header>div>a>i {
+#users-show .s-header>div>a>i,
+#products-index .s-header>div>a>i {
     font-size: 45px;
-    color: black;
+    color: #D30303;
 }
 #users-index .s-table th,
 #products-index .s-table th {
@@ -120,16 +123,17 @@ $tec-color: #0D1931;
     text-align: center;
     vertical-align: middle;
 }
-// #products-show .s-presentation>div>div>div {
-//     padding: 0px;
-// }
+#products-edit textarea {
+    height: 180px;
+}
 #users-show .s-userInfo>div>div {
     height: 210px;
 }
-#users-edit .s-header>div>h1>i {
-    font-size: 45px;
-    color: black;
-}
+// #users-edit .s-header>div>h1>i {
+//     font-size: 45px;
+//     color: black;
+// }
+
 .title-tec {
     font-weight: 800;
     margin: 0;
@@ -152,4 +156,7 @@ $tec-color: #0D1931;
 }
 .bg-accessory {
     background-color: #851de0;
+}
+.sizer {
+    font-size: 20px;
 }

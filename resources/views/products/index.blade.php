@@ -4,16 +4,17 @@
 <section id="products-index">
     <div class="container">
         {{-- Header --}}
-        <div class="s-header row py-4">
-            <div class="col-1 px-0">
-                    <a class="align-self-start" href="{{ route('controlPanel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
+        <div class="s-header row py-4 d-flex align-items-center justify-content-between">
+                <div>
+                    <a href="{{ route('controlPanel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
+                </div>
+                <div>
+                    <h1 class="title-tec"><i class="fas fa-desktop px-2"></i></i>{{ __('Products Management') }}</h1>
+                </div>
+                <div>
+                    <a href="{{ route('products.create') }}"><i class="fas fa-plus-circle"></i></a>
+                </div>
             </div>
-            <div class="col-10 px-0 d-flex align-items-center justify-content-center">
-                <h1 class="title-tec">
-                    {{ __('Products Management') }}
-                </h1>
-            </div>
-        </div>
         {{-- /Header --}}
 
         {{-- Table --}}
@@ -84,11 +85,6 @@
             </table>
         </div>
         {{-- /Table --}}
-            <div class="col">
-                <a class="btn btn-success" href="{{ route('products.create') }}">
-                    Agregar nuevo producto
-                </a>
-            </div>
         </div>
         <div class="actions d-flex justify-content-center">
                 {{ $products->links() }}

@@ -11033,13 +11033,16 @@ a.text-dark:focus {
 #users-show .s-header > div > a > img,
 #users-edit .s-header > div > a > img,
 #products-index .s-header > div > a > img,
-#products-show .s-header > div > a > img {
+#products-create .s-header > div > a > img,
+#products-show .s-header > div > a > img,
+#products-edit .s-header > div > a > img {
   height: 50px;
 }
 
-#users-show .s-header > div > a > i {
+#users-show .s-header > div > a > i,
+#products-index .s-header > div > a > i {
   font-size: 45px;
-  color: black;
+  color: #D30303;
 }
 
 #users-index .s-table th,
@@ -11054,13 +11057,12 @@ a.text-dark:focus {
   vertical-align: middle;
 }
 
-#users-show .s-userInfo > div > div {
-  height: 210px;
+#products-edit textarea {
+  height: 180px;
 }
 
-#users-edit .s-header > div > h1 > i {
-  font-size: 45px;
-  color: black;
+#users-show .s-userInfo > div > div {
+  height: 210px;
 }
 
 .title-tec {
@@ -11090,5 +11092,9 @@ a.text-dark:focus {
 
 .bg-accessory {
   background-color: #851de0;
+}
+
+.sizer {
+  font-size: 20px;
 }
 

@@ -6,7 +6,13 @@
 		{{-- Header --}}
 		<div class="s-header row py-4">
             <div class="col-1 px-0">
-                    <a class="align-self-start" href="{{ url()->previous() }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back"></a>
+                    <a class="align-self-start"
+                    @if (Auth::user()->isAdmin)
+                    	href="{{ route('products.index') }}"
+                    @else
+						href="{{ url()->previous() }}"
+                    @endif
+                    ><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back"></a>
             </div>
             <div class="col-10 px-0 d-flex align-items-center justify-content-center">
                 <h1 class="title-tec">

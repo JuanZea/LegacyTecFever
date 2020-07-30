@@ -1,45 +1,72 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-3">
+<section id="products-edit">
+	<div class="container">
+		{{-- Header --}}
+		<div class="s-header row py-4">
+            <div class="col-1 px-0">
+                    <a class="align-self-start" href="{{ route('products.show',$product) }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
+            </div>
+            <div class="col-10 px-0 d-flex align-items-center justify-content-center">
+                <h1 class="title-tec">
+                    {{ __('Edit Menu') }}
+                </h1>
+            </div>
+        </div>
+		{{-- /Header --}}
 	<div class="row">
 		<div class="col">
-			<h1 class="text-center">Editar Producto</h1>
+			@if ($errors->any())
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                {{ $error }}
+                            </li>
+                        @endforeach
+                    </ul>
+                    @endif
 			<form action="{{ route('products.update',$product) }}" method="POST">
 				@csrf @method('PUT')
 			  <div class="form-row">
 			    <div class="form-group col-md-6">
-			      <label for="name">Nombre</label>
-			      <input name="name" type="text" class="form-control" id="name" value="{{ $product->name }}">
+			      <label for="name">{{ __('Name') }}</label>
+			      <input name="name" type="text" class="form-control sizer" id="name" value="{{ $product->name }}">
 			    </div>
-			    <div class="form-group col-md-6">
-			      <label for="category">Categoría</label>
-				  <select name="category" class="form-control custom-select" id="category">
-				    <option selected>Computadores</option>
-				    <option value="1">Celulares</option>
-				    <option value="2">Accesorios</option>
+			    <div class="form-group col-md-3">
+			      <label for="price">Precio</label>
+			      <input name="price" type="number" class="form-control sizer" id="price" value="{{ $product->price }}">
+			    </div>
+			    <div class="form-group col-md-3">
+			      <label for="category">{{ __('Category') }}</label>
+				  <select name="category" class="form-control custom-select sizer" id="category">
+				    <option selected>{{ __('computer') }}</option>
+				    <option value="1">{{ __('smartphone') }}</option>
+				    <option value="2">{{ __('accessory') }}</option>
 				  </select>
 			    </div>
 			  </div>
 			  <div class="form-row">
-			    <div class="form-group col-md-6">
-			      <label for="color">Color</label>
-			      <input name="color" type="text" class="form-control" id="color" value="{{ $product->color }}">
-			    </div>
-			    <div class="form-group col-md-6">
-			      <label for="price">Precio</label>
-			      <input name="price" type="number" class="form-control" id="price" value="{{ $product->price }}">
-			    </div>
+			  	<div class="col-md-9">
+				  	<div class="form-group">
+				  		<label for="description">{{ __('Description') }}</label>
+				      	<textarea class="form-control sizer" name="description" id="description">{{ $product->description }}</textarea>
+				  	</div>
+			  	</div>
+			  	<div class="col-md-3">
+			  		<div class="form-group">
+			  		<label for="image">{{ __('Image') }}</label>
+			  			<div class="custom-file form-group">
+						  <input accept="image/*" name="image" type="file" class="custom-file-input form-control sizer" id="customFile">
+						  <label  class="custom-file-label" for="customFile">{{ __('Choose a file') }}</label>
+						</div>
+			  		</div>
+			  		<button type="submit" class="btn btn-success btn-block">{{ __('Update') }}</button>
+			  	</div>
 			  </div>
-			  <div class="form-row">
-			      <div class="custom-file form-group col-md-6">
-				  <input accept="image/*" name="image" type="file" class="custom-file-input" id="customFile">
-				  <label  class="custom-file-label" for="customFile">Elije una imagen</label>
-				</div>
-			  </div>
-			  <button type="submit" class="btn btn-success btn-block">Guardar</button>
 			</form>
 		</div>
 	</div>
-</div>
+	</div>
+</section>
 @endsection

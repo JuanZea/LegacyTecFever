@@ -28,7 +28,6 @@ class updateTest extends TestCase
      */
     public function anAdminCanUpdateUsersWithValidUserInputs(string $data)
     {
-        $this->withoutExceptionHandling();
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $user = factory(User::class)->create();

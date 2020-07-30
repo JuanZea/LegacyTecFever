@@ -16,6 +16,7 @@
                 </div>
             </div>
             {{-- /Header --}}
+
             {{-- UserInfo--}}
             <div class="s-userInfo row my-5">
                 <div class="col-12 col-sm-6 col-md">
