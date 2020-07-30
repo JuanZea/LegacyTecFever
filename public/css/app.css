@@ -11012,36 +11012,46 @@ a.text-dark:focus {
   background: #0D1931;
 }
 
-#users-index {
+#users-index,
+#users-show,
+#products-index {
   background-image: url(/images/Background2.jpg?556539b76df945b464f3896e2c709a04);
   background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+#users-index,
+#users-show,
+#users-edit,
+#products-index,
+#products-show {
+  padding-bottom: 30px;
 }
 
 #users-index .s-header > div > a > img,
 #users-show .s-header > div > a > img,
-#users-edit .s-header > div > a > img {
+#users-edit .s-header > div > a > img,
+#products-index .s-header > div > a > img,
+#products-show .s-header > div > a > img {
   height: 50px;
-}
-
-#users-index .s-table th {
-  text-align: center;
-  vertical-align: middle;
-}
-
-#users-index .s-table td {
-  text-align: center;
-  vertical-align: middle;
-}
-
-#users-show {
-  background-image: url(/images/Background2.jpg?556539b76df945b464f3896e2c709a04);
-  background-size: cover;
-  min-height: 100vh;
 }
 
 #users-show .s-header > div > a > i {
   font-size: 45px;
   color: black;
+}
+
+#users-index .s-table th,
+#products-index .s-table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#users-index .s-table td,
+#products-index .s-table td {
+  text-align: center;
+  vertical-align: middle;
 }
 
 #users-show .s-userInfo > div > div {
@@ -11068,5 +11078,17 @@ a.text-dark:focus {
   color: white;
   font-size: inherit;
   background-color: #182D59;
+}
+
+.bg-computer {
+  background-color: #411f1f;
+}
+
+.bg-smartphone {
+  background-color: #f37121;
+}
+
+.bg-accessory {
+  background-color: #851de0;
 }
 

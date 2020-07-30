@@ -31,7 +31,7 @@ class showTest extends TestCase
         $response->assertViewIs('users.show');
         $response->assertViewHas('user');
         $responseUser = $response->getOriginalContent()['user']->toArray();
-        $this->assertDatabaseHas('users',timeDiff($responseUser));
+        $this->assertDatabaseHas('users',removeTimeKeys($responseUser));
     }
 
     /**

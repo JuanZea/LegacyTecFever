@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<?php $idx = 1 ?>
 <section id="users-index">
     <div class="container pb-5">
         {{-- Header --}}
@@ -40,7 +39,7 @@
                     @foreach($users as $user)
                     <tr>
                         <th scope="row">
-                            {{ $idx }}
+                            {{ $user->id }}
                         </th>
                         <td class="text-left">
                             {{ $user->name }}
@@ -64,7 +63,6 @@
                             </a>
                         </td>
                     </tr>
-                    <?php $idx++ ?>
                     @endforeach
                 </tbody>
             </table>

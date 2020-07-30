@@ -4,7 +4,7 @@
  * Tests helpers
  */
 
-function timeDiff(array $userData) : array
+function removeTimeKeys(array $userData) : array
 {
     unset($userData['email_verified_at']);
     unset($userData['created_at']);

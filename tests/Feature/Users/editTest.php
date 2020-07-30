@@ -32,7 +32,7 @@ class editTest extends TestCase
         $response->assertViewIs('users.edit');
         $response->assertViewHas('user');
         $responseUser = $response->getOriginalContent()['user']->toArray();
-        $this->assertDatabaseHas('users',timeDiff($responseUser));
+        $this->assertDatabaseHas('users',removeTimeKeys($responseUser));
     }
 
     /**

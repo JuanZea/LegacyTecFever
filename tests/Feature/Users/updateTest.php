@@ -32,7 +32,7 @@ class updateTest extends TestCase
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $user = factory(User::class)->create();
-        $oldData = timeDiff($user->toArray());
+        $oldData = removeTimeKeys($user->toArray());
         $validRequest = $this->request;
         if ($data != 'new')
             if($data == 'same')
@@ -74,7 +74,7 @@ class updateTest extends TestCase
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $user = factory(User::class)->create();
-        $oldData = timeDiff($user->toArray());
+        $oldData = removeTimeKeys($user->toArray());
 
         // Act
         $this->actingAs($admin);

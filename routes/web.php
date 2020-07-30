@@ -19,3 +19,4 @@ Route::get('/home', 'RouteController@home')->name('home');
 Route::get('/controlPanel', 'RouteController@controlPanel')->name('controlPanel');
 
 Route::resource('users', 'UserController');
+Route::resource('products', 'ProductController');

@@ -32,7 +32,7 @@
                                 <i class="fas fa-boxes fa-7x"></i>
                             </div>
                             <div>
-                                <a class="btn btn-dark" href="#{{-- {{ route('products.index') }} --}}">Ir a gestión de productos</a>
+                                <a class="btn btn-dark" href="{{ route('products.index') }}">Ir a gestión de productos</a>
                             </div>
                         </div>
                         <div class="card-footer text-center">
