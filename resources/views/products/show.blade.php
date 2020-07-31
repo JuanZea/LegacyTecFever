@@ -27,7 +27,7 @@
 			<div class="col-9">
 				<div class="card border-0 shadow">
 					<div class="card-header bg-computer">
-						<img src="{{ $product->image }}" class="card-img-top">
+						<img src="{{ $product->get_image }}" class="card-img-top">
 					</div>
 					<div class="card-body">
 						{{ __($product->description) }}

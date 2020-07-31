@@ -28,7 +28,7 @@ class CreateProductRequest extends FormRequest
             'name' => 'bail|required|min:3|max:40',
             'description' => 'bail|required|min:40|max:1000',
             'category' => 'bail|required|in:computer,smartphone,accessory',
-            'image' => 'required',
+            'image' => 'bail|required',
             'price' => 'bail|required|min:4|max:9'
         ];
     }

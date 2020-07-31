@@ -12,18 +12,12 @@ include_once 'tests/TestHelpers.php';
 class updateTest extends TestCase
 {
     use RefreshDatabase;
-    protected $request = [
-            'name' => 'Nixon Jeiler',
-            'email' => 'nixon@admin.com',
-            'isAdmin' => true,
-            'isEnabled' => true
-        ];
 
     /**
      * Tests for update Users
      *
      * @test
-     * @dataProvider ValidUserInputDataProvider
+     * @dataProvider validUserInputDataProvider
      * @param string $data
      */
     public function anAdminCanUpdateUsersWithValidUserInputs(string $data)
@@ -32,7 +26,7 @@ class updateTest extends TestCase
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $user = factory(User::class)->create();
         $oldData = removeTimeKeys($user->toArray());
-        $validRequest = $this->request;
+        $validRequest = VALIDREQUESTFORUSER;
         if ($data != 'new')
             if($data == 'same')
                 $validRequest = $oldData;
@@ -64,7 +58,7 @@ class updateTest extends TestCase
      * Tests for update Users
      *
      * @test
-     * @dataProvider InvalidUserInputDataProvider
+     * @dataProvider invalidUserInputDataProvider
      * @param string $field
      * @param string|null $value
      */
@@ -77,7 +71,7 @@ class updateTest extends TestCase
 
         // Act
         $this->actingAs($admin);
-        $invalidRequest = $this->request;
+        $invalidRequest = VALIDREQUESTFORUSER;
         $invalidRequest[$field] = $value;
         if($value == 'nixon@admin.com'){
             $invalidRequest[$field] = $admin->email;
@@ -90,42 +84,7 @@ class updateTest extends TestCase
         $this->assertDatabaseMissing('users',$invalidRequest);
     }
 
-    /**
-     * Tests for update Users
-     *
-     * @test
-     */
-    public function anUserCannotUpdateUsers()
-    {
-        // Arrange
-        $user = factory(User::class)->create();
-
-        // Act
-        $this->actingAs($user);
-        $response = $this->put(route('users.update',$user),$this->request);
-
-        // Assert
-        $response->assertRedirect();
-    }
-
-    /**
-     * Tests for update Users
-     *
-     * @test
-     */
-    public function anGuestCannotUpdateUsers()
-    {
-        // Arrange
-        $user = factory(User::class)->create();
-
-        // Act
-        $response = $this->put(route('users.update',$user),$this->request);
-
-        // Assert
-        $response->assertRedirect('login');
-    }
-
-    public function ValidUserInputDataProvider()
+    public function validUserInputDataProvider()
     {
         return [
             'New data' => ['new'],
@@ -137,7 +96,7 @@ class updateTest extends TestCase
         ];
     }
 
-    public function InvalidUserInputDataProvider()
+    public function invalidUserInputDataProvider()
     {
         return [
             'No name' => ['name', null],

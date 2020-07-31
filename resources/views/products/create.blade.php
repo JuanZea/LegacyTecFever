@@ -26,10 +26,10 @@
                         @endforeach
                     </ul>
                     @endif
-				<form action="{{ route('products.store') }}" method="POST">
+				<form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
 					@csrf
 				  <div class="form-row">
-				    <div class="form-group col-md-6">
+				    <div class="form-group col-md-9">
 				      <label for="name">{{ __('Name') }}</label>
 				      <input name="name" type="text" class="form-control sizer" id="name" value="{{ old('name') }}">
 				    </div>
@@ -37,32 +37,33 @@
 				      <label for="price">Precio</label>
 				      <input name="price" type="number" class="form-control sizer" id="price" value="{{ old('price') }}">
 				    </div>
-				    <div class="form-group col-md-3">
-				      <label for="category">{{ __('Category') }}</label>
-					  <select name="category" class="form-control custom-select sizer" id="category">
-					    <option selected>{{ __('computer') }}</option>
-					    <option value="1">{{ __('smartphone') }}</option>
-					    <option value="2">{{ __('accessory') }}</option>
-					  </select>
-				    </div>
 				  </div>
 				  <div class="form-row">
-				  	<div class="col-md-9">
-					  	<div class="form-group">
-					  		<label for="description">{{ __('Description') }}</label>
-					      	<textarea class="form-control sizer" rows="5" name="description" id="description">{{ old('description') }}</textarea>
-					  	</div>
+				  	<div class="form-group col-md-9">
+				  		<label for="description">{{ __('Description') }}</label>
+				      	<textarea class="form-control sizer" rows="5" name="description" id="description">{{ old('description') }}</textarea>
 				  	</div>
 				  	<div class="col-md-3">
-				  		<div class="form-group">
-				  		<label for="image">{{ __('Image') }}</label>
-				  			<div class="custom-file form-group">
-							  <input accept="image/*" name="image" type="file" class="custom-file-input form-control sizer" id="customFile">
-							  <label  class="custom-file-label" for="customFile">{{ __('Choose a file') }}</label>
-							</div>
+				  		<div class="row">
+				  			<div class="col form-group">
+				  				<label for="category">{{ __('Category') }}</label>
+								<select name="category" class="form-control custom-select sizer" id="category">
+							    <option selected>{{ __('computer') }}</option>
+							    <option value="1">{{ __('smartphone') }}</option>
+							    <option value="2">{{ __('accessory') }}</option>
+							  	</select>
+				  			</div>
 				  		</div>
-				  		<button type="submit" class="btn btn-success btn-block">{{ __('Create') }}</button>
-				  	</div>
+				  		<div class="row">
+						    <div class="col form-group">
+						    	<button type="submit" class="btn btn-success btn-block">{{ __('Create') }}</button>
+						    </div>
+				  		</div>
+				    </div>
+				  		<div class="form-group col-md-3">
+				  		<label for="image">{{ __('Image') }}</label>
+							  <input name="image" type="file">
+				  		</div>
 				  </div>
 				</form>
 			</div>

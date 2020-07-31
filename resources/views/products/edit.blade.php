@@ -26,7 +26,7 @@
                         @endforeach
                     </ul>
                     @endif
-			<form action="{{ route('products.update',$product) }}" method="POST">
+			<form action="{{ route('products.update',$product) }}" method="POST" enctype="multipart/form-data">
 				@csrf @method('PUT')
 			  <div class="form-row">
 			    <div class="form-group col-md-6">
