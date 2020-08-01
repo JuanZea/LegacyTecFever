@@ -129,10 +129,13 @@ $tec-color: #0D1931;
 #users-show .s-userInfo>div>div {
     height: 210px;
 }
-// #users-edit .s-header>div>h1>i {
-//     font-size: 45px;
-//     color: black;
-// }
+#products-shop {
+    margin-top: 30px;
+}
+#products-shop .s-showcase>div>div>form>button{
+    height: 400px;
+    margin-bottom: 30px;
+}
 
 .title-tec {
     font-weight: 800;

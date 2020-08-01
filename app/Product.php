@@ -18,6 +18,12 @@ class Product extends Model
     public function getGetImageAttribute()
     {
         return url("storage/$this->image");
-        // return Storage::disk('public')->url($this->image);
+    }
+
+    // Query Scopes
+    public function scopeName($query, $name)
+    {
+        if($name)
+            return $query->where('name','LIKE',"%$name%");
     }
 }

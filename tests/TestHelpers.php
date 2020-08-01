@@ -52,6 +52,7 @@ function generateCrud($name) : array
 
     return routeNames;
 }
+
 /**
 * Returns routes that do not belong to CRUD
 *

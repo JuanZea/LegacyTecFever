@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,5 +30,14 @@ class RouteController extends Controller
     public function controlPanel() : Object
     {
         return view('controlPanel');
+    }
+
+    public function shop(Request $request) : Object
+    {
+        $name = $request->get('name');
+        $products = Product::orderBy('id','DESC')
+        ->name($name)
+        ->paginate();
+        return view('products.shop',compact('products'));
     }
 }
