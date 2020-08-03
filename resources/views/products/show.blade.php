@@ -39,14 +39,17 @@
 					<div class="card-header">
 						<span><b>{{ $product->price }}</b></span>
 					</div>
-				@if (Auth::user()->isAdmin)
-					<a class="btn btn-success" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
-					<form action="{{ route('products.destroy',$product) }}" method="POST">
+					<div class="card-body">
+						<a class="btn btn-primary btn-block" href="#">{{ __('Add to car') }}</a>
+						@if (Auth::user()->isAdmin)
+						<a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
+						<form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
 						@csrf
 						@method('DELETE')
 						<button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
 					</form>
 				@endif
+					</div>
 				</div>
 			</div>
 		</div>
