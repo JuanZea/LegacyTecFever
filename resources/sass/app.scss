@@ -1,1 +1,171 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;700&display=swap');
+
+// Variables
+@import 'variables';
+$tec-color: #0D1931;
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+#welcome {
+    background-image: url('public/images/commercial/Background1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Baloo Da 2', cursive;
+    font-weight: bold;
+    min-height: 100vh;
+    margin: 0;
+}
+#welcome .s-header {
+    height: 25vh;
+}
+#welcome .s-header>div>div>a {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: rgba(white, 0.5);
+}
+#welcome .s-header>div>div>a:hover {
+	transition: background-color 1s ease;
+	background-color: #5cb85c;
+}
+#welcome .s-facts {
+    padding-top: 150px;
+    padding-bottom: 100px;
+    background: #C3C3C3;
+}
+#welcome .s-poster>img {
+    padding-top: 100px;
+    width: 100%;
+}
+#welcome .s-steps {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+#login {
+    background-image: url('images/commercial/Background1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Baloo Da 2', cursive;
+    font-weight: bold;
+    color: white;
+    min-height: 100vh;
+    margin: 0;
+}
+#login .s-form .link{
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+#register {
+    background-image: url('images/commercial/Background1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Baloo Da 2', cursive;
+    font-weight: bold;
+    color: white;
+    min-height: 100vh;
+    margin: 0;
+}
+#app {
+    font-family: 'Baloo Da 2', cursive;
+    font-size: 20px;
+}
+#app>nav>a>img {
+    height: 50px;
+}
+#app>nav {
+    background: #0D1931;
+}
+#users-index,
+#users-show,
+#products-index {
+    background-image: url('images/commercial/Background2.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+#users-index,
+#users-show,
+#users-edit,
+#products-index,
+#products-show {
+    padding-bottom: 30px;
+}
+#users-index .s-header>div>a>img,
+#users-show .s-header>div>a>img,
+#users-edit .s-header>div>a>img,
+#products-index .s-header>div>a>img,
+#products-create .s-header>div>a>img,
+#products-show .s-header>div>a>img,
+#products-edit .s-header>div>a>img {
+    height: 50px;
+}
+#users-show .s-header>div>a>i,
+#products-index .s-header>div>a>i {
+    font-size: 45px;
+    color: #D30303;
+}
+#users-index .s-table th,
+#products-index .s-table th {
+    text-align: center;
+    vertical-align: middle;
+}
+#users-index .s-table td,
+#products-index .s-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+#products-show .s-presentation>div>div>div>img {
+    height: 400px;
+}
+#products-edit textarea {
+    height: 180px;
+}
+#users-show .s-userInfo>div>div {
+    height: 210px;
+}
+#products-shop {
+    margin-top: 30px;
+}
+#products-shop .s-showcase>div>div>form>button{
+    height: 400px;
+    margin-bottom: 30px;
+}
+
+.title-tec {
+    font-weight: 800;
+    margin: 0;
+}
+.btn-tec {
+    color: white;
+    font-size: inherit;
+    background-color: $tec-color
+}
+.btn-tec:hover {
+    color: white;
+    font-size: inherit;
+    background-color: #182D59;
+}
+.bg-computer {
+    background-color: #411f1f;
+}
+.bg-smartphone {
+    background-color: #f37121;
+}
+.bg-accessory {
+    background-color: #851de0;
+}
+.bg-black {
+    background-color: black;
+}
+.sizer {
+    font-size: 20px;
+}
