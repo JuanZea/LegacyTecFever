@@ -54,13 +54,13 @@ class UpdateProductRequest extends FormRequest
     protected function traslateCategory(?string $idx) : string
     {
         switch ($idx) {
-            case '0':
+            case 'computador':
                 $idx = 'computer';
                 break;
-            case '1':
+            case 'celular':
                 $idx = 'smartphone';
                 break;
-            case '2':
+            case 'accesorio':
                 $idx = 'accessory';
                 break;
 

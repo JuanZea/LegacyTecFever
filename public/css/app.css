@@ -10933,7 +10933,7 @@ a.text-dark:focus {
   margin: 0;
 }
 
-#welcome .header {
+#welcome .s-header {
   height: 25vh;
 }
 
@@ -11057,6 +11057,10 @@ a.text-dark:focus {
   vertical-align: middle;
 }
 
+#products-show .s-presentation > div > div > div > img {
+  height: 400px;
+}
+
 #products-edit textarea {
   height: 180px;
 }
@@ -11101,6 +11105,10 @@ a.text-dark:focus {
 
 .bg-accessory {
   background-color: #851de0;
+}
+
+.bg-black {
+  background-color: black;
 }
 
 .sizer {

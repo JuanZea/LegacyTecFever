@@ -34,7 +34,7 @@
 				      <input name="name" type="text" class="form-control sizer" id="name" value="{{ old('name') }}">
 				    </div>
 				    <div class="form-group col-md-3">
-				      <label for="price">Precio</label>
+				      <label for="price">{{ __('Price') }}</label>
 				      <input name="price" type="number" class="form-control sizer" id="price" value="{{ old('price') }}">
 				    </div>
 				  </div>

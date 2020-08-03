@@ -26,7 +26,7 @@
 		<div class="s-presentation row">
 			<div class="col-9">
 				<div class="card border-0 shadow">
-					<div class="card-header bg-computer">
+					<div class="card-header bg-black p-1">
 						<img src="{{ $product->get_image }}" class="card-img-top">
 					</div>
 					<div class="card-body">
@@ -36,8 +36,16 @@
 			</div>
 			<div class="col">
 				<div class="card">
+					<div class="card-header">
+						<span><b>{{ $product->price }}</b></span>
+					</div>
 				@if (Auth::user()->isAdmin)
-					<a class="btn btn-success" href="{{ route('products.edit',$product) }}">Editar</a>
+					<a class="btn btn-success" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
+					<form action="{{ route('products.destroy',$product) }}" method="POST">
+						@csrf
+						@method('DELETE')
+						<button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
+					</form>
 				@endif
 				</div>
 			</div>

@@ -64,18 +64,12 @@
                                 @endswitch
 
                                 <span class="rounded-pill p-2 {{ $color }} text-white">
-                                    {{ $product->category }}
+                                    {{ __($product->category) }}
                                 </span>
                             </td>
                             <td>
                                 {{ $product->price }}
                             </td>
-                            {{-- <td>
-                                <form action="{{ route('products.destroy',$product) }}" method="POST">
-                                    @csrf @method('DELETE')
-                                    <button class="btn btn-danger">Eliminar</button>
-                                </form>
-                            </td> --}}
                             <td>
                                 <a class="btn btn-tec" href="{{ route('products.show',$product) }}">{{ __('See in shop') }}</a>
                             </td>
