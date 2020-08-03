@@ -28,7 +28,7 @@ class CreateProductRequest extends FormRequest
             'name' => 'bail|required|min:3|max:40',
             'description' => 'bail|required|min:40|max:1000',
             'category' => 'bail|required|in:computer,smartphone,accessory',
-            'image' => 'required',
+            'image' => 'bail|required',
             'price' => 'bail|required|min:4|max:9'
         ];
     }
@@ -48,13 +48,13 @@ class CreateProductRequest extends FormRequest
     protected function traslateCategory(?string $idx) : ?string
     {
         switch ($idx) {
-            case '0':
+            case 'computador':
                 $idx = 'computer';
                 break;
-            case '1':
+            case 'celular':
                 $idx = 'smartphone';
                 break;
-            case '2':
+            case 'accesorio':
                 $idx = 'accessory';
                 break;
 

@@ -56,7 +56,7 @@
                         </div>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
                             @if ($user->isAdmin)
-                                <p>{{ __('Administator') }}</p>
+                                <p>{{ __('Administrator') }}</p>
                             @else
                                 {{ __('Common User') }}
                             @endif

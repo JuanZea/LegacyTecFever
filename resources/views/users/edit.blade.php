@@ -32,14 +32,14 @@
                         <div class="form-row">
                             <div class="form-group col-12 col-md-4">
                                 <label class="text-md-left" for="name">
-                                    {{ __('User Name') }}
+                                    {{ __('User name') }}
                                 </label>
                                 <input class="form-control" name="name" type="text" value="{{ $user->name }}">
                                 </input>
                             </div>
                             <div class="form-group col-12 col-md-4">
                                 <label class="text-md-left" for="email">
-                                    {{ __('User Email') }}
+                                    {{ __('User email') }}
                                 </label>
                                 <input class="form-control" name="email" type="text" value="{{ $user->email }}">
                                 </input>

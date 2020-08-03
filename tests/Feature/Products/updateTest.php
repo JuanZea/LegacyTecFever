@@ -12,19 +12,12 @@ use Tests\TestCase;
 class updateTest extends TestCase
 {
     use RefreshDatabase;
-    protected $request = [
-        'name' => 'Acer Aspire 5 Slim Laptop',
-        'description' => '15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver',
-        'category' => 'computer',
-        // 'image' => 'https://lorempixel.com/1200/400/?63626',
-        'price' => '2900000'
-    ];
 
     /**
      * Tests for update Product
      *
      * @test
-     * @dataProvider ValidProductInputDataProvider
+     * @dataProvider validProductInputDataProvider
      * @param string $data
      */
     public function anAdminCanUpdateProductsWithValidProductInputs($data)
@@ -34,7 +27,8 @@ class updateTest extends TestCase
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $product = factory(Product::class)->create();
         $oldData = removeTimeKeys($product->toArray());
-        $validRequest = $this->request;
+        $oldData['image'] = './public/storage/images/ASUSVivoBook.jpg'; // Warning
+        $validRequest = VALIDREQUESTFORPRODUCT;
         if ($data != 'new')
             if($data == 'same')
                 $validRequest = $oldData;
@@ -54,7 +48,6 @@ class updateTest extends TestCase
                 $this->assertDatabaseHas('products',$oldData);
             else{
                 $validRequest[$data] = $oldData[$data];
-                // dd($validRequest);
                 $this->assertDatabaseHas('products', [
                     $data => $oldData[$data],
                 ]);
@@ -67,7 +60,7 @@ class updateTest extends TestCase
      * Tests for update Prdoucts
      *
      * @test
-     * @dataProvider InvalidProductInputDataProvider
+     * @dataProvider invalidProductInputDataProvider
      * @param string $field
      * @param string|null $value
      */
@@ -75,12 +68,11 @@ class updateTest extends TestCase
     {
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
-        $invalidRequest = $this->request;
+        $invalidRequest = VALIDREQUESTFORPRODUCT;
         $invalidRequest[$field] = $value;
 
         // Act
         $this->actingAs($admin);
-        // dd($invalidRequest);
         $response = $this->post(route('products.store',$invalidRequest));
 
         // Assert
@@ -89,7 +81,7 @@ class updateTest extends TestCase
         $this->assertDatabaseMissing('products',$invalidRequest);
     }
 
-    public function ValidProductInputDataProvider()
+    public function validProductInputDataProvider()
     {
         return [
             'New data' => ['new'],
@@ -102,7 +94,7 @@ class updateTest extends TestCase
         ];
     }
 
-    public function InvalidProductInputDataProvider()
+    public function invalidProductInputDataProvider()
     {
         return [
             'No name' => ['name', null],

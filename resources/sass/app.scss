@@ -17,7 +17,7 @@ $tec-color: #0D1931;
     min-height: 100vh;
     margin: 0;
 }
-#welcome .header {
+#welcome .s-header {
     height: 25vh;
 }
 #welcome .s-header>div>div>a {
@@ -123,16 +123,22 @@ $tec-color: #0D1931;
     text-align: center;
     vertical-align: middle;
 }
+#products-show .s-presentation>div>div>div>img {
+    height: 400px;
+}
 #products-edit textarea {
     height: 180px;
 }
 #users-show .s-userInfo>div>div {
     height: 210px;
 }
-// #users-edit .s-header>div>h1>i {
-//     font-size: 45px;
-//     color: black;
-// }
+#products-shop {
+    margin-top: 30px;
+}
+#products-shop .s-showcase>div>div>form>button{
+    height: 400px;
+    margin-bottom: 30px;
+}
 
 .title-tec {
     font-weight: 800;
@@ -156,6 +162,9 @@ $tec-color: #0D1931;
 }
 .bg-accessory {
     background-color: #851de0;
+}
+.bg-black {
+    background-color: black;
 }
 .sizer {
     font-size: 20px;

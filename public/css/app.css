@@ -10933,7 +10933,7 @@ a.text-dark:focus {
   margin: 0;
 }
 
-#welcome .header {
+#welcome .s-header {
   height: 25vh;
 }
 
@@ -11057,12 +11057,25 @@ a.text-dark:focus {
   vertical-align: middle;
 }
 
+#products-show .s-presentation > div > div > div > img {
+  height: 400px;
+}
+
 #products-edit textarea {
   height: 180px;
 }
 
 #users-show .s-userInfo > div > div {
   height: 210px;
+}
+
+#products-shop {
+  margin-top: 30px;
+}
+
+#products-shop .s-showcase > div > div > form > button {
+  height: 400px;
+  margin-bottom: 30px;
 }
 
 .title-tec {
@@ -11092,6 +11105,10 @@ a.text-dark:focus {
 
 .bg-accessory {
   background-color: #851de0;
+}
+
+.bg-black {
+  background-color: black;
 }
 
 .sizer {

@@ -72,7 +72,7 @@
                                             <div class="custom-control custom-switch">
                                                 <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="remember">
-                                                    Recuérdame
+                                                    {{ __('Remember Me') }}
                                                 </label>
                                             </div>
                                         </div>

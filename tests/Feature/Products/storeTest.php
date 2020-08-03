@@ -11,13 +11,6 @@ use Tests\TestCase;
 class storeTest extends TestCase
 {
     use RefreshDatabase;
-    protected $request = [
-        'name' => 'Acer Aspire 5 Slim Laptop',
-        'description' => '15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver',
-        'category' => 'computer',
-        'image' => 'https://lorempixel.com/1200/400/?63626',
-        'price' => '2900000'
-    ];
 
     /**
      * Tests for store Products
@@ -31,19 +24,19 @@ class storeTest extends TestCase
 
         // Act
         $this->actingAs($admin);
-        $response = $this->post(route('products.store',$this->request));
+        $response = $this->post(route('products.store',VALIDREQUESTFORPRODUCT));
 
         // Assert
         $response->assertOk();
         $response->assertViewIs('products.index');
-        $this->assertDatabaseHas('products', $this->request);
+        $this->assertDatabaseHas('products', VALIDREQUESTFORPRODUCT);
     }
 
     /**
      * Tests for store Products
      *
      * @test
-     * @dataProvider InvalidProductInputDataProvider
+     * @dataProvider invalidProductInputDataProvider
      * @param string $field
      * @param string|null $value
      */
@@ -52,12 +45,11 @@ class storeTest extends TestCase
         $this->withExceptionHandling();
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
-        $invalidRequest = $this->request;
+        $invalidRequest = VALIDREQUESTFORPRODUCT;
         $invalidRequest[$field] = $value;
 
         // Act
         $this->actingAs($admin);
-        // dd($invalidRequest);
         $response = $this->post(route('products.store',$invalidRequest));
 
         // Assert
@@ -66,40 +58,8 @@ class storeTest extends TestCase
         $this->assertDatabaseMissing('products',$invalidRequest);
     }
 
-    /**
-     * Tests for store Product
-     *
-     * @test
-     */
-    public function anUserCannotStoreProducts()
-    {
-        // Arrange
-        $user = factory(User::class)->create();
 
-        // Act
-        $this->actingAs($user);
-        $response = $this->post(route('products.store',$this->request));
-
-        // Assert
-        $response->assertRedirect();
-        $this->assertDatabaseMissing('products', $this->request);
-    }
-
-    /**
-     * Tests for store Product
-     *
-     * @test
-     */
-    public function anGuestCannotStoreProducts()
-    {
-        // Act
-        $response = $this->post(route('products.store',$this->request));
-
-        // Assert
-        $response->assertRedirect('login');
-    }
-
-    public function InvalidProductInputDataProvider()
+    public function invalidProductInputDataProvider()
     {
         return [
             'No name' => ['name', null],

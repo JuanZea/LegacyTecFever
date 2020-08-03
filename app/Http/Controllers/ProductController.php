@@ -6,6 +6,7 @@ use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -21,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate();
+        $products = Product::orderBy('id','DESC')->paginate();
         return view('products.index',compact('products'));
     }
 
@@ -43,7 +44,13 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
-        $product = Product::create($request->toArray());
+        $request = $request->validated();
+        if($request['image'] != './public/storage/images/ASUSVivoBook.jpg'){
+            $imagePath = $request['image']->store('images', 'public');
+            unset($request['image']);
+            $request = array_merge($request,['image' => $imagePath]);
+        }
+        $product = Product::create($request);
         $products = Product::paginate();
         return view('products.index',compact('products'));
     }
@@ -79,7 +86,16 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->update($request->validated());
+        $request = $request->validated();
+        if($request['image']){
+            if($request['image'] != './public/storage/images/ASUSVivoBook.jpg'){
+                $imagePath = $request['image']->store('images', 'public');
+                unset($request['image']);
+                $request = array_merge($request,['image' => $imagePath]);
+            }
+        } else
+            unset($request['image']);
+        $product->update($request);
 
         return view('products.show', compact('product'));
     }
@@ -92,6 +108,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        Storage::disk('public')->delete($product->image);
+        $product->delete();
+        return redirect()->route('products.shop');
     }
 }
