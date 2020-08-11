@@ -45,7 +45,7 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $request = $request->validated();
-        if($request['image'] != './public/storage/images/ASUSVivoBook.jpg'){
+        if($request['image'] != 'images/IND.png'){
             $imagePath = $request['image']->store('images', 'public');
             unset($request['image']);
             $request = array_merge($request,['image' => $imagePath]);
@@ -87,7 +87,7 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $request = $request->validated();
-        if($request['image']){
+        if(isset($request['image'])){
             if($request['image'] != './public/storage/images/ASUSVivoBook.jpg'){
                 $imagePath = $request['image']->store('images', 'public');
                 unset($request['image']);

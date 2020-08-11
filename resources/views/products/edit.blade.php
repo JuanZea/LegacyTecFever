@@ -31,11 +31,22 @@
 			  <div class="form-row">
 				    <div class="form-group col-md-9">
 				      <label for="name">{{ __('Name') }}</label>
-				      <input name="name" type="text" class="form-control sizer" id="name" value="{{ old('name',$product->name) }}">
+				      <input name="name" type="text" class="form-control sizer
+				      @if ($errors->first('name'))
+				      	{{ 'is-invalid' }}
+				      @endif
+				      " id="name" value="{{ old('name',$product->name) }}">
+				      <div class="invalid-feedback">
+				        {{ __('Please provide a valid name.') }}
+				      </div>
 				    </div>
 				    <div class="form-group col-md-3">
 				      <label for="price">{{ __('Price') }}</label>
-				      <input name="price" type="number" class="form-control sizer" id="price" value="{{ old('price',$product->price) }}">
+				      <input name="price" type="number" class="form-control sizer
+				      @if ($errors->first('price'))
+				      	{{ 'is-invalid' }}
+				      @endif
+				      " id="price" value="{{ old('price',$product->price) }}">
 				    </div>
 				  </div>
 				  <div class="form-row">

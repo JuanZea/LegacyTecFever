@@ -26,10 +26,11 @@
 		<div class="s-presentation row">
 			<div class="col-9">
 				<div class="card border-0 shadow">
-					<div class="card-header bg-black p-1">
+					<div class="card-header p-0">
 						<img src="{{ $product->get_image }}" class="card-img-top">
 					</div>
 					<div class="card-body">
+						<b>{{ __('Description').':' }}</b><br>
 						{{ __($product->description) }}
 					</div>
 				</div>
