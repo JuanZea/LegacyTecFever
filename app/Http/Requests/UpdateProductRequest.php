@@ -29,13 +29,12 @@ class UpdateProductRequest extends FormRequest
             'description' => 'bail|required|min:40|max:10000',
             'category' => 'bail|required|in:computer,smartphone,accessory',
             'image' => 'nullable',
-            'price' => 'bail|required|min:4|max:9'
+            'price' => 'bail|required|digits_between:4,9'
         ];
 
         // if($this->get('image')){
         //     $rules =array_merge($rules,['image' => 'mimes:jpg,jpeg,png']);
         // }
-
         return $rules;
     }
 

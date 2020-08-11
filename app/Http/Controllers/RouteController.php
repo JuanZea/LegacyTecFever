@@ -15,11 +15,12 @@ class RouteController extends Controller
     	$this->middleware('isAdmin')->only('controlPanel');
 	}
 
-    public function welcome() : Object
+    public function welcome()
     {
-	if (Auth::check())
-	return redirect()->route('home');
-    return view('welcome');
+        if (Auth::check()) {
+          return redirect()->route('home');
+        }
+        return view('welcome');
     }
 
     public function home() : Object

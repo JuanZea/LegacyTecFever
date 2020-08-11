@@ -60,8 +60,8 @@
 				  				<label for="category">{{ __('Category') }}</label>
 								<select name="category" class="form-control custom-select sizer" id="category">
 							    <option selected>{{ __('computer') }}</option>
-							    <option value="1">{{ __('smartphone') }}</option>
-							    <option value="2">{{ __('accessory') }}</option>
+							    <option>{{ __('smartphone') }}</option>
+							    <option>{{ __('accessory') }}</option>
 							  	</select>
 				  			</div>
 				  		</div>

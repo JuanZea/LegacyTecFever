@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
-include_once 'tests/TestHelpers.php';
+use Tests\TestHelpers;
 
 class RouteControllerTest extends TestCase
 {
@@ -185,7 +185,7 @@ class RouteControllerTest extends TestCase
     public function validRouteForGuestDataProvider() : array
     {
         parent::setUp(); // :D
-        $routes = ONLYGUEST;
+        $routes = TestHelpers::ONLYGUEST;
         $return = array();
         foreach ($routes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -196,8 +196,8 @@ class RouteControllerTest extends TestCase
     public function invalidRouteForGuestDataProvider() : array
     {
         parent::setUp(); // :D
-        $validRoutes = ONLYGUEST;
-        $invalidRoutes = array_diff(freeRoutes(), $validRoutes);
+        $validRoutes = TestHelpers::ONLYGUEST;
+        $invalidRoutes = array_diff(TestHelpers::freeRoutes(), $validRoutes);
         $return = array();
         foreach ($invalidRoutes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -208,7 +208,7 @@ class RouteControllerTest extends TestCase
     public function validRouteForUserDataProvider() : array
     {
         parent::setUp(); // :D
-        $routes = array_diff(freeRoutes(),ONLYADMIN);
+        $routes = array_diff(TestHelpers::freeRoutes(),TestHelpers::ONLYADMIN);
         $return = array();
         foreach ($routes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -219,8 +219,8 @@ class RouteControllerTest extends TestCase
     public function invalidRouteForUserDataProvider() : array
     {
         parent::setUp(); // :D
-        $validRoutes = array_diff(freeRoutes(),ONLYADMIN);
-        $invalidRoutes = array_merge(array_diff(freeRoutes(), $validRoutes),ONLYGUEST);
+        $validRoutes = array_diff(TestHelpers::freeRoutes(),TestHelpers::ONLYADMIN);
+        $invalidRoutes = array_merge(array_diff(TestHelpers::freeRoutes(), $validRoutes),TestHelpers::ONLYGUEST);
         $return = array();
         foreach ($invalidRoutes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -231,7 +231,7 @@ class RouteControllerTest extends TestCase
     public function validRouteForAdminDataProvider() : array
     {
         parent::setUp(); // :D
-        $routes = freeRoutes();
+        $routes = TestHelpers::freeRoutes();
         $return = array();
         foreach ($routes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -242,8 +242,8 @@ class RouteControllerTest extends TestCase
     public function invalidRouteForAdminDataProvider() : array
     {
         parent::setUp(); // :D
-        $validRoutes = freeRoutes();
-        $invalidRoutes = array_merge(array_diff(freeRoutes(), $validRoutes),ONLYGUEST);
+        $validRoutes = TestHelpers::freeRoutes();
+        $invalidRoutes = array_merge(array_diff(TestHelpers::freeRoutes(), $validRoutes),TestHelpers::ONLYGUEST);
         $return = array();
         foreach ($invalidRoutes as $route) {
             $return = array_merge($return,[$route => [$route]]);

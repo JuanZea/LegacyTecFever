@@ -2,8 +2,12 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed image
+ */
 class Product extends Model
 {
 	/**
@@ -15,15 +19,31 @@ class Product extends Model
         'name', 'description', 'category', 'image', 'price',
     ];
 
-    public function getGetImageAttribute()
+    /**
+     * Returns the url of the product image
+     * @return String
+     */
+    public function getGetImageAttribute() : String
     {
-        return url("storage/$this->image");
+        if ($this->image) {
+            return url("storage/$this->image");
+        }
+        return url("images/main/IND.png");
     }
 
     // Query Scopes
-    public function scopeName($query, $name)
+
+    /**
+     * Filter shop products by name
+     * @param Builder $query
+     * @param String $name
+     * @return Builder
+     */
+    public function scopeName(Builder $query, String $name) : Builder
     {
-        if($name)
+        if ($name) {
             return $query->where('name','LIKE',"%$name%");
+        }
+        return $query;
     }
 }
