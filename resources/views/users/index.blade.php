@@ -3,6 +3,7 @@
 @section('content')
 <section id="users-index">
     <div class="container pb-5">
+
         {{-- Header --}}
         <div class="s-header row py-4">
             <div class="col-1 px-0">
@@ -74,6 +75,7 @@
             {{ $users->links() }}
         </div>
         {{-- /Paginate --}}
+
     </div>
 </section>
 @endsection

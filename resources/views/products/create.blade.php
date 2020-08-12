@@ -15,6 +15,8 @@
             </div>
         </div>
 		{{-- /Header --}}
+
+        {{-- Form --}}
 		<div class="row">
 			<div class="col">
 				@if ($errors->any())
@@ -48,7 +50,7 @@
 				  			<div class="col form-group">
 				  				<label for="category">{{ __('Category') }}</label>
 								<select name="category" class="form-control custom-select sizer" id="category">
-							    <option selected>{{ __('computer') }}</option>
+							    <option value="0" selected>{{ __('computer') }}</option>
 							    <option value="1">{{ __('smartphone') }}</option>
 							    <option value="2">{{ __('accessory') }}</option>
 							  	</select>
@@ -68,6 +70,8 @@
 				</form>
 			</div>
 		</div>
+        {{-- /Form --}}
+
 	</div>
 </section>
 @endsection

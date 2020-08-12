@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Product;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class ProductController
+ * @package App\Http\Controllers
+ */
 class ProductController extends Controller
 {
     public function __construct()
@@ -15,23 +19,24 @@ class ProductController extends Controller
         $this->middleware('auth');
         $this->middleware('isAdmin')->except('show');
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index() : View
     {
-        $products = Product::orderBy('id','DESC')->paginate();
+        $products = Product::query()->orderBy('id','DESC')->paginate();
         return view('products.index',compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create() : View
     {
         return view('products.create');
     }
@@ -39,10 +44,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateProductRequest $request
+     * @return View
      */
-    public function store(CreateProductRequest $request)
+    public function store(CreateProductRequest $request) : View
     {
         $request = $request->validated();
         if($request['image'] != 'images/IND.png'){
@@ -58,10 +63,10 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param \App\Product $product
+     * @return View
      */
-    public function show(Product $product)
+    public function show(Product $product) : View
     {
         return view('products.show',compact('product'));
     }
@@ -69,10 +74,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param \App\Product $product
+     * @return View
      */
-    public function edit(Product $product)
+    public function edit(Product $product) : View
     {
         return view('products.edit',compact('product'));
     }
@@ -80,11 +85,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param UpdateProductRequest $request
+     * @param \App\Product $product
+     * @return View
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product) : View
     {
         $request = $request->validated();
         if(isset($request['image'])){
@@ -103,10 +108,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param \App\Product $product
+     * @return View
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product) : View
     {
         Storage::disk('public')->delete($product->image);
         $product->delete();

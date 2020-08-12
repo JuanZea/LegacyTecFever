@@ -47,7 +47,7 @@ $tec-color: #0D1931;
     padding-bottom: 100px;
 }
 #login {
-    background-image: url('images/commercial/Background1.jpg');
+    background-image: url('public/images/commercial/Background1.jpg');
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Baloo Da 2', cursive;
@@ -65,7 +65,7 @@ $tec-color: #0D1931;
     text-transform: uppercase;
 }
 #register {
-    background-image: url('images/commercial/Background1.jpg');
+    background-image: url('public/images/commercial/Background1.jpg');
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Baloo Da 2', cursive;
@@ -84,13 +84,32 @@ $tec-color: #0D1931;
 #app>nav {
     background: #0D1931;
 }
+#app .s-footer {
+    background-color: #0D1931;
+}
+#app .s-footer>div>div>a {
+    color: #C3C3C3;
+}
+#app .s-footer>div>div>a:hover {
+    color: white;
+}
+#app .s-main {
+    min-height: calc(100vh - 156.22px);
+}
 #users-index,
 #users-show,
 #products-index {
-    background-image: url('images/commercial/Background2.jpg');
+    background-image: url('public/images/commercial/Background2.jpg');
     background-size: cover;
     background-attachment: fixed;
     min-height: 100vh;
+}
+#dashboard,
+#products-create {
+    background-image: url('public/images/commercial/Background3.jpg');
+    background-size: cover;
+    //background-attachment: fixed;
+    min-height: inherit;
 }
 #users-index,
 #users-show,

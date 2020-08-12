@@ -11012,6 +11012,22 @@ a.text-dark:focus {
   background: #0D1931;
 }
 
+#app .s-footer {
+  background-color: #0D1931;
+}
+
+#app .s-footer > div > div > a {
+  color: #C3C3C3;
+}
+
+#app .s-footer > div > div > a:hover {
+  color: white;
+}
+
+#app .s-main {
+  min-height: calc(100vh - 156.22px);
+}
+
 #users-index,
 #users-show,
 #products-index {
@@ -11019,6 +11035,13 @@ a.text-dark:focus {
   background-size: cover;
   background-attachment: fixed;
   min-height: 100vh;
+}
+
+#dashboard,
+#products-create {
+  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
+  background-size: cover;
+  min-height: inherit;
 }
 
 #users-index,

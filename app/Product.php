@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property mixed image
+ * @mixin Builder
  */
 class Product extends Model
 {
@@ -36,10 +37,10 @@ class Product extends Model
     /**
      * Filter shop products by name
      * @param Builder $query
-     * @param String $name
+     * @param ?String $name
      * @return Builder
      */
-    public function scopeName(Builder $query, String $name) : Builder
+    public function scopeName(Builder $query, ?String $name) : Builder
     {
         if ($name) {
             return $query->where('name','LIKE',"%$name%");

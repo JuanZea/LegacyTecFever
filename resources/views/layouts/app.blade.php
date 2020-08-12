@@ -24,6 +24,7 @@
 </head>
 <body>
     <div id="app">
+
         {{-- Header --}}
         <nav class="navbar navbar-expand-lg navbar-dark">
           <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('images/main/TfIcon.png') }}" alt="Logo de TecFever"></a>
@@ -37,6 +38,7 @@
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
             </form>
             <a class="btn btn-outline-success ml-2" href="{{ route('products.shop') }}">{{ __('Go to shop') }}</a>
+
             {{--Authentication--}}
             <ul class="navbar-nav ml-auto">
                 @guest
@@ -69,12 +71,38 @@
                 @endguest
             </ul>
             {{--/Authentication--}}
+
           </div>
         </nav>
         {{-- /Header --}}
-        <main>
+
+        {{-- Main --}}
+        <main class="s-main">
             @yield('content')
         </main>
+        {{-- /Main --}}
+
+        {{-- Footer --}}
+        <div class="s-footer container-fluid py-3">
+            <div class="row text-center">
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("Terms and conditions") }}</a>
+                </div>
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("Privacy policies") }}</a>
+                </div>
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("About us") }}</a>
+                </div>
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("Contact us") }}</a>
+                </div>
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("Social networks") }}</a>
+                </div>
+            </div>
+        </div>
+        {{-- /Footer --}}
     </div>
 </body>
 </html>

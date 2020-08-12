@@ -79,10 +79,13 @@
             </table>
         </div>
         {{-- /Table --}}
-        </div>
+
+        {{-- Paginate --}}
         <div class="actions d-flex justify-content-center">
-                {{ $products->links() }}
-            </div>
+            {{ $products->links() }}
+        </div>
+        {{-- /Paginate --}}
+
     </div>
 </section>
 @endsection
