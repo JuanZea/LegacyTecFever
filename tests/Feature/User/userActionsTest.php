@@ -5,9 +5,8 @@ namespace Tests\Feature\User;
 use App\User;
 use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-include_once 'tests/TestHelpers.php';
+use Tests\TestHelpers;
 
 class userActionsTest extends TestCase
 {
@@ -30,7 +29,7 @@ class userActionsTest extends TestCase
 
         // Act
         $this->actingAs($user);
-        $response = $this->$method(route($route,$user2),VALIDREQUESTFORUSER);
+        $response = $this->$method(route($route,$user2), TestHelpers::VALIDREQUESTFORUSER);
 
         // Assert
         $response->assertRedirect();
@@ -51,7 +50,7 @@ class userActionsTest extends TestCase
 
         // Act
         $this->actingAs($user);
-        $response = $this->$method(route($route,$product),VALIDREQUESTFORPRODUCT);
+        $response = $this->$method(route($route,$product),TestHelpers::VALIDREQUESTFORPRODUCT);
 
         // Assert
         $response->assertOk();

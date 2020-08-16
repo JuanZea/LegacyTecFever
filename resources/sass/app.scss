@@ -74,7 +74,7 @@ $tec-color: #0D1931;
     min-height: 100vh;
     margin: 0;
 }
-#home .s-facts {
+#home .s-services {
     background-color: #1d809f;
 }
 #home .s-facts-header {
@@ -119,6 +119,12 @@ $tec-color: #0D1931;
 }
 #products-shop {
     background-image: url('public/images/commercial/Background4.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: inherit;
+}
+#disabled {
+    background-image: url('public/images/commercial/Background5.jpg');
     background-size: cover;
     background-attachment: fixed;
     min-height: inherit;
@@ -170,6 +176,10 @@ $tec-color: #0D1931;
 }
 #products-shop .s-showcase>div>form>button .card-body{
     width: 100%;
+}
+#disabled .s-header {
+    -webkit-text-stroke: 2px black;
+    font-size: 40px;
 }
 
 .title-tec {

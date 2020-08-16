@@ -7,6 +7,8 @@ use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Tests\TestHelpers;
+
 include_once 'tests/TestHelpers.php';
 
 class adminActionsTest extends TestCase
@@ -42,7 +44,7 @@ class adminActionsTest extends TestCase
         if (strpos($route, 'show') || strpos($route, 'edit')) {
             $response->assertViewHas('user');
             $responseUser = $response->getOriginalContent()['user']->toArray();
-            $this->assertDatabaseHas('users',removeTimeKeys($responseUser));
+            $this->assertDatabaseHas('users',TestHelpers::removeTimeKeys($responseUser));
         }
     }
 
@@ -73,7 +75,7 @@ class adminActionsTest extends TestCase
         if (strpos($route, 'show') || strpos($route, 'edit')) {
             $response->assertViewHas('product');
             $responseProduct = $response->getOriginalContent()['product']->toArray();
-            $this->assertDatabaseHas('products',removeTimeKeys($responseProduct));
+            $this->assertDatabaseHas('products',TestHelpers::removeTimeKeys($responseProduct));
         }
     }
 

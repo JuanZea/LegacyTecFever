@@ -19,6 +19,7 @@ Route::get('/','RouteController@welcome')->name('welcome');
 Route::get('/home', 'RouteController@home')->name('home');
 Route::get('/controlPanel', 'RouteController@controlPanel')->name('controlPanel');
 Route::get('/shop', 'RouteController@shop')->name('products.shop');
+Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 
 Route::resource('users', 'UserController');
 Route::resource('products', 'ProductController');

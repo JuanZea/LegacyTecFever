@@ -5,9 +5,9 @@ namespace Tests\Feature\Products;
 use App\Product;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\TestCase;
+use Tests\TestHelpers;
 
 class updateTest extends TestCase
 {
@@ -26,9 +26,9 @@ class updateTest extends TestCase
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $product = factory(Product::class)->create();
-        $oldData = removeTimeKeys($product->toArray());
+        $oldData = TestHelpers::removeTimeKeys($product->toArray());
         $oldData['image'] = './public/storage/images/ASUSVivoBook.jpg'; // Warning
-        $validRequest = VALIDREQUESTFORPRODUCT;
+        $validRequest = TestHelpers::VALIDREQUESTFORPRODUCT;
         if ($data != 'new')
             if($data == 'same')
                 $validRequest = $oldData;
@@ -41,7 +41,7 @@ class updateTest extends TestCase
 
         // Assert
         $response->assertOk();
-        $response->assertViewIs('products.show',$product->id);
+        $response->assertViewIs('products.show');
         $this->assertDatabaseHas('products',$validRequest);
         if ($data != 'new')
             if($data == 'same')
@@ -68,7 +68,7 @@ class updateTest extends TestCase
     {
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
-        $invalidRequest = VALIDREQUESTFORPRODUCT;
+        $invalidRequest = TestHelpers::VALIDREQUESTFORPRODUCT;
         $invalidRequest[$field] = $value;
 
         // Act
@@ -99,16 +99,15 @@ class updateTest extends TestCase
         return [
             'No name' => ['name', null],
             'A name too short' => ['name', Str::random(2)],
-            'A name too large' => ['name', Str::random(41)],
+            'A name too large' => ['name', Str::random(61)],
             'No description' => ['description', null],
             'A description too short' => ['description', Str::random(2)],
             'A description too large' => ['description', Str::random(1001)],
             'No category' => ['category', null],
             'A invalid category' => ['category', 'invalid'],
-            'No image' => ['image', null],
-            // 'A invalid image' => ['image', 'invalid'],
+             'A invalid image' => ['image', 'invalid'],
             'No price' => ['price', null],
-            // 'A negative price' => ['price', -20139],
+             'A negative price' => ['price', '-20139'],
             'A price equal to zero' => ['price', '0'],
             'A price too large' => ['price', '1000000000']
         ];

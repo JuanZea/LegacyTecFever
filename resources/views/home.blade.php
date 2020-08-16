@@ -48,8 +48,8 @@
     </section>
     {{--/Carousel--}}
 
-    {{--Facts--}}
-    <section class="s-facts">
+    {{--Services--}}
+    <section class="s-services">
         <div class="container text-white text-center py-5">
           <div class="s-facts-header">
             <h3 class="mb-0">{{ __('Services') }}</h3>
@@ -95,7 +95,7 @@
           </div>
         </div>
       </section>
-    {{--/Facts--}}
+    {{--/Services--}}
 
 </section>
 @endsection

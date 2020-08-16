@@ -13,6 +13,7 @@ class RouteController extends Controller
 		$this->middleware('auth')->except('welcome');
     	$this->middleware('verified')->except('welcome');
     	$this->middleware('isAdmin')->only('controlPanel');
+    	$this->middleware('isEnabled')->except('welcome','disabled');
 	}
 
     public function welcome()
@@ -40,5 +41,10 @@ class RouteController extends Controller
         ->name($name)
         ->paginate();
         return view('products.shop',compact('products'));
+    }
+
+    public function disabled() : Object
+    {
+        return view('disabled');
     }
 }

@@ -10999,7 +10999,7 @@ a.text-dark:focus {
   margin: 0;
 }
 
-#home .s-facts {
+#home .s-services {
   background-color: #1d809f;
 }
 
@@ -11054,6 +11054,13 @@ a.text-dark:focus {
 
 #products-shop {
   background-image: url(/images/Background4.jpg?05bbf7f685cce8be698c9e335ab43329);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: inherit;
+}
+
+#disabled {
+  background-image: url(/images/Background5.jpg?80019707bef71c9c554f0abf171c3871);
   background-size: cover;
   background-attachment: fixed;
   min-height: inherit;
@@ -11115,6 +11122,11 @@ a.text-dark:focus {
 
 #products-shop .s-showcase > div > form > button .card-body {
   width: 100%;
+}
+
+#disabled .s-header {
+  -webkit-text-stroke: 2px black;
+  font-size: 40px;
 }
 
 .title-tec {
