@@ -74,6 +74,12 @@ $tec-color: #0D1931;
     min-height: 100vh;
     margin: 0;
 }
+#home .s-facts {
+    background-color: #1d809f;
+}
+#home .s-facts-header {
+    color: #ffed4a;
+}
 #app {
     font-family: 'Baloo Da 2', cursive;
     font-size: 20px;
@@ -109,6 +115,12 @@ $tec-color: #0D1931;
     background-image: url('public/images/commercial/Background3.jpg');
     background-size: cover;
     //background-attachment: fixed;
+    min-height: inherit;
+}
+#products-shop {
+    background-image: url('public/images/commercial/Background4.jpg');
+    background-size: cover;
+    background-attachment: fixed;
     min-height: inherit;
 }
 #users-index,
@@ -151,12 +163,13 @@ $tec-color: #0D1931;
 #users-show .s-userInfo>div>div {
     height: 210px;
 }
-#products-shop {
-    margin-top: 30px;
-}
-#products-shop .s-showcase>div>div>form>button{
+#products-shop .s-showcase>div>form>button{
     height: 400px;
-    margin-bottom: 30px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+#products-shop .s-showcase>div>form>button .card-body{
+    width: 100%;
 }
 
 .title-tec {
@@ -187,4 +200,19 @@ $tec-color: #0D1931;
 }
 .sizer {
     font-size: 20px;
+}
+.price {
+    font-size: 40px;
+    color: yellow;
+    -webkit-text-stroke: 2px black;
+}
+.service-icon {
+    background-color: #fff;
+    color: #1d809f;
+    height: 7rem;
+    width: 7rem;
+    display: block;
+    line-height: 7.5rem;
+    font-size: 2.25rem;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,.1);
 }
