@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 class TestHelpers{
 
+    public const ONLYDISABLEDUSER = ['disabled'];
     public const ONLYGUEST = ['welcome','login','register'];
     public const ONLYADMIN = ['controlPanel'];
     public const CRUD = ['index','create','store','show','edit','update','destroy'];
@@ -30,7 +31,7 @@ class TestHelpers{
      */
     public static function freeRoutes() : array
     {
-        $routes = array_diff(self::routesWithoutCRUD(), self::ONLYGUEST);
+        $routes = self::routesWithoutCRUD();
         $routes = self::removeLUIRoutes($routes);
         return $routes;
     }

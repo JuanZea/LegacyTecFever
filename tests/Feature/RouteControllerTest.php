@@ -5,16 +5,12 @@ namespace Tests\Feature;
 use App\Product;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 use Tests\TestHelpers;
 
 class RouteControllerTest extends TestCase
 {
     use RefreshDatabase;
-
-    // use WithoutMiddleware;
 
     /**
      * Check if the route is allowed for guest
@@ -51,15 +47,15 @@ class RouteControllerTest extends TestCase
     }
 
     /**
-     * Check if the route is allowed for user
+     * Check if the route is allowed for enabled user
      * @test
-     * @dataProvider validRouteForUserDataProvider
+     * @dataProvider validRouteForEnabledUserDataProvider
      * @param string $route
      */
-    public function RouteIsAllowedForUser($route)
+    public function RouteIsAllowedForEnabledUser($route)
     {
          // Arrange
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create(['isEnabled' => true]);
 
         // Act
         $this->actingAs($user);
@@ -71,15 +67,54 @@ class RouteControllerTest extends TestCase
     }
 
     /**
-     * Check if the route is forbidden for user
+     * Check if the route is forbidden for enabled user
      * @test
-     * @dataProvider invalidRouteForUserDataProvider
+     * @dataProvider invalidRouteForEnabledUserDataProvider
      * @param string $route
      */
-    public function RouteIsForbiddenForUser($route)
+    public function RouteIsForbiddenForEnabledUser($route)
     {
          // Arrange
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create(['isEnabled' => true]);
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->get(route($route));
+
+        // Assert
+        $response->assertRedirect();
+    }
+
+    /**
+     * Check if the route is allowed for disabled user
+     * @test
+     * @dataProvider validRouteForDisabledUserDataProvider
+     * @param string $route
+     */
+    public function RouteIsAllowedForDisabledUser($route)
+    {
+         // Arrange
+        $user = factory(User::class)->create(['isEnabled' => false]);
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->get(route($route));
+
+        // Assert
+        $response->assertOk();
+        $response->assertViewIs($route);
+    }
+
+    /**
+     * Check if the route is forbidden for disabled user
+     * @test
+     * @dataProvider invalidRouteForDisabledUserDataProvider
+     * @param string $route
+     */
+    public function RouteIsForbiddenForDisabledUser($route)
+    {
+         // Arrange
+        $user = factory(User::class)->create(['isEnabled' => false]);
 
         // Act
         $this->actingAs($user);
@@ -129,7 +164,7 @@ class RouteControllerTest extends TestCase
     }
 
     /**
-     * Check that a guset cannot search for products
+     * Check that a guest cannot search for products
      * @test
      */
     public function AGuestCannotSearchAProduct()
@@ -145,10 +180,10 @@ class RouteControllerTest extends TestCase
     }
 
     /**
-     * Check that a user can search for products
+     * Check that a enabled user can search for products
      * @test
      */
-    public function AUserCanSearchAProduct()
+    public function AEnabledUserCanSearchAProduct()
     {
         // Arrange
         $user = factory(User::class)->create();
@@ -182,6 +217,10 @@ class RouteControllerTest extends TestCase
         $response->assertViewIs('products.shop');
     }
 
+    /**
+     * Group of routes allowed for a guest
+     * @return array
+     */
     public function validRouteForGuestDataProvider() : array
     {
         parent::setUp(); // :D
@@ -193,11 +232,14 @@ class RouteControllerTest extends TestCase
         return $return;
     }
 
+    /**
+     * Group of routes forbidden for a guest
+     * @return array
+     */
     public function invalidRouteForGuestDataProvider() : array
     {
         parent::setUp(); // :D
-        $validRoutes = TestHelpers::ONLYGUEST;
-        $invalidRoutes = array_diff(TestHelpers::freeRoutes(), $validRoutes);
+        $invalidRoutes = array_diff(TestHelpers::freeRoutes(), TestHelpers::ONLYGUEST);
         $return = array();
         foreach ($invalidRoutes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -205,10 +247,14 @@ class RouteControllerTest extends TestCase
         return $return;
     }
 
-    public function validRouteForUserDataProvider() : array
+    /**
+     * Group of routes allowed for a enabled user
+     * @return array
+     */
+    public function validRouteForEnabledUserDataProvider() : array
     {
         parent::setUp(); // :D
-        $routes = array_diff(TestHelpers::freeRoutes(),TestHelpers::ONLYADMIN);
+        $routes = array_diff(TestHelpers::freeRoutes(),TestHelpers::ONLYGUEST,TestHelpers::ONLYADMIN,TestHelpers::ONLYDISABLEDUSER);
         $return = array();
         foreach ($routes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -216,11 +262,14 @@ class RouteControllerTest extends TestCase
         return $return;
     }
 
-    public function invalidRouteForUserDataProvider() : array
+    /**
+     * Group of routes forbidden for a enabled user
+     * @return array
+     */
+    public function invalidRouteForEnabledUserDataProvider() : array
     {
         parent::setUp(); // :D
-        $validRoutes = array_diff(TestHelpers::freeRoutes(),TestHelpers::ONLYADMIN);
-        $invalidRoutes = array_merge(array_diff(TestHelpers::freeRoutes(), $validRoutes),TestHelpers::ONLYGUEST);
+        $invalidRoutes = array_merge(TestHelpers::ONLYGUEST,TestHelpers::ONLYADMIN,TestHelpers::ONLYDISABLEDUSER);
         $return = array();
         foreach ($invalidRoutes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -228,10 +277,44 @@ class RouteControllerTest extends TestCase
         return $return;
     }
 
+    /**
+     * Group of routes allowed for a disabled user
+     * @return array
+     */
+    public function validRouteForDisabledUserDataProvider() : array
+    {
+        parent::setUp(); // :D
+        $routes = TestHelpers::ONLYDISABLEDUSER;
+        $return = array();
+        foreach ($routes as $route) {
+            $return = array_merge($return,[$route => [$route]]);
+        }
+        return $return;
+    }
+
+    /**
+     * Group of routes forbidden for a disabled user
+     * @return array
+     */
+    public function invalidRouteForDisabledUserDataProvider() : array
+    {
+        parent::setUp(); // :D
+        $invalidRoutes = array_diff(TestHelpers::freeRoutes(),TestHelpers::ONLYDISABLEDUSER);
+        $return = array();
+        foreach ($invalidRoutes as $route) {
+            $return = array_merge($return,[$route => [$route]]);
+        }
+        return $return;
+    }
+
+    /**
+     * Group of routes allowed for a admin
+     * @return array
+     */
     public function validRouteForAdminDataProvider() : array
     {
         parent::setUp(); // :D
-        $routes = TestHelpers::freeRoutes();
+        $routes = array_diff(TestHelpers::freeRoutes(),TestHelpers::ONLYGUEST,TestHelpers::ONLYDISABLEDUSER);
         $return = array();
         foreach ($routes as $route) {
             $return = array_merge($return,[$route => [$route]]);
@@ -239,11 +322,14 @@ class RouteControllerTest extends TestCase
         return $return;
     }
 
+    /**
+     * Group of routes forbidden for a admin
+     * @return array
+     */
     public function invalidRouteForAdminDataProvider() : array
     {
         parent::setUp(); // :D
-        $validRoutes = TestHelpers::freeRoutes();
-        $invalidRoutes = array_merge(array_diff(TestHelpers::freeRoutes(), $validRoutes),TestHelpers::ONLYGUEST);
+        $invalidRoutes = array_merge(TestHelpers::ONLYGUEST,TestHelpers::ONLYDISABLEDUSER);
         $return = array();
         foreach ($invalidRoutes as $route) {
             $return = array_merge($return,[$route => [$route]]);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class RouteController extends Controller
 {
@@ -16,7 +17,12 @@ class RouteController extends Controller
     	$this->middleware('isEnabled')->except('welcome','disabled');
 	}
 
-    public function welcome()
+    /**
+     * Display a welcome view.
+     *
+     * @return Object
+     */
+    public function welcome() : Object
     {
         if (Auth::check()) {
           return redirect()->route('home');
@@ -24,17 +30,32 @@ class RouteController extends Controller
         return view('welcome');
     }
 
-    public function home() : Object
+    /**
+     * Display a home view.
+     *
+     * @return View
+     */
+    public function home() : View
     {
     	return view('home');
     }
 
-    public function controlPanel() : Object
+    /**
+     * Display a control panel view.
+     *
+     * @return View
+     */
+    public function controlPanel() : View
     {
         return view('controlPanel');
     }
 
-    public function shop(Request $request) : Object
+    /**
+     * Display a shop view.
+     *
+     * @return View
+     */
+    public function shop(Request $request) : View
     {
         $name = $request->get('name');
         $products = Product::orderBy('id','DESC')
@@ -43,8 +64,16 @@ class RouteController extends Controller
         return view('products.shop',compact('products'));
     }
 
+    /**
+     * Display a disabled view.
+     *
+     * @return Object
+     */
     public function disabled() : Object
     {
+        if (Auth::user()->isEnabled) {
+            return redirect()->route('home');
+        }
         return view('disabled');
     }
 }
