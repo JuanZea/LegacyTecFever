@@ -35,34 +35,6 @@ class UpdateUserRequest extends FormRequest
         ];
     }
 
-    // protected function prepareForValidation()
-    // {
-    //     $this->merge([
-    //         if(request()->has('isAdmin')){
-    //             'isAdmin' => 1;
-    //         }
-    //         if(request()->has('isEnabled')){
-    //             'isEnabled' => 1;
-    //         }
-    //         // $this->isPresentOrNot('isAdmin') => $this->onToTrueNullToFalse($this->request->all()['isAdmin']),
-    //         // 'isEnabled' => $this->onToTrueNullToFalse($this->request->all()['isEnabled'])
-    //     ]);
-    // }
-
-    // protected function isPresentOrNot(string $is) : string
-    // {
-    //     if (request()->has($is)) {
-    //         return
-    //     }
-    //     return ;
-    // }
-
-    // protected function onToTrueNullToFalse(?string $value) : bool
-    // {
-    //     return $value;
-    // }
-
-
     // public function messages()
     // {
     //     'name' => 'bail|required|min:3|max:40',

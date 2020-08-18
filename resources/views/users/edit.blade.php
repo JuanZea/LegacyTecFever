@@ -62,7 +62,6 @@
                                         checked
                                     @endif
                                     >
-                                    </input>
                                     <label class="custom-control-label" for="isAdmin">
                                         {{ __('Administrator Permission') }}
                                     </label>

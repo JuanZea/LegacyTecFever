@@ -46,9 +46,9 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateProductRequest $request
-     * @return View
+     * @return RedirectResponse
      */
-    public function store(CreateProductRequest $request) : View
+    public function store(CreateProductRequest $request) : RedirectResponse
     {
         $request = $request->validated();
         if(isset($request['image'])){
@@ -58,8 +58,7 @@ class ProductController extends Controller
         }
         $product = Product::create($request);
         $product->save();
-        $products = Product::paginate();
-        return view('products.index',compact('products'));
+        return redirect()->route('products.index');
     }
 
     /**
@@ -94,14 +93,19 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product) : View
     {
         $request = $request->validated();
-        if(isset($request['image'])){
-            if($request['image'] != './public/storage/images/ASUSVivoBook.jpg'){
+        if (!isset($request['delete'])) {
+            if(isset($request['image'])){
                 $imagePath = $request['image']->store('images', 'public');
                 unset($request['image']);
                 $request = array_merge($request,['image' => $imagePath]);
+                Storage::disk('public')->delete($product->image);
+            } else {
+                unset($request['image']);
             }
-        } else
-            unset($request['image']);
+        } else {
+            $request['image'] = null;
+            Storage::disk('public')->delete($product->image);
+        }
         $product->update($request);
 
         return view('products.show', compact('product'));

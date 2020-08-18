@@ -67,6 +67,12 @@ class CreateProductRequest extends FormRequest
         ]);
     }
 
+    /**
+     * Assign a category to an index.
+     *
+     * @param string|null $idx
+     * @return string|null
+     */
     protected function translateCategory(?string $idx) : ?string
     {
         switch ($idx) {
@@ -79,7 +85,6 @@ class CreateProductRequest extends FormRequest
             case '2':
                 $idx = 'accessory';
                 break;
-
             default:
                 break;
         }
