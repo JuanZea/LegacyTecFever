@@ -75,17 +75,27 @@
                         </div>
                         <div class="row">
                             <div class="col form-group">
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="delete" name="delete" type="checkbox">
+                                    <label class="custom-control-label" for="delete">
+                                        {{ __('Delete image') }}
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="isEnabled" name="isEnabled" type="checkbox"
+                                    @if($product->isEnabled)
+                                        checked
+                                    @endif
+                                    >
+                                    <label class="custom-control-label" for="isEnabled">
+                                        {{ __('Enabled product') }}
+                                    </label>
+                                </div>
                                 <button type="submit" class="btn btn-success btn-block">{{ __('Edit') }}</button>
                             </div>
                         </div>
                     </div>
                         <div class="form-group col-md-3">
-                            <div class="custom-control custom-switch">
-                                <input class="custom-control-input" id="delete" name="delete" type="checkbox" value="1">
-                                <label class="custom-control-label" for="delete">
-                                    {{ __('Delete image') }}
-                                </label>
-                            </div>
                               <input name="image" type="file">
                         </div>
                   </div>

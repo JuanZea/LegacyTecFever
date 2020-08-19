@@ -45,18 +45,26 @@
                         <td class="text-left">
                             {{ $user->name }}
                         </td>
-                        @if($user->isEnabled)
-                        <td>
-                            <span class="rounded-pill p-2 bg-success text-white">
-                                {{ __('Enabled') }}
-                            </span>
-                        </td>
+                        @if(!$user->isAdmin)
+                            @if($user->isEnabled)
+                            <td>
+                                <span class="rounded-pill p-2 bg-success text-white">
+                                    {{ __('Enabled') }}
+                                </span>
+                            </td>
+                            @else
+                            <td>
+                                <span class="rounded-pill p-2 bg-danger text-white">
+                                    {{ __('Disabled') }}
+                                </span>
+                            </td>
+                            @endif
                         @else
-                        <td>
-                            <span class="rounded-pill p-2 bg-danger text-white">
-                                {{ __('Disabled') }}
-                            </span>
-                        </td>
+                            <td>
+                                <span class="rounded-pill p-2 bg-warning text-white">
+                                    {{ __('Administrator') }}
+                                </span>
+                            </td>
                         @endif
                         <td>
                             <a class="btn btn-tec" href="{{ route('users.show',$user) }}">

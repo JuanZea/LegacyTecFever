@@ -29,6 +29,7 @@ class UpdateProductRequest extends FormRequest
             'description' => 'bail|required|min:10|max:1000',
             'category' => 'bail|required|in:computer,smartphone,accessory',
             'image' => 'bail|nullable|image',
+            'isEnabled' => 'nullable',
             'delete' => 'nullable',
             'price' => 'bail|required|digits_between:4,9'
         ];

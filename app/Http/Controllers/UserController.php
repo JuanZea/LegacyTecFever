@@ -79,12 +79,15 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user) : View
     {
+        $admin = $request['isAdmin'] == '1';
+        $enabled = $request['isEnabled'] == '1';
         $request= $request->validated();
-        if (!isset($request['isAdmin'])) {
-            $request += ['isAdmin' => '0'];
-        }
-        if (!isset($request['isEnabled'])) {
-            $request += ['isEnabled' => '0'];
+        if ($admin) {
+            $request += ['isAdmin' => true];
+            $request += ['isEnabled' => true];
+        } else {
+            $request += ['isAdmin' => false];
+            $request += ['isEnabled' => $enabled];
         }
         $user->update($request);
         return view('users.show', compact('user'));

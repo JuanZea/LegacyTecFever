@@ -27,8 +27,6 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'isAdmin' => 'nullable',
-            'isEnabled' => 'nullable',
             'name' => 'bail|required|min:3|max:40',
             'email' => 'bail|required|email|max:60|unique:users,email,'.$this->user->id,
             'password' => 'bail|nullable|min:8|max:20',

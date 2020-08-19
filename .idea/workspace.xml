@@ -28,16 +28,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88c1f077-2762-473b-9dcd-00dd259fde30" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/images/Background6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/commercial/Background6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Feature/Products/enabledTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CreateProductRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CreateProductRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateProductRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateProductRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateUserRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateUserRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/ProductFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ProductFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_29_154313_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_29_154313_create_products_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/es.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/es.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/products/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/products/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Products/storeTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Products/storeTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/Products/updateTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Products/updateTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/TestHelpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TestHelpers.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +193,7 @@
       <recent name="D:\laragon\www\TecFever" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.RouteControllerTest">
+  <component name="RunManager" selected="PHPUnit.updateTest.anAdminCanUpdateProductsWithValidProductInputs">
     <configuration name="RouteControllerTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Tests\Feature\RouteControllerTest" file="$PROJECT_DIR$/tests/Feature/RouteControllerTest.php" scope="Class" />
       <method v="2" />
@@ -194,8 +206,13 @@
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <configuration name="updateTest.anAdminCanUpdateProductsWithValidProductInputs" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\Products\updateTest" file="$PROJECT_DIR$/tests/Feature/Products/updateTest.php" method="anAdminCanUpdateProductsWithValidProductInputs" scope="Method" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="PHPUnit.updateTest.anAdminCanUpdateProductsWithValidProductInputs" />
         <item itemvalue="PHPUnit.RouteControllerTest" />
         <item itemvalue="PHPUnit.RouteControllerTest.RouteIsAllowedForGuest" />
       </list>
@@ -223,7 +240,8 @@
       <workItem from="1597683915948" duration="3725000" />
       <workItem from="1597696048313" duration="2543000" />
       <workItem from="1597702855877" duration="600000" />
-      <workItem from="1597782269706" duration="4728000" />
+      <workItem from="1597782269706" duration="19793000" />
+      <workItem from="1597858058310" duration="2141000" />
     </task>
     <servers />
   </component>

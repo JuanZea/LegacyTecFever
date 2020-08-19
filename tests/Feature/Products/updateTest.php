@@ -22,18 +22,21 @@ class updateTest extends TestCase
      */
     public function anAdminCanUpdateProductsWithValidProductInputs($data)
     {
-        $this->withoutExceptionHandling();
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $product = factory(Product::class)->create();
         $oldData = TestHelpers::removeTimeKeys($product->toArray());
-        $oldData['image'] = './public/storage/images/ASUSVivoBook.jpg'; // Warning
+        if (!$oldData['isEnabled']) {
+            unset($oldData['isEnabled']);
+        }
         $validRequest = TestHelpers::VALIDREQUESTFORPRODUCT;
-        if ($data != 'new')
-            if($data == 'same')
+        if ($data != 'new') {
+            if($data == 'same') {
                 $validRequest = $oldData;
-            else
+            } else {
                 $validRequest[$data] = $oldData[$data];
+            }
+        }
 
         // Act
         $this->actingAs($admin);
@@ -43,17 +46,19 @@ class updateTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('products.show');
         $this->assertDatabaseHas('products',$validRequest);
-        if ($data != 'new')
-            if($data == 'same')
+        if ($data != 'new') {
+            if($data == 'same') {
                 $this->assertDatabaseHas('products',$oldData);
-            else{
+            }
+            else {
                 $validRequest[$data] = $oldData[$data];
                 $this->assertDatabaseHas('products', [
                     $data => $oldData[$data],
                 ]);
             }
-        else
-        $this->assertDatabaseMissing('products',$oldData);
+        } else {
+            $this->assertDatabaseMissing('products',$oldData);
+        }
     }
 
      /**
@@ -87,7 +92,7 @@ class updateTest extends TestCase
             'New data' => ['new'],
             'Same data' => ['same'],
             'Same name' => ['name'],
-            'same description' => ['description'],
+            'Same description' => ['description'],
             'Same category' => ['category'],
             'Same image' => ['image'],
             'Same price' => ['price']

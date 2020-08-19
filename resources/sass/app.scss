@@ -123,10 +123,23 @@ $tec-color: #0D1931;
     background-attachment: fixed;
     min-height: inherit;
 }
+#products-show {
+    background-image: url('public/images/commercial/Background3.jpg');
+    background-size: cover;
+    min-height: inherit;
+}
 #disabled {
     background-image: url('public/images/commercial/Background5.jpg');
     background-size: cover;
     background-attachment: fixed;
+    min-height: inherit;
+}
+#verify {
+    min-height: inherit;
+    background-image: url('public/images/commercial/Background1.jpg');
+    background-size: cover;
+}
+#verify .container {
     min-height: inherit;
 }
 #users-index,

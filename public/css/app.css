@@ -11059,10 +11059,26 @@ a.text-dark:focus {
   min-height: inherit;
 }
 
+#products-show {
+  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
+  background-size: cover;
+  min-height: inherit;
+}
+
 #disabled {
   background-image: url(/images/Background5.jpg?80019707bef71c9c554f0abf171c3871);
   background-size: cover;
   background-attachment: fixed;
+  min-height: inherit;
+}
+
+#verify {
+  min-height: inherit;
+  background-image: url(/images/Background1.jpg?6fb8cd7e97195c554da3eab3c1ee5dea);
+  background-size: cover;
+}
+
+#verify .container {
   min-height: inherit;
 }
 

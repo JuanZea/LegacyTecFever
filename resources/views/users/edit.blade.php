@@ -45,17 +45,20 @@
                                 </input>
                             </div>
                             <div class="form-group col-12 col-md-4 d-flex flex-column justify-content-end">
-                                <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="isEnabled" name="isEnabled" type="checkbox" value="1"
-                                    @if($user->isEnabled)
-                                        checked
-                                    @endif
-                                    >
-                                    </input>
-                                    <label class="custom-control-label" for="isEnabled">
-                                        {{ __('Enabled') }}
-                                    </label>
-                                </div>
+                                @if(!$user->isAdmin)
+                                    <div class="custom-control custom-switch">
+                                        <input class="custom-control-input" id="isEnabled" name="isEnabled" type="checkbox" value="1"
+                                        @if($user->isEnabled)
+                                            checked
+                                        @endif
+                                        >
+                                        <label class="custom-control-label" for="isEnabled">
+                                            {{ __('Enabled') }}
+                                        </label>
+                                    </div>
+                                @else
+                                    <input type="hidden" name="isEnabled" value="1">
+                                @endif
                                 <div class="custom-control custom-switch">
                                     <input class="custom-control-input" id="isAdmin" name="isAdmin" type="checkbox" value="1"
                                     @if($user->isAdmin)

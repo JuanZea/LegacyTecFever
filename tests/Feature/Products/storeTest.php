@@ -27,8 +27,7 @@ class storeTest extends TestCase
         $response = $this->post(route('products.store',TestHelpers::VALIDREQUESTFORPRODUCT));
 
         // Assert
-        $response->assertOk();
-        $response->assertViewIs('products.index');
+        $response->assertRedirect();
         $this->assertDatabaseHas('products', TestHelpers::VALIDREQUESTFORPRODUCT);
     }
 

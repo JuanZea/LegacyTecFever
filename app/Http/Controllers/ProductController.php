@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -65,11 +66,19 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param Product $product
-     * @return View
+     * @return Object
      */
-    public function show(Product $product) : View
+    public function show(Product $product) : Object
     {
-        return view('products.show',compact('product'));
+        if (Auth::user()->isAdmin) {
+            return view('products.show',compact('product'));
+        } else {
+            if($product->isEnabled) {
+                return view('products.show',compact('product'));
+            } else {
+                return redirect()->route('home');
+            }
+        }
     }
 
     /**
@@ -105,6 +114,12 @@ class ProductController extends Controller
         } else {
             $request['image'] = null;
             Storage::disk('public')->delete($product->image);
+        }
+        if (isset($request['isEnabled'])) {
+            unset($request['isEnabled']);
+            $request = array_merge($request,['isEnabled' => true]);
+        } else {
+            $request = array_merge($request,['isEnabled' => false]);
         }
         $product->update($request);
 
