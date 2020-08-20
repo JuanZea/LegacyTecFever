@@ -10999,6 +10999,14 @@ a.text-dark:focus {
   margin: 0;
 }
 
+#home .s-services {
+  background-color: #1d809f;
+}
+
+#home .s-facts-header {
+  color: #ffed4a;
+}
+
 #app {
   font-family: "Baloo Da 2", cursive;
   font-size: 20px;
@@ -11041,6 +11049,36 @@ a.text-dark:focus {
 #products-create {
   background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
   background-size: cover;
+  min-height: inherit;
+}
+
+#products-shop {
+  background-image: url(/images/Background4.jpg?05bbf7f685cce8be698c9e335ab43329);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: inherit;
+}
+
+#products-show {
+  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
+  background-size: cover;
+  min-height: inherit;
+}
+
+#disabled {
+  background-image: url(/images/Background5.jpg?80019707bef71c9c554f0abf171c3871);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: inherit;
+}
+
+#verify {
+  min-height: inherit;
+  background-image: url(/images/Background1.jpg?6fb8cd7e97195c554da3eab3c1ee5dea);
+  background-size: cover;
+}
+
+#verify .container {
   min-height: inherit;
 }
 
@@ -11092,13 +11130,19 @@ a.text-dark:focus {
   height: 210px;
 }
 
-#products-shop {
-  margin-top: 30px;
+#products-shop .s-showcase > div > form > button {
+  height: 400px;
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
 }
 
-#products-shop .s-showcase > div > div > form > button {
-  height: 400px;
-  margin-bottom: 30px;
+#products-shop .s-showcase > div > form > button .card-body {
+  width: 100%;
+}
+
+#disabled .s-header {
+  -webkit-text-stroke: 2px black;
+  font-size: 40px;
 }
 
 .title-tec {
@@ -11120,14 +11164,17 @@ a.text-dark:focus {
 
 .bg-computer {
   background-color: #411f1f;
+  width: 100%;
 }
 
 .bg-smartphone {
   background-color: #f37121;
+  width: 100%;
 }
 
 .bg-accessory {
   background-color: #851de0;
+  width: 100%;
 }
 
 .bg-black {
@@ -11136,5 +11183,34 @@ a.text-dark:focus {
 
 .sizer {
   font-size: 20px;
+}
+
+.price {
+  font-size: 40px;
+  color: yellow;
+  -webkit-text-stroke: 2px black;
+}
+
+.service-icon {
+  background-color: #fff;
+  color: #1d809f;
+  height: 7rem;
+  width: 7rem;
+  display: block;
+  line-height: 7.5rem;
+  font-size: 2.25rem;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.br-green {
+  -webkit-text-stroke: 1px green;
+}
+
+.br-red {
+  -webkit-text-stroke: 1px red;
+}
+
+.br-black {
+  -webkit-text-stroke: 1px black;
 }
 

@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Tests\TestHelpers;
 
 class deleteTest extends TestCase
 {
@@ -17,19 +18,18 @@ class deleteTest extends TestCase
      */
     public function anAdminCanDeleteAProduct()
     {
+        $this->WithoutExceptionHandling();
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $product = factory(Product::class)->create();
-        $data = removeTimeKeys($product->toArray());
-        // dd($data);
+        $data = TestHelpers::removeTimeKeys($product->toArray());
 
         // Act
         $this->actingAs($admin);
         $response = $this->delete(route('products.destroy',$product));
 
         // Assert
-        $response->assertOk();
-        // $response->assertViewIs('products.index');
+        $response->assertRedirect(route('products.index'));
         $this->assertDatabaseMissing('products', $data);
     }
 }

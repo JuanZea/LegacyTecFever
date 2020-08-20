@@ -25,7 +25,7 @@ class CreateProductRequest extends FormRequest
     public function rules() : array
     {
         return [
-            'name' => 'bail|required|min:3|max:80',
+            'name' => 'bail|required|min:3|max:60',
             'description' => 'bail|required|min:10|max:1000',
             'category' => 'bail|required|in:computer,smartphone,accessory',
             'image' => 'bail|nullable|image',
@@ -67,6 +67,12 @@ class CreateProductRequest extends FormRequest
         ]);
     }
 
+    /**
+     * Assign a category to an index.
+     *
+     * @param string|null $idx
+     * @return string|null
+     */
     protected function translateCategory(?string $idx) : ?string
     {
         switch ($idx) {
@@ -79,7 +85,6 @@ class CreateProductRequest extends FormRequest
             case '2':
                 $idx = 'accessory';
                 break;
-
             default:
                 break;
         }

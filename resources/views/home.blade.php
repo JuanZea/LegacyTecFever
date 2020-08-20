@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <section id="Home">
-        {{--Carousel--}}
+<section id="home">
+    {{--Carousel--}}
     <section id="Carousel">
         <div class="container-fluid">
             <div class="row">
@@ -47,5 +47,55 @@
         </div>
     </section>
     {{--/Carousel--}}
-    </section>
+
+    {{--Services--}}
+    <section class="s-services">
+        <div class="container text-white text-center py-5">
+          <div class="s-facts-header">
+            <h3 class="mb-0">{{ __('Services') }}</h3>
+            <h2 class="mb-5">{{ __('What We Offer') }}</h2>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+              <span class="service-icon rounded-circle mx-auto mb-3">
+                <i class="fas fa-truck-loading"></i>
+              </span>
+              <h4>
+                <strong>{{ __('National deliveries') }}</strong>
+              </h4>
+              <p class="text-faded mb-0">{{ __('You tell us where and we take it') }}</p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+              <span class="service-icon rounded-circle mx-auto mb-3">
+                <i class="far fa-money-bill-alt"></i>
+              </span>
+              <h4>
+                <strong>{{ __('The lowest prices') }}</strong>
+              </h4>
+              <p class="text-faded mb-0">{{ __('If you find it cheaper in another store, we lower the price!') }}</p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+              <span class="service-icon rounded-circle mx-auto mb-3">
+                <i class="fas fa-bolt"></i>
+              </span>
+              <h4>
+                <strong>{{ __('High speed service') }}</strong>
+              </h4>
+              <p class="text-faded mb-0">{{ __('Receive your products in less than 24 hours!') }}</p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <span class="service-icon rounded-circle mx-auto mb-3">
+                <i class="fab fa-whatsapp"></i>
+              </span>
+              <h4>
+                <strong>{{ __('Customer Support') }}</strong>
+              </h4>
+              <p class="text-faded mb-0">{{ __('Call us or write us on whatsapp').' 3218876733' }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    {{--/Services--}}
+
+</section>
 @endsection

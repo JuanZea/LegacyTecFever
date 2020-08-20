@@ -5,9 +5,8 @@ namespace Tests\Feature\User;
 use App\User;
 use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-include_once 'tests/TestHelpers.php';
+use Tests\TestHelpers;
 
 class userActionsTest extends TestCase
 {
@@ -16,42 +15,63 @@ class userActionsTest extends TestCase
     // use WithoutMiddleware;
 
     /**
-     * Check if the user actions are forbidden on users
+     * Check if the enabled user actions are forbidden on users
      * @test
-     * @dataProvider invalidUserActionsOnUsersDataProvider
+     * @dataProvider invalidEnabledUserActionsOnUsersDataProvider
      * @param string $route
      * @param string $method
      */
-    public function forUsersAUserCannot($route,$method)
+    public function forUsersAEnabledUserCannot($route,$method)
     {
          // Arrange
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create(['isEnabled'=>true]);
         $user2 = factory(User::class)->create();
 
         // Act
         $this->actingAs($user);
-        $response = $this->$method(route($route,$user2),VALIDREQUESTFORUSER);
+        $response = $this->$method(route($route,$user2), TestHelpers::VALIDREQUESTFORUSER);
 
         // Assert
         $response->assertRedirect();
     }
 
     /**
-     * Check if the user actions are allowed on products
+     * Check if the disabled user actions are forbidden on users
      * @test
-     * @dataProvider validUserActionsOnProductsDataProvider
+     * @dataProvider invalidDisabledUserActionsOnUsersDataProvider
      * @param string $route
      * @param string $method
      */
-    public function forProductsAUserCan($route,$method)
+    public function forUsersADisabledUserCannot($route,$method)
     {
          // Arrange
-        $user = factory(User::class)->create();
-        $product = factory(Product::class)->create();
+        $user = factory(User::class)->create(['isEnabled'=>false]);
+        $user2 = factory(User::class)->create();
 
         // Act
         $this->actingAs($user);
-        $response = $this->$method(route($route,$product),VALIDREQUESTFORPRODUCT);
+        $response = $this->$method(route($route,$user2), TestHelpers::VALIDREQUESTFORUSER);
+
+        // Assert
+        $response->assertRedirect();
+    }
+
+    /**
+     * Check if the enabled user actions are allowed on enabled products
+     * @test
+     * @dataProvider validEnabledUserActionsOnEnabledProductsDataProvider
+     * @param string $route
+     * @param string $method
+     */
+    public function forEnabledProductsAEnabledUserCan($route,$method)
+    {
+         // Arrange
+        $user = factory(User::class)->create(['isEnabled'=>true]);
+        $product = factory(Product::class)->create(['isEnabled'=>true]);
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->$method(route($route,$product),TestHelpers::VALIDREQUESTFORPRODUCT);
 
         // Assert
         $response->assertOk();
@@ -59,16 +79,16 @@ class userActionsTest extends TestCase
     }
 
     /**
-     * Check if the user actions are forbidden on products
+     * Check if the enabled user actions are forbidden on enabled products
      * @test
-     * @dataProvider invalidUserActionsOnProductsDataProvider
+     * @dataProvider invalidEnabledUserActionsOnEnabledProductsDataProvider
      * @param string $route
      * @param string $method
      */
-    public function forProductsAUserCannot($route,$method)
+    public function forEnabledProductsAEnabledUserCannot($route,$method)
     {
          // Arrange
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create(['isEnabled'=>true]);
         $product = factory(Product::class)->create();
 
         // Act
@@ -79,7 +99,28 @@ class userActionsTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function invalidUserActionsOnUsersDataProvider() : array
+    /**
+     * Check if the disabled user actions are forbidden on enabled products
+     * @test
+     * @dataProvider invalidEnabledUserActionsOnEnabledProductsDataProvider
+     * @param string $route
+     * @param string $method
+     */
+    public function forEnabledProductsADisabledUserCannot($route,$method)
+    {
+         // Arrange
+        $user = factory(User::class)->create(['isEnabled'=>false]);
+        $product = factory(Product::class)->create();
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->$method(route($route,$product));
+
+        // Assert
+        $response->assertRedirect();
+    }
+
+    public function invalidEnabledUserActionsOnUsersDataProvider() : array
     {
         return [
             'index' => ['users.index', 'get'],
@@ -92,14 +133,27 @@ class userActionsTest extends TestCase
         ];
     }
 
-    public function validUserActionsOnProductsDataProvider() : array
+    public function invalidDisabledUserActionsOnUsersDataProvider() : array
+    {
+        return [
+            'index' => ['users.index', 'get'],
+            'create' => ['users.create', 'get'],
+            'store' => ['users.store', 'post'],
+            'show' => ['users.show', 'get'],
+            'edit' => ['users.edit', 'get'],
+            'update' => ['users.update', 'put'],
+            // 'delete' => ['users.delete', 'post'],
+        ];
+    }
+
+    public function validEnabledUserActionsOnEnabledProductsDataProvider() : array
     {
         return [
             'show' => ['products.show', 'get'],
         ];
     }
 
-    public function invalidUserActionsOnProductsDataProvider() : array
+    public function invalidEnabledUserActionsOnEnabledProductsDataProvider() : array
     {
         return [
             'index' => ['products.index', 'get'],

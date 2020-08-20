@@ -7,6 +7,8 @@ use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Tests\TestHelpers;
+
 include_once 'tests/TestHelpers.php';
 
 class guestActionsTest extends TestCase
@@ -28,7 +30,7 @@ class guestActionsTest extends TestCase
         $user = factory(User::class)->create();
 
         // Act
-        $response = $this->$method(route($route,$user),VALIDREQUESTFORUSER);
+        $response = $this->$method(route($route,$user),TestHelpers::VALIDREQUESTFORUSER);
 
         // Assert
         $response->assertRedirect('login');

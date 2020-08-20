@@ -6,6 +6,8 @@ use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Product;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -45,36 +47,44 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateProductRequest $request
-     * @return View
+     * @return RedirectResponse
      */
-    public function store(CreateProductRequest $request) : View
+    public function store(CreateProductRequest $request) : RedirectResponse
     {
         $request = $request->validated();
-        if($request['image'] != 'images/IND.png'){
+        if(isset($request['image'])){
             $imagePath = $request['image']->store('images', 'public');
             unset($request['image']);
             $request = array_merge($request,['image' => $imagePath]);
         }
-        $product = Product::create($request);
-        $products = Product::paginate();
-        return view('products.index',compact('products'));
+        $product = (new Product)->create($request);
+        $product->save();
+        return redirect()->route('products.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Product $product
-     * @return View
+     * @param Product $product
+     * @return Object
      */
-    public function show(Product $product) : View
+    public function show(Product $product) : Object
     {
-        return view('products.show',compact('product'));
+        if (Auth::user()->isAdmin) {
+            return view('products.show',compact('product'));
+        } else {
+            if($product->isEnabled) {
+                return view('products.show',compact('product'));
+            } else {
+                return redirect()->route('home');
+            }
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Product $product
+     * @param Product $product
      * @return View
      */
     public function edit(Product $product) : View
@@ -86,20 +96,31 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateProductRequest $request
-     * @param \App\Product $product
+     * @param Product $product
      * @return View
      */
     public function update(UpdateProductRequest $request, Product $product) : View
     {
         $request = $request->validated();
-        if(isset($request['image'])){
-            if($request['image'] != './public/storage/images/ASUSVivoBook.jpg'){
+        if (!isset($request['delete'])) {
+            if(isset($request['image'])){
                 $imagePath = $request['image']->store('images', 'public');
                 unset($request['image']);
                 $request = array_merge($request,['image' => $imagePath]);
+                Storage::disk('public')->delete($product->image);
+            } else {
+                unset($request['image']);
             }
-        } else
-            unset($request['image']);
+        } else {
+            $request['image'] = null;
+            Storage::disk('public')->delete($product->image);
+        }
+        if (isset($request['isEnabled'])) {
+            unset($request['isEnabled']);
+            $request = array_merge($request,['isEnabled' => true]);
+        } else {
+            $request = array_merge($request,['isEnabled' => false]);
+        }
         $product->update($request);
 
         return view('products.show', compact('product'));
@@ -108,13 +129,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Product $product
-     * @return View
+     * @param Product $product
+     * @return RedirectResponse
      */
-    public function destroy(Product $product) : View
+    public function destroy(Product $product) : RedirectResponse
     {
         Storage::disk('public')->delete($product->image);
         $product->delete();
-        return redirect()->route('products.shop');
+        return redirect()->route('products.index');
     }
 }

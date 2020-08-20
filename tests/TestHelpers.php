@@ -6,20 +6,22 @@ use Illuminate\Support\Facades\Route;
 
 class TestHelpers{
 
+    public const ONLYDISABLEDUSER = ['disabled'];
     public const ONLYGUEST = ['welcome','login','register'];
     public const ONLYADMIN = ['controlPanel'];
     public const CRUD = ['index','create','store','show','edit','update','destroy'];
     public const VALIDREQUESTFORUSER = [
                                     'name' => 'Nixon Jeiler',
                                     'email' => 'nixon@admin.com',
-                                    'isAdmin' => true,
+                                    'isAdmin' => false,
                                     'isEnabled' => true
                                 ];
     public const VALIDREQUESTFORPRODUCT = [
                                         'name' => 'Acer Aspire 5 Slim Laptop',
+                                        'isEnabled' => true,
                                         'description' => '15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver',
                                         'category' => 'computer',
-                                        'image' => './public/storage/images/ASUSVivoBook.jpg',
+                                        'image' => null,
                                         'price' => '2900000'
                                     ];
 
@@ -30,7 +32,7 @@ class TestHelpers{
      */
     public static function freeRoutes() : array
     {
-        $routes = array_diff(self::routesWithoutCRUD(), self::ONLYGUEST);
+        $routes = self::routesWithoutCRUD();
         $routes = self::removeLUIRoutes($routes);
         return $routes;
     }
