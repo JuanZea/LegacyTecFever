@@ -26,7 +26,7 @@ class adminActionsTest extends TestCase
     public function forUsersAAdminCan($route)
     {
          // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
         $user = factory(User::class)->create();
 
         // Act
@@ -57,7 +57,7 @@ class adminActionsTest extends TestCase
     public function forProductsAAdminCan($route)
     {
          // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
         $product = factory(Product::class)->create();
 
         // Act

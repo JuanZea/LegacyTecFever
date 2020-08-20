@@ -57,7 +57,7 @@ class ProductController extends Controller
             unset($request['image']);
             $request = array_merge($request,['image' => $imagePath]);
         }
-        $product = Product::create($request);
+        $product = (new Product)->create($request);
         $product->save();
         return redirect()->route('products.index');
     }

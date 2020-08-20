@@ -58,10 +58,16 @@ class RouteController extends Controller
     public function shop(Request $request) : View
     {
         $name = $request->get('name');
-        $products = Product::orderBy('id','DESC')
+        $products = (new Product)->orderBy('id','DESC')
         ->name($name)
         ->paginate();
-        return view('products.shop',compact('products'));
+        $empty = true;
+        foreach ($products as $product) {
+            if ($product->isEnabled) {
+                $empty=false;
+            }
+        }
+        return view('products.shop',['products'=>$products,'name'=>$name,'empty'=>$empty]);
     }
 
     /**

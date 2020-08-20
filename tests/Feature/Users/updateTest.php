@@ -22,7 +22,7 @@ class updateTest extends TestCase
     public function anAdminCanUpdateUsersWithValidUserInputs(string $data)
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
         $user = factory(User::class)->create();
         $oldData = TestHelpers::removeTimeKeys($user->toArray());
         $validRequest = TestHelpers::VALIDREQUESTFORUSER;

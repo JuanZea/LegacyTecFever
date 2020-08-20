@@ -34,7 +34,11 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form action="{{ route('products.shop') }}" class="form-inline my-2 my-lg-0" method="GET">
-              <input name="name" class="form-control mr-sm-2" size="40" type="search" placeholder="{{ __('¡Find what you are looking for with a click!') }}" aria-label="Search">
+              <input name="name" class="form-control mr-sm-2" size="40" type="search" placeholder="{{ __('¡Find what you are looking for with a click!') }}"
+                     @if (isset($name))
+                         value="{{ $name }}"
+                     @endif
+                     aria-label="Search">
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
             </form>
             <a class="btn btn-outline-success ml-2" href="{{ route('products.shop') }}">{{ __('Go to shop') }}</a>

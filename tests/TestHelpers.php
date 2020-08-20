@@ -13,7 +13,7 @@ class TestHelpers{
     public const VALIDREQUESTFORUSER = [
                                     'name' => 'Nixon Jeiler',
                                     'email' => 'nixon@admin.com',
-                                    'isAdmin' => true,
+                                    'isAdmin' => false,
                                     'isEnabled' => true
                                 ];
     public const VALIDREQUESTFORPRODUCT = [

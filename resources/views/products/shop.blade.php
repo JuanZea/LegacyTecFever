@@ -14,24 +14,51 @@
 		{{-- Showcase --}}
 			<div class="s-showcase row">
 				@foreach($products as $product)
-				<div class="col-md-4 py-3">
-					<form action="{{ route('products.show',$product) }}">
-						<button class="card px-0 mask shadow">
-							<div class="card-header">
-								<img class="img-fluid" src="{{ $product->get_image }}" alt="Imagen de producto">
-							</div>
-							<div class="card-body d-flex flex-md-column justify-content-between">
-								<div class="div">
-									{{ $product->name }}
-								</div>
-								<div class="align-self-center price">
-									<span><b>${{ $product->price }}</b></span><br>
-								</div>
-							</div>
-						</button>
-					</form>
-				</div>
-				@endforeach
+				    @if($product->isEnabled)
+                        <div class="col-md-4 py-3">
+                            <form action="{{ route('products.show',$product) }}">
+                                <button class="card px-0 mask shadow">
+                                    <div class="card-header">
+                                        <img class="img-fluid" src="{{ $product->get_image }}" alt="Imagen de producto">
+                                    </div>
+                                        @switch($product->category)
+                                                    @case('computer')
+                                                        <?php $color = 'bg-computer' ?>
+                                                        @break
+                                                    @case('smartphone')
+                                                        <?php $color = 'bg-smartphone' ?>
+                                                        @break
+                                                    @case('accessory')
+                                                        <?php $color = 'bg-accessory' ?>
+                                                        @break
+                                                    @default
+                                                        <?php $color = 'bg-danger' ?>
+                                                @endswitch
+                                            <div class="align-self-center {{ $color }}">
+                                                <span class="text-white">{{ $product->category }}</span><br>
+                                            </div>
+                                    <div class="card-body d-flex flex-md-column justify-content-between">
+                                        <div class="div">
+                                            {{ $product->name }}
+                                        </div>
+                                            <div class="align-self-center price">
+                                                <span><b>${{ $product->price }}</b></span><br>
+                                            </div>
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                @endforeach
+                @if ($empty)
+                    <div class="container">
+                        <div class="row">
+                            <div class="col text-center">
+                                <h1 class="bg-white rounded-pill">{{ __('There are no products to show') }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 			</div>
 		</div>
 		<div class="actions d-flex justify-content-center">
