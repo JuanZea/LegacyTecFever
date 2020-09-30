@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('shopping-car-component', require('./components/ShoppingCart.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +30,15 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    data: {
+        name: 'Juan Zea',
+        articles: 0,
+        quantity: 0,
+    },
+    methods: {
+        addToCar() {
+            this.articles = this.articles + parseInt(this.quantity);
+            this.quantity = 0;
+        }
+    }
 });

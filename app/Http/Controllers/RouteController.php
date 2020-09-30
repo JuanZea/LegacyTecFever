@@ -71,6 +71,26 @@ class RouteController extends Controller
     }
 
     /**
+     * Display a profile view.
+     *
+     * @return Object
+     */
+    public function profile() : Object
+    {
+        return view('profile');
+    }
+
+    /**
+     * Display a shopping cart view.
+     *
+     * @return Object
+     */
+    public function shoppingCart() : Object
+    {
+        return view('shoppingCart');
+    }
+
+    /**
      * Display a disabled view.
      *
      * @return Object

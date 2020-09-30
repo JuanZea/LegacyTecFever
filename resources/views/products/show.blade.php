@@ -47,6 +47,9 @@
                     </div>
 					<div class="card-body">
 						<b>{{ __('Description').':' }}</b><br>
+                        @if(\Illuminate\Support\Facades\Session::has('status'))
+                            <b>{{ Session::get('status', 'default') }}</b>
+                        @endif
 						{{ __($product->description) }}
 					</div>
 				</div>
@@ -57,22 +60,33 @@
 						<span><b>$ {{ $product->price }}</b></span>
 					</div>
 					<div class="card-body">
-						<a class="btn btn-primary btn-block" href="#">{{ __('Add to car') }}</a>
-						@if (Auth::user()->isAdmin)
-                            <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
-                            <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
-                            </form>
-                            @if(!$product->isEnabled)
-                                <div class="card bg-warning mt-2">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-exclamation-triangle"></i> {{ __('Disabled!') }}
-                                    </div>
+						<div class="container">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <input v-model="quantity" class="form-control" type="number" placeholder="{{ __('Quantity') }}">
                                 </div>
-                            @endif
-				        @endif
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn btn-primary btn-block mt-2" href="#" @click="addToCar()" >{{ __('Add to car') }}</a>
+                                    @if (Auth::user()->isAdmin)
+                                        <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
+                                        <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
+                                        </form>
+                                        @if(!$product->isEnabled)
+                                            <div class="card bg-warning mt-2">
+                                                <div class="card-body text-center">
+                                                    <i class="fas fa-exclamation-triangle"></i> {{ __('Disabled!') }}
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
 					</div>
 				</div>
 			</div>

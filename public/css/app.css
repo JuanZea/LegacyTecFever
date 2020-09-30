@@ -11036,6 +11036,26 @@ a.text-dark:focus {
   min-height: calc(100vh - 156.22px);
 }
 
+#profile,
+#profile .container-fluid,
+#profile .container-sm,
+#profile .container-md,
+#profile .container-lg,
+#profile .container-xl,
+#profile .container-fluid .row,
+#profile .container-sm .row,
+#profile .container-md .row,
+#profile .container-lg .row,
+#profile .container-xl .row,
+#profile .container-fluid .row .col-md-6,
+#profile .container-sm .row .col-md-6,
+#profile .container-md .row .col-md-6,
+#profile .container-lg .row .col-md-6,
+#profile .container-xl .row .col-md-6,
+#profile .status-bar {
+  min-height: inherit;
+}
+
 #users-index,
 #users-show,
 #products-index {
@@ -11212,5 +11232,13 @@ a.text-dark:focus {
 
 .br-black {
   -webkit-text-stroke: 1px black;
+}
+
+.nd:hover {
+  text-decoration: none;
+}
+
+[v-cloak] {
+  display: none;
 }
 

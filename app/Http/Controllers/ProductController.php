@@ -97,9 +97,9 @@ class ProductController extends Controller
      *
      * @param UpdateProductRequest $request
      * @param Product $product
-     * @return View
+     * @return RedirectResponse
      */
-    public function update(UpdateProductRequest $request, Product $product) : View
+    public function update(UpdateProductRequest $request, Product $product) : RedirectResponse
     {
         $request = $request->validated();
         if (!isset($request['delete'])) {
@@ -123,7 +123,8 @@ class ProductController extends Controller
         }
         $product->update($request);
 
-        return view('products.show', compact('product'));
+        return redirect()->route('products.show', compact('product'))->with('status','hormiguero');
+//        return view('products.show', compact('product'))->with('status','hormiguero');
     }
 
     /**

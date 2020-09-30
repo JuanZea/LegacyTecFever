@@ -39,4 +39,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The relation that should be cast to native types.
+     *
+     */
+    public function shoppingCar() {
+        return $this->hasOne(ShoppingCart::class);
+    }
 }
