@@ -42,37 +42,45 @@
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
             </form>
             <a class="btn btn-outline-success ml-2" href="{{ route('products.shop') }}">{{ __('Go to shop') }}</a>
+            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.router') }}"><i class="fas fa-shopping-cart fa-lg"></i>
+            @if (Auth::user()->shoppingCart)
+                <b>
+                    {{ Auth::user()->shoppingCart->amount }}
+                </b>
+            @endif
+            <b v-if="quantity>0">@{{ " + ( " + quantity + " )" }}</b>
+            </a>
 
             {{--Authentication--}}
-            <ul class="navbar-nav ml-auto">
-                @guest
-                    <li class="nav-item text-center text-sm-left">
-                        <a class="btn btn-dark align-items-center d-flex" href="{{ route('login') }}"><i class="far fa-user-circle pr-2 fa-lg"></i><b>{{ __('Login') }}</b></a>
-                    </li>
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            @if (Auth::user()->isAdmin)
-                                <a class="dropdown-item" href="{{ route('controlPanel') }}">
-                                    {{ __('Control Panel') }}
-                                </a>
-                            @endif
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        @if (Auth::user()->isAdmin)
+                            <a class="dropdown-item" href="{{ route('controlPanel') }}">
+                                {{ __('Control Panel') }}
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                  style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                @endguest
+                        @endif
+                        <a class="dropdown-item" href="{{ route('profile') }}">
+                            {{ __('Profile') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('shopping-cart.router') }}">
+                          {{ __('Shopping Cart') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                              style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
             </ul>
             {{--/Authentication--}}
 

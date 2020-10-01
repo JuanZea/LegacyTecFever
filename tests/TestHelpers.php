@@ -37,20 +37,6 @@ class TestHelpers{
         return $routes;
     }
 
-    /**
-     * Generates the 7 routes of a crud and returns them in array
-     *
-     * @param $name
-     */
-    public static function generateCrud($name) : array
-    {
-        $routeNames = array();
-        foreach (CRUD as $crudItem) {
-            $routeNames = array_merge($routeNames,[$name.'.'.$crudItem]);
-        }
-
-        return routeNames;
-    }
 
     /**
      * Returns routes that do not belong to CRUD

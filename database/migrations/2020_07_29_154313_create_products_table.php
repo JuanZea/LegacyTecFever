@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('image')->nullable();
             $table->integer('price');
             $table->timestamps();
+
         });
     }
 

@@ -28,7 +28,7 @@
             <div class="s-header container-fluid">
                 <div class="row">
                     <div class="col text-right my-2">
-                        <a class="px-2 rounded" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="px-2 rounded" href="{{ route('login') }}"><i class="far fa-user-circle pr-2 fa-lg"></i>{{ __('Login') }}</a>
                     </div>
                 </div>
                 <div class="row justify-content-center">

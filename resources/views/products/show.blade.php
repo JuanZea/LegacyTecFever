@@ -52,27 +52,63 @@
 				</div>
 			</div>
 			<div class="col">
+                @if($errors->all())
+                    <div class="card mb-4">
+                        <div class="card-header text-center bg-danger text-white">
+                            {{ __('Error') }}
+                        </div>
+                        <div class="card-body text-center bg-danger text-white">
+                            @foreach($errors->all() as $error)
+                                <b>{{ $error }}</b>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+                @if(Session::has('status'))
+                    <div class="card mb-4">
+                        <div class="card-header text-center bg-success text-white">
+                            <b>{{ Session::get('status', 'default') }}</b>
+                        </div>
+                    </div>
+                @endif
 				<div class="card">
 					<div class="card-header price">
 						<span><b>$ {{ $product->price }}</b></span>
 					</div>
 					<div class="card-body">
-						<a class="btn btn-primary btn-block" href="#">{{ __('Add to car') }}</a>
-						@if (Auth::user()->isAdmin)
-                            <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
-                            <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
-                            </form>
-                            @if(!$product->isEnabled)
-                                <div class="card bg-warning mt-2">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-exclamation-triangle"></i> {{ __('Disabled!') }}
-                                    </div>
+						<div class="container">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <input v-model="amount" class="form-control" type="number" placeholder="{{ __('Quantity') }}">
                                 </div>
-                            @endif
-				        @endif
+                            </div>
+                            <div class="row">
+                                <div class="col">
+{{--                                    <a class="btn btn-primary btn-block mt-2" href="#" @click="addToCar()" >{{ __('Add to car') }}</a>--}}
+                                    <form action="{{ route('shopping-cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="amount" :value="amount">
+                                        <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
+                                    </form>
+                                    @if (Auth::user()->isAdmin)
+                                        <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
+                                        <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
+                                        </form>
+                                        @if(!$product->isEnabled)
+                                            <div class="card bg-warning mt-2">
+                                                <div class="card-body text-center">
+                                                    <i class="fas fa-exclamation-triangle"></i> {{ __('Disabled!') }}
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
 					</div>
 				</div>
 			</div>

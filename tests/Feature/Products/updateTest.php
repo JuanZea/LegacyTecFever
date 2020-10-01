@@ -43,8 +43,8 @@ class updateTest extends TestCase
         $response = $this->put(route('products.update',$product),$validRequest);
 
         // Assert
-        $response->assertOk();
-        $response->assertViewIs('products.show');
+        $response->assertRedirect();
+        // $response->assertViewIs('products.show');
         $this->assertDatabaseHas('products',$validRequest);
         if ($data != 'new') {
             if($data == 'same') {

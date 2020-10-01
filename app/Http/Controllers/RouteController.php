@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class RouteController extends Controller
 {
@@ -68,6 +70,39 @@ class RouteController extends Controller
             }
         }
         return view('products.shop',['products'=>$products,'name'=>$name,'empty'=>$empty]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Object
+     */
+    public function shoppingCartRouter() : Object
+    {
+        $shoppingCart = Auth::user()->shoppingCart;
+
+        // Initialize shoppingCart
+        if (!$shoppingCart) {
+            return view('shopping-carts.empty');
+        } else {
+            if ($shoppingCart->amount == 0) {
+                $shoppingCart->delete();
+                return view('shopping-carts.empty');
+            }
+        }
+
+        return redirect()->route('shopping-cart.show', $shoppingCart);
+
+    }
+
+    /**
+     * Display a profile view.
+     *
+     * @return Object
+     */
+    public function profile() : Object
+    {
+        return view('profile');
     }
 
     /**
