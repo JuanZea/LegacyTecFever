@@ -81,16 +81,6 @@ class RouteController extends Controller
     }
 
     /**
-     * Display a shopping cart view.
-     *
-     * @return Object
-     */
-    public function shoppingCart() : Object
-    {
-        return view('shoppingCart');
-    }
-
-    /**
      * Display a disabled view.
      *
      * @return Object

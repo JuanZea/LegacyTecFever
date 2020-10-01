@@ -44,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * The relation that should be cast to native types.
      *
      */
-    public function shoppingCar() {
+    public function shoppingCart() {
         return $this->hasOne(ShoppingCart::class);
     }
 }

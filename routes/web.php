@@ -19,10 +19,10 @@ Route::get('/','RouteController@welcome')->name('welcome');
 Route::get('/home', 'RouteController@home')->name('home');
 Route::get('/controlPanel', 'RouteController@controlPanel')->name('controlPanel');
 Route::get('/profile', 'RouteController@profile')->name('profile');
-Route::get('/shoppingCart', 'RouteController@shoppingCart')->name('shoppingCart');
 Route::get('/shop', 'RouteController@shop')->name('products.shop');
 Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 Route::get('/vale', 'PaymentController@store')->name('payment');
 
 Route::resource('users', 'UserController');
 Route::resource('products', 'ProductController');
+Route::resource('shopping-cart', 'ShoppingCartController');

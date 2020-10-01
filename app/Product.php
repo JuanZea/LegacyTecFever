@@ -47,4 +47,11 @@ class Product extends Model
         }
         return $query;
     }
+
+    // Relations
+
+    public function shoppingCarts() : Object
+    {
+        return $this->belongsToMany(ShoppingCart::class);
+    }
 }

@@ -47,14 +47,21 @@
                     </div>
 					<div class="card-body">
 						<b>{{ __('Description').':' }}</b><br>
-                        @if(\Illuminate\Support\Facades\Session::has('status'))
-                            <b>{{ Session::get('status', 'default') }}</b>
-                        @endif
 						{{ __($product->description) }}
 					</div>
 				</div>
 			</div>
 			<div class="col">
+                @if(Session::has('status'))
+                    <div class="card mb-4">
+                        <div class="card-header text-center bg-danger text-white">
+                            {{ __('Error') }}
+                        </div>
+                        <div class="card-body text-center bg-danger text-white">
+                            <b>{{ Session::get('status', 'default') }}</b>
+                        </div>
+                    </div>
+                @endif
 				<div class="card">
 					<div class="card-header price">
 						<span><b>$ {{ $product->price }}</b></span>
@@ -68,7 +75,13 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <a class="btn btn-primary btn-block mt-2" href="#" @click="addToCar()" >{{ __('Add to car') }}</a>
+{{--                                    <a class="btn btn-primary btn-block mt-2" href="#" @click="addToCar()" >{{ __('Add to car') }}</a>--}}
+                                    <form action="{{ route('shopping-cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product" value="{{ $product }}">
+                                        <input type="hidden" name="count" :value="quantity">
+                                        <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
+                                    </form>
                                     @if (Auth::user()->isAdmin)
                                         <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
                                         <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">

@@ -15,7 +15,13 @@ class ShoppingCart extends Model
         'user_id','itemsCount', 'totalPrice', 'redeemable'
     ];
 
+    // Relations
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 }

@@ -11,11 +11,6 @@
       </path>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:refactor" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
       <path>
@@ -28,25 +23,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88c1f077-2762-473b-9dcd-00dd259fde30" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/TecFever.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TecFever.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RouteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RouteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/ProductFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ProductFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/es.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/es.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ShoppingCart.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ShoppingCart.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_29_154313_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_29_154313_create_products_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_29_081920_create_shopping_cart_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_29_081920_create_shopping_carts_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/products/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/products/shop.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/shop.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/products/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Admin/adminActionsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Admin/adminActionsTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Products/enabledTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Products/enabledTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/RouteControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/RouteControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/User/userActionsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/User/userActionsTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/Users/updateTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/Users/updateTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/TestHelpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TestHelpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +51,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="composer.json" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
@@ -171,6 +162,10 @@
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
+      <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/vendor/dnetix/redirection" />
     </include_path>
   </component>
   <component name="ProjectId" id="1fwOUXm5QK7syHVMoMdExGsnaZ0" />
@@ -181,40 +176,77 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/plugins/spanish-spell/spanish.dic" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jsonapi" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\laragon\www\TecFever" />
-      <recent name="D:\laragon\www\TecFever\tests\reports" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\laragon\www\TecFever" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\laragon\www\TecFever\tests\Feature\Actions" />
+      <recent name="D:\laragon\www\TecFever" />
+      <recent name="D:\laragon\www\TecFever\tests\reports" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.updateTest.anAdminCanUpdateProductsWithValidProductInputs">
     <configuration name="RouteControllerTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\RouteControllerTest" file="$PROJECT_DIR$/tests/Feature/RouteControllerTest.php" scope="Class" />
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <TestRunner class="Tests\Feature\RouteControllerTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/RouteControllerTest.php" scope="Class" />
       <method v="2" />
     </configuration>
     <configuration name="RouteControllerTest.RouteIsAllowedForGuest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\RouteControllerTest" file="$PROJECT_DIR$/tests/Feature/RouteControllerTest.php" method="RouteIsAllowedForGuest" scope="Method" />
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <TestRunner class="Tests\Feature\RouteControllerTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/RouteControllerTest.php" method="RouteIsAllowedForGuest" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RouteControllerTest.RouteIsForbiddenForGuest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <TestRunner class="Tests\Feature\RouteControllerTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/RouteControllerTest.php" method="RouteIsForbiddenForGuest" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <configuration name="updateTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <TestRunner class="Tests\Feature\Products\updateTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Products/updateTest.php" scope="Class" />
+      <method v="2" />
+    </configuration>
     <configuration name="updateTest.anAdminCanUpdateProductsWithValidProductInputs" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\Products\updateTest" file="$PROJECT_DIR$/tests/Feature/Products/updateTest.php" method="anAdminCanUpdateProductsWithValidProductInputs" scope="Method" />
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <TestRunner class="Tests\Feature\Products\updateTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Feature/Products/updateTest.php" method="anAdminCanUpdateProductsWithValidProductInputs" scope="Method" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="PHPUnit.updateTest.anAdminCanUpdateProductsWithValidProductInputs" />
+        <item itemvalue="PHPUnit.updateTest" />
         <item itemvalue="PHPUnit.RouteControllerTest" />
+        <item itemvalue="PHPUnit.RouteControllerTest.RouteIsForbiddenForGuest" />
         <item itemvalue="PHPUnit.RouteControllerTest.RouteIsAllowedForGuest" />
       </list>
     </recent_temporary>
@@ -244,6 +276,18 @@
       <workItem from="1597782269706" duration="19793000" />
       <workItem from="1597858058310" duration="16678000" />
       <workItem from="1597954655324" duration="1412000" />
+      <workItem from="1598019937659" duration="5819000" />
+      <workItem from="1598119318624" duration="610000" />
+      <workItem from="1598219077556" duration="10543000" />
+      <workItem from="1598379861026" duration="24000" />
+      <workItem from="1598381226612" duration="68000" />
+      <workItem from="1598395096888" duration="1641000" />
+      <workItem from="1601069574457" duration="9526000" />
+      <workItem from="1601231879997" duration="1754000" />
+      <workItem from="1601265676295" duration="1383000" />
+      <workItem from="1601310245987" duration="10872000" />
+      <workItem from="1601379737923" duration="14168000" />
+      <workItem from="1601476809775" duration="14630000" />
     </task>
     <servers />
   </component>
@@ -267,10 +311,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="356" y="67" key="#CLI_Interpreters/0.0.1536.824@0.0.1536.824" timestamp="1597607045089" />
-    <state x="531" y="172" key="FileChooserDialogImpl" timestamp="1597199745374">
+    <state x="531" y="172" key="FileChooserDialogImpl" timestamp="1601080114808">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="531" y="172" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1597199745374" />
+    <state x="531" y="172" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1601080114808" />
+    <state width="1537" height="410" key="GridCell.Tab.0.bottom" timestamp="1601076914708">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="410" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1601076914708" />
+    <state width="1537" height="410" key="GridCell.Tab.0.center" timestamp="1601076914708">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="410" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1601076914708" />
+    <state width="1537" height="410" key="GridCell.Tab.0.left" timestamp="1601076914708">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="410" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1601076914708" />
+    <state width="1537" height="410" key="GridCell.Tab.0.right" timestamp="1601076914708">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="410" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1601076914708" />
     <state x="604" y="336" key="NewPhpFileDialog" timestamp="1597884440506">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -283,13 +343,24 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="479" y="11" width="578" height="801" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1597273008791" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1597605315276">
+    <state x="425" y="187" key="run.anything.popup" timestamp="1601311589174">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1597605315276" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1597884375862">
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1601311589174" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1601335802361">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1597884375862" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1601335802361" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/tests/Feature/RouteControllerTest.php</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

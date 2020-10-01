@@ -42,7 +42,7 @@
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
             </form>
             <a class="btn btn-outline-success ml-2" href="{{ route('products.shop') }}">{{ __('Go to shop') }}</a>
-            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shoppingCart') }}"><i class="fas fa-shopping-cart fa-lg"></i>
+            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.index') }}"><i class="fas fa-shopping-cart fa-lg"></i>
             <b>@{{ articles }}</b>
             <b v-if="quantity>0">@{{ " + ( " + quantity + " )" }}</b>
             </a>
