@@ -84,6 +84,11 @@ class RouteController extends Controller
         // Initialize shoppingCart
         if (!$shoppingCart) {
             return view('shopping-carts.empty');
+        } else {
+            if ($shoppingCart->amount == 0) {
+                $shoppingCart->delete();
+                return view('shopping-carts.empty');
+            }
         }
 
         return redirect()->route('shopping-cart.show', $shoppingCart);

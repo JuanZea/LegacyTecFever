@@ -76,12 +76,13 @@ class ShoppingCartController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param ShoppingCart $shoppingCart
+     * @return View
      */
-    public function edit($id)
+    public function edit(ShoppingCart $shoppingCart, Request $request) : view
     {
-        //
+//        dd($shoppingCart->products->where('id',$request->product_id));
+        return view('shopping-carts.edit', ['shoppingCart'=>$shoppingCart, 'product_id'=>$request->product_id]);
     }
 
     /**
@@ -89,11 +90,21 @@ class ShoppingCartController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ShoppingCart $shoppingCart) : RedirectResponse
     {
-        //
+        if ($request->amount < 0) {
+            return back()->with('error','Numeros negativos son invalidos');
+        }
+        $product = Product::find($request->product_id);
+        $amount = 0;
+        if(isset($request->amount) || $request->amount > 0) {
+            $amount = $request->amount;
+        }
+        $shoppingCart->change($product, $amount);
+        $shoppingCart->save();
+        return redirect()->route('shopping-cart.router');
     }
 
     /**
