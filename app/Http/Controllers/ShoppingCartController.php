@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveShoppingCartRequest;
+use App\Product;
 use App\ShoppingCart;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -10,14 +13,15 @@ use Illuminate\View\View;
 
 class ShoppingCartController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() : View
+    public function index()
     {
-        return view('shoppingCart');
+
     }
 
     /**
@@ -33,39 +37,40 @@ class ShoppingCartController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param SaveShoppingCartRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(SaveShoppingCartRequest $request) : RedirectResponse
     {
-        $product = $request->product;
-        $count = $request->count;
-        if($count < 0){
-            return back()->with('status','La cantidad debe ser positiva');
-        }
+        $request = $request->validated();
+
+        $product = Product::find($request['product_id']);
+        $amount = $request['amount'];
+
         // Guarda en el carrito o crea uno
         $shoppingCart = Auth::user()->shoppingCart;
-        if ($shoppingCart) {
-            return 'ya existe';
-        } else {
+        if (!$shoppingCart) {
             $shoppingCart = new ShoppingCart([
                 'user_id' => Auth::id(),
             ]);
             $shoppingCart->save();
         }
-        dd($shoppingCart);
-        return $shoppingCart;
+
+        $shoppingCart->carry($product, $amount);
+        $shoppingCart->save();
+
+        return back()->with('status',__('Added to cart'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  ShoppingCart $shoppingCart | ->nullable();
+     * @return View
      */
-    public function show($id)
+    public function show(ShoppingCart $shoppingCart) : view
     {
-        //
+        return view('shopping-carts.show',compact('shoppingCart'));
     }
 
     /**
@@ -94,11 +99,12 @@ class ShoppingCartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param ShoppingCart $shoppingCart
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(ShoppingCart $shoppingCart) : RedirectResponse
     {
-        //
+        $shoppingCart->delete();
+        return redirect()->route('home');
     }
 }

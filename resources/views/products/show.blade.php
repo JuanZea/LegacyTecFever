@@ -52,12 +52,21 @@
 				</div>
 			</div>
 			<div class="col">
-                @if(Session::has('status'))
+                @if($errors->all())
                     <div class="card mb-4">
                         <div class="card-header text-center bg-danger text-white">
                             {{ __('Error') }}
                         </div>
                         <div class="card-body text-center bg-danger text-white">
+                            @foreach($errors->all() as $error)
+                                <b>{{ $error }}</b>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+                @if(Session::has('status'))
+                    <div class="card mb-4">
+                        <div class="card-header text-center bg-success text-white">
                             <b>{{ Session::get('status', 'default') }}</b>
                         </div>
                     </div>
@@ -70,7 +79,7 @@
 						<div class="container">
                             <div class="row">
                                 <div class="col d-flex justify-content-between">
-                                    <input v-model="quantity" class="form-control" type="number" placeholder="{{ __('Quantity') }}">
+                                    <input v-model="amount" class="form-control" type="number" placeholder="{{ __('Quantity') }}">
                                 </div>
                             </div>
                             <div class="row">
@@ -78,8 +87,8 @@
 {{--                                    <a class="btn btn-primary btn-block mt-2" href="#" @click="addToCar()" >{{ __('Add to car') }}</a>--}}
                                     <form action="{{ route('shopping-cart.store') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="product" value="{{ $product }}">
-                                        <input type="hidden" name="count" :value="quantity">
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="amount" :value="amount">
                                         <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
                                     </form>
                                     @if (Auth::user()->isAdmin)

@@ -123,8 +123,7 @@ class ProductController extends Controller
         }
         $product->update($request);
 
-        return redirect()->route('products.show', compact('product'))->with('status','hormiguero');
-//        return view('products.show', compact('product'))->with('status','hormiguero');
+        return redirect()->route('products.show', compact('product'))->with('status',__('Updated'));
     }
 
     /**

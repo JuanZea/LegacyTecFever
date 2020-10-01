@@ -20,6 +20,7 @@ Route::get('/home', 'RouteController@home')->name('home');
 Route::get('/controlPanel', 'RouteController@controlPanel')->name('controlPanel');
 Route::get('/profile', 'RouteController@profile')->name('profile');
 Route::get('/shop', 'RouteController@shop')->name('products.shop');
+Route::get('/shopping-cart/empty', 'RouteController@shoppingCartRouter')->name('shopping-cart.router');
 Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 Route::get('/vale', 'PaymentController@store')->name('payment');
 

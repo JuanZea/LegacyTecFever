@@ -49804,12 +49804,12 @@ var app = new Vue({
   data: {
     name: 'Juan Zea',
     articles: 0,
-    quantity: 0
+    amount: ''
   },
   methods: {
     addToCar: function addToCar() {
-      this.articles = this.articles + parseInt(this.quantity);
-      this.quantity = 0;
+      this.articles = this.articles + parseInt(this.amount);
+      this.amount = 0;
     }
   }
 });

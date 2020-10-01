@@ -24,9 +24,20 @@ class SaveShoppingCartRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
             'product_id' => 'required',
-            'count' => 'bail|required|min:0|max:1000'
+            'amount' => 'bail|required|min:1|max:1000'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages() : array
+    {
+        return [
+            'amount.min:1' => __("Quantities must be positive")
         ];
     }
 }

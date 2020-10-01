@@ -42,8 +42,12 @@
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
             </form>
             <a class="btn btn-outline-success ml-2" href="{{ route('products.shop') }}">{{ __('Go to shop') }}</a>
-            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.index') }}"><i class="fas fa-shopping-cart fa-lg"></i>
-            <b>@{{ articles }}</b>
+            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.router') }}"><i class="fas fa-shopping-cart fa-lg"></i>
+            @if (Auth::user()->shoppingCart)
+                <b>
+                    {{ Auth::user()->shoppingCart->amount }}
+                </b>
+            @endif
             <b v-if="quantity>0">@{{ " + ( " + quantity + " )" }}</b>
             </a>
 
@@ -63,6 +67,9 @@
                         @endif
                         <a class="dropdown-item" href="{{ route('profile') }}">
                             {{ __('Profile') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('shopping-cart.router') }}">
+                          {{ __('Shopping Cart') }}
                         </a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">

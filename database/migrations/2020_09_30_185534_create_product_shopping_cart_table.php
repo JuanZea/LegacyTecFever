@@ -18,6 +18,7 @@ class CreateProductShoppingCartTable extends Migration
 
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('shopping_cart_id');
+            $table->unsignedBigInteger('amount');
 
             // Relations
 

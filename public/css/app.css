@@ -11056,6 +11056,26 @@ a.text-dark:focus {
   min-height: inherit;
 }
 
+#shoppingCart-index,
+#shoppingCart-index .container-fluid,
+#shoppingCart-index .container-sm,
+#shoppingCart-index .container-md,
+#shoppingCart-index .container-lg,
+#shoppingCart-index .container-xl,
+#shoppingCart-index .container-fluid .row,
+#shoppingCart-index .container-sm .row,
+#shoppingCart-index .container-md .row,
+#shoppingCart-index .container-lg .row,
+#shoppingCart-index .container-xl .row,
+#shoppingCart-index .container-fluid .row .col-md-6,
+#shoppingCart-index .container-sm .row .col-md-6,
+#shoppingCart-index .container-md .row .col-md-6,
+#shoppingCart-index .container-lg .row .col-md-6,
+#shoppingCart-index .container-xl .row .col-md-6,
+#shoppingCart-index .status-bar {
+  min-height: inherit;
+}
+
 #users-index,
 #users-show,
 #products-index {
@@ -11083,6 +11103,11 @@ a.text-dark:focus {
   background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
   background-size: cover;
   min-height: inherit;
+}
+
+#summary {
+  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
+  background-size: cover;
 }
 
 #disabled {
@@ -11135,6 +11160,10 @@ a.text-dark:focus {
 #users-index .s-table td,
 #products-index .s-table td {
   text-align: center;
+  vertical-align: middle;
+}
+
+#shoppingCart-index .s-table td {
   vertical-align: middle;
 }
 
@@ -11199,6 +11228,10 @@ a.text-dark:focus {
 
 .bg-black {
   background-color: black;
+}
+
+.bg-tec {
+  background-color: #0D1931;
 }
 
 .sizer {
