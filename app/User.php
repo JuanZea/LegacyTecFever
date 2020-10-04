@@ -40,11 +40,31 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    // Functions
+
     /**
-     * The relation that should be cast to native types.
-     *
-     */
+     * Indicates if a user has pending payments
+    */
+    public function pendingpayment() {
+        $payments = $this->payments->where('status','PENDING');
+        $payments = $payments->merge($this->payments->where('status','OK'));
+        return count($payments) != 0;
+    }
+
+    /**
+     * Indicates if a user has payments history that are not pending
+    */
+    public function hasHistory() {
+        return count($this->payments->where('status', '!=', 'PENDING')) != 0;
+    }
+
+    // Reltaions
+
     public function shoppingCart() {
         return $this->hasOne(ShoppingCart::class);
+    }
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
     }
 }

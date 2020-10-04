@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Payment;
 use App\Product;
 use App\ShoppingCart;
 use Dnetix\Redirection\PlacetoPay;
@@ -106,6 +107,10 @@ class RouteController extends Controller
     public function account(int $section)
     {
         $user = Auth::user();
+        $payments = $user->payments;
+        foreach ($payments as $payment) {
+            $payment->check();
+        }
         switch ($section) {
             case 0: {
                 return view('account.profile', ['section'=>$section, 'user' =>$user]);
@@ -120,6 +125,18 @@ class RouteController extends Controller
                 abort(404);
             }
         }
+    }
+
+    /**
+     * Display a disabled view.
+     *
+     * @param Payment $payment
+     * @return Object
+     */
+    public function paymentHistory(Request $request) : Object
+    {
+        $payment = Payment::find($request->payment_id);
+        return view('account.paymentHistory', compact('payment'));
     }
 
     /**

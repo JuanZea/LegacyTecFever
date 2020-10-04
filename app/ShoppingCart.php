@@ -12,7 +12,7 @@ class ShoppingCart extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id','amount', 'totalPrice', 'redeemable'
+        'user_id','amount', 'totalPrice'
     ];
 
     // Functions
@@ -63,13 +63,15 @@ class ShoppingCart extends Model
     public function immortalize(int $payment_id) {
         $products = $this->products;
         foreach ($products as $product) {
-            ImmutableProducts::create([
+            ImmutableProduct::create([
                 'name' => $product->name,
                 'description' => $product->description,
+                'amount' => $product->pivot->amount,
                 'category' => $product->category,
                 'image' => substr_replace($product->image, 'immutableProducts', 7, 8),
                 'price' => $product->price,
-                'payment_id' => $payment_id
+                'payment_id' => $payment_id,
+                'product_id' => $product->id
             ]);
         }
     }

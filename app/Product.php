@@ -54,4 +54,9 @@ class Product extends Model
     {
         return $this->belongsToMany(ShoppingCart::class);
     }
+
+    public function immutableProducts() : Object
+    {
+        return $this->hasMany(ImmutableProduct::class);
+    }
 }

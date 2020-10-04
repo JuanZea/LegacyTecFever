@@ -13,7 +13,7 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'reference', 'status', 'requestId', 'message', 'amount', 'url'
+        'user_id', 'reference', 'status', 'requestId', 'message', 'amount', 'url'
     ];
 
     /**
@@ -51,7 +51,12 @@ class Payment extends Model
     }
 
     // Relations
-    public function product() {
-        $this->hasOne(ImmutableProducts::class);
+
+    public function products() {
+        return $this->hasMany(ImmutableProduct::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }

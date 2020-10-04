@@ -34,4 +34,28 @@ class Formatters {
 
         return $formattedPrice;
     }
+
+    /**
+     * Color states
+     * @param String $state
+     * @return String $color
+     *
+     */
+    public static function stateColor(String $state) : String {
+        switch ($state) {
+            case 'APPROVED': {
+                return '#38C172';
+            }
+            case 'OK':
+            case 'PENDING': {
+                return '#3490DC';
+            }
+            case 'REJECTED': {
+                return 'red';
+            }
+            default: {
+                return 'white';
+            }
+        }
+    }
 }

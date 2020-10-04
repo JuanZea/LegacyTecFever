@@ -17,14 +17,21 @@ class CreateImmutableProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->unsignedInteger('amount');
             $table->string('category');
             $table->string('image')->nullable();
             $table->unsignedInteger('price');
             $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('product_id');
             $table->timestamps();
 
             // Relations
-            $table->foreign('payment_id')->references('id')->on('payments');
+
+            $table->foreign('payment_id')->references('id')->on('payments')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 
@@ -38,3 +45,4 @@ class CreateImmutableProductsTable extends Migration
         Schema::dropIfExists('immutable_products');
     }
 }
+

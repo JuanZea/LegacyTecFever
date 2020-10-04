@@ -11197,13 +11197,24 @@ a.text-dark:focus {
   font-size: 40px;
 }
 
-#profile {
+#profile,
+#shopping-history {
   min-height: 100%;
   background-color: #122344;
 }
 
-#profile > .container {
+#profile > .container,
+#shopping-history > .container {
   min-height: 100%;
+}
+
+#shopping-history > div > div > div > div {
+  background-color: #182D59;
+  border-radius: 15px;
+}
+
+.modal-custom {
+  background-color: #1D366D;
 }
 
 .tab-sidebar > div {

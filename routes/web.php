@@ -23,6 +23,8 @@ Route::get('/shop', 'RouteController@shop')->name('products.shop');
 Route::get('/shopping-cart/empty', 'RouteController@shoppingCartRouter')->name('shopping-cart.router');
 Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 Route::get('/payment', 'PaymentController@payment')->name('payment');
+Route::get('/paymentRetry', 'PaymentController@retry')->name('payment.retry');
+Route::get('/paymentHistory', 'RouteController@paymentHistory')->name('payment.history');
 
 Route::resource('users', 'UserController');
 Route::resource('products', 'ProductController');

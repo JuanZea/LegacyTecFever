@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\ImmutableProducts;
+use App\ImmutableProduct;
 use App\Payment;
+use App\Product;
 use App\ShoppingCart;
 use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Http\Request;
@@ -11,6 +12,20 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     //
+    function retry(Request $request) {
+        $payment = Payment::find($request->payment_id);
+        $shoppingCart = ShoppingCart::create([
+            'user_id' => $payment->user_id,
+        ]);
+
+        foreach ($payment->products as $product) {
+            $shoppingCart->carry($product->product, $product->amount);
+        }
+        $shoppingCart->save();
+
+        return redirect()->route('payment',['shopping_cart_id'=> $shoppingCart->id]);
+    }
+
     function payment(Request $request, PlacetoPay $placetopay) {
         $shoppingCart = ShoppingCart::find($request->shopping_cart_id);
         $user = $shoppingCart->user;
@@ -50,7 +65,7 @@ class PaymentController extends Controller
             $status = $response->status()->status();
             $message = $response->status()->message();
             $url = $response->processUrl();
-            $payment = Payment::create(['reference'=>$reference, 'status'=>$status, 'requestId'=>$requestId, 'message'=>$message, 'amount'=>$total, 'url'=>$url]);
+            $payment = Payment::create(['user_id' => $user->id, 'reference'=>$reference, 'status'=>$status, 'requestId'=>$requestId, 'message'=>$message, 'amount'=>$total, 'url'=>$url]);
 
             $shoppingCart->immortalize($payment->id);
             $shoppingCart->delete();
