@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
 use App\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -75,22 +76,29 @@ class UserController extends Controller
      *
      * @param UpdateUserRequest $request
      * @param User $user
-     * @return View
+     * @return RedirectResponse
      */
-    public function update(UpdateUserRequest $request, User $user) : View
+    public function update(UpdateUserRequest $request, User $user) : RedirectResponse
     {
-        $admin = $request['isAdmin'] == '1';
-        $enabled = $request['isEnabled'] == '1';
-        $request= $request->validated();
-        if ($admin) {
-            $request += ['isAdmin' => true];
-            $request += ['isEnabled' => true];
+        $permission = $request['permission'];
+        if ($permission) {
+            $admin = $request['isAdmin'] == '1';
+            $enabled = $request['isEnabled'] == '1';
+            $request = $request->validated();
+            if ($admin) {
+                $request += ['isAdmin' => true];
+                $request += ['isEnabled' => true];
+            } else {
+                $request += ['isAdmin' => false];
+                $request += ['isEnabled' => $enabled];
+            }
+            $user->update($request);
+            return redirect()->route('users.show', compact('user'));
         } else {
-            $request += ['isAdmin' => false];
-            $request += ['isEnabled' => $enabled];
+            $request = $request->validated();
+            $user->update($request);
+            return back()->with('status', 'Successful edition');
         }
-        $user->update($request);
-        return view('users.show', compact('user'));
     }
 
     /**

@@ -13,6 +13,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'description' => $faker->text(900),
         'category' => $categories[rand(0,2)],
         'image' => null,
-        'price' => rand(1,100000)
+        'price' => rand(1,19900)*50+5000 // prices between 1 and 1'000,000 cop
     ];
 });

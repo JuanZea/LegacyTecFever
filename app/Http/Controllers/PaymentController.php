@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\ImmutableProducts;
+use App\Payment;
 use App\ShoppingCart;
 use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Http\Request;
@@ -9,39 +11,59 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     //
-    function store(Request $request, ShoppingCart $shoppingCart, PlacetoPay $placetopay){
-        // dd($shoppingCart);
+    function payment(Request $request, PlacetoPay $placetopay) {
+        $shoppingCart = ShoppingCart::find($request->shopping_cart_id);
+        $user = $shoppingCart->user;
+        $total = $shoppingCart->totalPrice;
+        $reference = time().'-'.$user->id;
+        if ($shoppingCart->description == null) {
+            $description = __('Purchase of technological devices');
+        } else {
+            $description = __($shoppingCart->description);
+        }
         $requestPayment = [
             'buyer' => [
-                'name' => 'pepita',
-                'surname' => 'perez',
-                'email' => 'pepita@perez.com',
-                'documentType' => 'CC',
-                'document' => '1000201010',
-                'mobile' => '3122332233',
-                'address' => [
-                    'street' => 'car. 1 # 5-3',
-                ]
+                'name' => $user->name,
+                'surname' => $user->surname,
+                'email' => $user->email,
+                'document' => $user->document,
+                'documentType' => $user->documentType,
+                'mobile' => $user->mobile
             ],
             'payment' => [
-                'reference' => '12344',
-                'description' => 'pago de cualquier cosa',
+                'reference' => $reference,
+                'description' => $description,
                 'amount' => [
                     'currency' => 'COP',
-                    'total' => '100000',
+                    'total' => $total
                 ],
             ],
-            'expiration' => now()->addDay(),
+            'expiration' => now()->addMinutes(10),
             'ipAddress' => $request->ip(),
             'userAgent' => $request->header('User-Agent'),
-            'returnUrl' => route('home'),
+            'returnUrl' => route('paymentResponse', compact('reference')),
         ];
+
         $response = $placetopay->request($requestPayment);
         if ($response->isSuccessful()) {
-           //GUARDAR EL PAGO Y LO QUE TENGA QUE HACER ANTES DE PAGAR CON P2P
-            return redirect($response->processUrl());
+            $requestId = $response->requestId;
+            $status = $response->status()->status();
+            $message = $response->status()->message();
+            $url = $response->processUrl();
+            $payment = Payment::create(['reference'=>$reference, 'status'=>$status, 'requestId'=>$requestId, 'message'=>$message, 'amount'=>$total, 'url'=>$url]);
+
+            $shoppingCart->immortalize($payment->id);
+            $shoppingCart->delete();
+
+            return redirect($url);
         } else {
             $response->status()->message();
         }
+    }
+
+    public function paymentResponse(Request $request) {
+        $payment = Payment::where('reference', $request->reference)->first();
+        $payment->check();
+        return view('paymentResponse', compact('payment'));
     }
 }

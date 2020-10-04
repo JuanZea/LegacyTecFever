@@ -102,11 +102,10 @@ $tec-color: #0D1931;
 #app .s-main {
     min-height: calc(100vh - 156.22px);
 }
-#profile,
-#profile .container-fluid,
-#profile .container-fluid .row,
-#profile .container-fluid .row .col-md-6,
-#profile .status-bar,
+#account,
+#account .container-fluid,
+#account .container-fluid .row,
+#account .container-fluid .row .col-md-6,
 {
     min-height: inherit;
 }
@@ -169,6 +168,9 @@ $tec-color: #0D1931;
 #products-show {
     padding-bottom: 30px;
 }
+#payment-response {
+    min-height: inherit;
+}
 #users-index .s-header>div>a>img,
 #users-show .s-header>div>a>img,
 #users-edit .s-header>div>a>img,
@@ -217,7 +219,36 @@ $tec-color: #0D1931;
     -webkit-text-stroke: 2px black;
     font-size: 40px;
 }
-
+#profile {
+    min-height: 100%;
+    background-color: #122344;
+}
+#profile>.container {
+    min-height: 100%;
+}
+.tab-sidebar>div {
+    min-height: inherit;
+    justify-content: center;
+}
+.tab-sidebar {
+    background-color: $tec-color;
+    min-height: 70px;
+    text-decoration: none !important;
+}
+.tab-sidebar-active {
+    background-color: #070E1C;
+    //background: rgb(255,255,255);
+    //background: linear-gradient(0deg, rgba(255,255,255,0.19681375968356096) 0%, rgba(255,255,255,0.0959734235491071) 50%, rgba(255,255,255,0.19681375968356096) 100%);
+    text-decoration: none !important;
+}
+.tab-sidebar :hover {
+    background-color: #070E1C;
+    transition-duration: 1s;
+    text-decoration: none !important;
+}
+.tab-sidebar-active :hover {
+    text-decoration: none !important;
+}
 .title-tec {
     font-weight: 800;
     margin: 0;

@@ -19,6 +19,7 @@ class CreateShoppingCartsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('amount')->default(0);
             $table->integer('totalPrice')->default(0);
+            $table->text('description')->nullable();
 
             $table->timestamps();
 

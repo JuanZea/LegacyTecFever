@@ -33,7 +33,6 @@ class ShoppingCart extends Model
             $amount = $this->products->where('id',$product->id)->first()->pivot->amount + $amount;
         }
         $this->products()->attach($product->id, ['amount'=>$amount]);
-
     }
 
     /**
@@ -56,6 +55,43 @@ class ShoppingCart extends Model
             $this->products()->attach($product->id, ['amount'=>$amount]);
         }
     }
+
+    /**
+     * Generates immutable products from the originals for registration in the payment
+     * @param int $payment_id
+    */
+    public function immortalize(int $payment_id) {
+        $products = $this->products;
+        foreach ($products as $product) {
+            ImmutableProducts::create([
+                'name' => $product->name,
+                'description' => $product->description,
+                'category' => $product->category,
+                'image' => substr_replace($product->image, 'immutableProducts', 7, 8),
+                'price' => $product->price,
+                'payment_id' => $payment_id
+            ]);
+        }
+    }
+
+//    /**
+//     * Mount products to cart
+//     * @param Product $product
+//     * @param int $amount
+//     * @return void
+//     */
+//    public function updateDescription() : void {
+//        $products = $this->products->where('category','computer');
+//        if ($products != null) {
+//            if (count($products) == 1) {
+//                $this->description = 'Purchase of computer';
+//            } else {
+//                $this->description = 'Purchase of computers';
+//            }
+//        }
+//
+//        dd(count($products), $this);
+//    }
 
     // Relations
 

@@ -53,7 +53,7 @@ class ProductController extends Controller
     {
         $request = $request->validated();
         if(isset($request['image'])){
-            $imagePath = $request['image']->store('images', 'public');
+            $imagePath = $request['image']->store('images/products', 'public');
             unset($request['image']);
             $request = array_merge($request,['image' => $imagePath]);
         }
@@ -104,7 +104,7 @@ class ProductController extends Controller
         $request = $request->validated();
         if (!isset($request['delete'])) {
             if(isset($request['image'])){
-                $imagePath = $request['image']->store('images', 'public');
+                $imagePath = $request['image']->store('images/products', 'public');
                 unset($request['image']);
                 $request = array_merge($request,['image' => $imagePath]);
                 Storage::disk('public')->delete($product->image);

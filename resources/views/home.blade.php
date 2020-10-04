@@ -3,6 +3,7 @@
 @section('content')
 <section id="home">
     {{--Carousel--}}
+{{--    {{ dd(getdate(time())) }}--}}
     <section id="Carousel">
         <div class="container-fluid">
             <div class="row">

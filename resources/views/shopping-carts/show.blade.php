@@ -38,7 +38,7 @@
                                                 {{ $product->pivot->amount }}
                                             </td>
                                             <td scope="col" class="text-center">
-                                                {{ $product->price }}
+                                                {{ \App\Helpers\Formatters::priceFormatter($product->price) }}
                                             </td>
                                             <td scope="col" class="text-center">
                                                 <form action="{{ route('shopping-cart.edit', $shoppingCart) }}">
@@ -59,7 +59,7 @@
                                             {{ $shoppingCart->amount }}
                                         </th>
                                         <th scope="col" class="text-center">
-                                            {{ $shoppingCart->totalPrice }}
+                                            {{ \App\Helpers\Formatters::priceFormatter($shoppingCart->totalPrice) }}
                                         </th>
                                         <th scope="col" class="text-center">
                                             <form action="{{ route('shopping-cart.destroy',$shoppingCart) }}" method="POST">
@@ -77,7 +77,17 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <a class="btn btn-outline-danger btn-block" href="{{ route('payment',Auth::user()->shoppingCart) }}">{{ __('Pay') }}</a>
+                            <img class="img-fluid" src="{{ asset('images/main/PlacetoPayLogo.png') }}" alt="Place to pay logo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="text-white text-center">{{ __('The most complete solution to accompany your digital transaction processes in different channels, with the highest security and functionalities that adapt to the needs of your business to make it grow. Now backed by Evertec.') }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-outline-danger btn-block" href="{{ route('payment',['shopping_cart_id'=>Auth::user()->shoppingCart->id]) }}">{{ __('Pay') }}</a>
                         </div>
                     </div>
                 </div>
