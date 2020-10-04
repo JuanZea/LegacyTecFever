@@ -73,22 +73,16 @@
                 @endif
 				<div class="card">
 					<div class="card-header price">
-						<span><b>$ {{ $product->price }}</b></span>
+						<span><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span>
 					</div>
 					<div class="card-body">
 						<div class="container">
                             <div class="row">
-                                <div class="col d-flex justify-content-between">
-                                    <input v-model="amount" class="form-control" type="number" placeholder="{{ __('Quantity') }}">
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col">
-{{--                                    <a class="btn btn-primary btn-block mt-2" href="#" @click="addToCar()" >{{ __('Add to car') }}</a>--}}
                                     <form action="{{ route('shopping-cart.store') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input type="hidden" name="amount" :value="amount">
+                                        <input type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
                                         <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
                                     </form>
                                     @if (Auth::user()->isAdmin)

@@ -11036,23 +11036,22 @@ a.text-dark:focus {
   min-height: calc(100vh - 156.22px);
 }
 
-#profile,
-#profile .container-fluid,
-#profile .container-sm,
-#profile .container-md,
-#profile .container-lg,
-#profile .container-xl,
-#profile .container-fluid .row,
-#profile .container-sm .row,
-#profile .container-md .row,
-#profile .container-lg .row,
-#profile .container-xl .row,
-#profile .container-fluid .row .col-md-6,
-#profile .container-sm .row .col-md-6,
-#profile .container-md .row .col-md-6,
-#profile .container-lg .row .col-md-6,
-#profile .container-xl .row .col-md-6,
-#profile .status-bar {
+#account,
+#account .container-fluid,
+#account .container-sm,
+#account .container-md,
+#account .container-lg,
+#account .container-xl,
+#account .container-fluid .row,
+#account .container-sm .row,
+#account .container-md .row,
+#account .container-lg .row,
+#account .container-xl .row,
+#account .container-fluid .row .col-md-6,
+#account .container-sm .row .col-md-6,
+#account .container-md .row .col-md-6,
+#account .container-lg .row .col-md-6,
+#account .container-xl .row .col-md-6 {
   min-height: inherit;
 }
 
@@ -11135,6 +11134,10 @@ a.text-dark:focus {
   padding-bottom: 30px;
 }
 
+#payment-response {
+  min-height: inherit;
+}
+
 #users-index .s-header > div > a > img,
 #users-show .s-header > div > a > img,
 #users-edit .s-header > div > a > img,
@@ -11192,6 +11195,41 @@ a.text-dark:focus {
 #disabled .s-header {
   -webkit-text-stroke: 2px black;
   font-size: 40px;
+}
+
+#profile {
+  min-height: 100%;
+  background-color: #122344;
+}
+
+#profile > .container {
+  min-height: 100%;
+}
+
+.tab-sidebar > div {
+  min-height: inherit;
+  justify-content: center;
+}
+
+.tab-sidebar {
+  background-color: #0D1931;
+  min-height: 70px;
+  text-decoration: none !important;
+}
+
+.tab-sidebar-active {
+  background-color: #070E1C;
+  text-decoration: none !important;
+}
+
+.tab-sidebar :hover {
+  background-color: #070E1C;
+  transition-duration: 1s;
+  text-decoration: none !important;
+}
+
+.tab-sidebar-active :hover {
+  text-decoration: none !important;
 }
 
 .title-tec {

@@ -90,7 +90,7 @@
                     <div class="row">
                         <div class="col">
                             <h1 class="mb-0 text-danger text-center">{{ __('Edit') }}</h1>
-                            <p class="text-white text-center">{{ __('Remember to save the changes before clicking buy') }}</p>
+                            <p class="text-white text-center">{{ __('Remember to confirm the changes before clicking buy') }}</p>
                             <p class="text-success text-center"><b>{{ \App\Product::find($product_id)->name }}</b></p>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                                 <div class="form-row mb-4">
                                     <div class="col-md-6 d-flex justify-content-center">
                                         <label for="amount" class="text-white mb-0">
-                                            {{ __('Amount:') }}
+                                            {{ __('Amount').':' }}
                                         </label>
                                     </div>
                                     <div class="col">
@@ -129,7 +129,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <a class="btn btn-outline-danger btn-block" href="{{ route('payment',Auth::user()->shoppingCart) }}">{{ __('Pay') }}</a>
+                            <img class="img-fluid" src="{{ asset('images/main/PlacetoPayLogo.png') }}" alt="Place to pay logo">
                         </div>
                     </div>
                 </div>

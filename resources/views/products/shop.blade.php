@@ -35,14 +35,14 @@
                                                         <?php $color = 'bg-danger' ?>
                                                 @endswitch
                                             <div class="align-self-center {{ $color }}">
-                                                <span class="text-white">{{ $product->category }}</span><br>
+                                                <span class="text-white">{{ __($product->category) }}</span><br>
                                             </div>
                                     <div class="card-body d-flex flex-md-column justify-content-between">
                                         <div class="div">
                                             {{ $product->name }}
                                         </div>
                                             <div class="align-self-center price">
-                                                <span><b>${{ $product->price }}</b></span><br>
+                                                <span><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span><br>
                                             </div>
                                     </div>
                                 </button>

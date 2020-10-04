@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ShoppingCart;
+use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,13 +98,28 @@ class RouteController extends Controller
     }
 
     /**
-     * Display a profile view.
+     * Display a account view.
      *
-     * @return Object
+     * @param int $section
+     * @return View
      */
-    public function profile() : Object
+    public function account(int $section)
     {
-        return view('profile');
+        $user = Auth::user();
+        switch ($section) {
+            case 0: {
+                return view('account.profile', ['section'=>$section, 'user' =>$user]);
+            }
+            case 1: {
+                return view('account.shoppingHistory', ['section'=>$section, 'user' =>$user]);
+            }
+            case 2: {
+                return view('account.configuration', ['section'=>$section, 'user' =>$user]);
+            }
+            default : {
+                abort(404);
+            }
+        }
     }
 
     /**

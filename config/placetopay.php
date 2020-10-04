@@ -2,6 +2,6 @@
 
 return [
     'login' => env('P2P_LOGIN'),
-    'trankey' => env('P2P_TRANKEY'),
+    'secretkey' => env('P2P_SECRETKEY'),
     'url' => env('P2P_URL')
 ];

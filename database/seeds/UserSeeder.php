@@ -14,7 +14,11 @@ class UserSeeder extends Seeder
         App\User::create([
         'isAdmin' => true,
         'isEnabled' => true,
-        'name' => 'Juan David Zea Acevedo',
+        'name' => 'Juan David',
+        'surname' => 'Zea Acevedo',
+        'document' => '1007238750',
+        'documentType' => 'CC',
+        'mobile' => '321887673',
         'email' => 'j@admin.com',
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

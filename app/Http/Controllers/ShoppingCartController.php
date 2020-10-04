@@ -47,7 +47,7 @@ class ShoppingCartController extends Controller
         $product = Product::find($request['product_id']);
         $amount = $request['amount'];
 
-        // Guarda en el carrito o crea uno
+        // Save to cart or create a new one
         $shoppingCart = Auth::user()->shoppingCart;
         if (!$shoppingCart) {
             $shoppingCart = new ShoppingCart([
@@ -57,7 +57,9 @@ class ShoppingCartController extends Controller
         }
 
         $shoppingCart->carry($product, $amount);
+
         $shoppingCart->save();
+
 
         return back()->with('status',__('Added to cart'));
     }
