@@ -22,21 +22,39 @@ class UpdateProductRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules() : array
     {
-        $rules = [
-            'name' => 'bail|required|min:3|max:70',
-            'description' => 'bail|required|min:40|max:10000',
+        return [
+            'name' => 'bail|required|min:3|max:60',
+            'description' => 'bail|required|min:10|max:1000',
             'category' => 'bail|required|in:computer,smartphone,accessory',
-            'image' => 'nullable',
-            'price' => 'bail|required|min:4|max:9'
+            'image' => 'bail|nullable|image',
+            'isEnabled' => 'nullable',
+            'delete' => 'nullable',
+            'price' => 'bail|required|digits_between:4,9'
         ];
+    }
 
-        // if($this->get('image')){
-        //     $rules =array_merge($rules,['image' => 'mimes:jpg,jpeg,png']);
-        // }
-
-        return $rules;
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages() : array
+    {
+        return [
+            'name.required' => __("Your product needs a name"),
+            'name.min' => __("A good name has a minimum of 3 characters"),
+            'name.max' => __("Do not exceed 80 characters and keep calm"),
+            'description.required' => __("The description is very important, don't forget it"),
+            'description.min' => __("Push yourself and get at least 10 characters"),
+            'description.max' => __("Don't tell me your life, maximum 1000 characters for the description"),
+            'category.required' => __("No cheating, choose one of the 3 categories"),
+            'category.in' => __("No cheating, choose one of the 3 categories"),
+            'image.image' => __("Verify that what you are uploading is an image"),
+            'price.required' => __("The most important thing is missing"),
+            'price.digits_between' => __("The minimum price is 4 digits and the maximum is 9"),
+        ];
     }
 
     /**
@@ -47,23 +65,28 @@ class UpdateProductRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'category' => $this->traslateCategory(request()['category'])
+            'category' => $this->translateCategory(request()['category'])
         ]);
     }
 
-    protected function traslateCategory(?string $idx) : string
+    /**
+     * Assign a category to an index.
+     *
+     * @param string|null $idx
+     * @return string|null
+     */
+    protected function translateCategory(?string $idx) : string
     {
         switch ($idx) {
-            case 'computador':
+            case '0':
                 $idx = 'computer';
                 break;
-            case 'celular':
+            case '1':
                 $idx = 'smartphone';
                 break;
-            case 'accesorio':
+            case '2':
                 $idx = 'accessory';
                 break;
-
             default:
                 break;
         }

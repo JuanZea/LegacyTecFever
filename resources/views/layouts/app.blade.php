@@ -24,6 +24,7 @@
 </head>
 <body>
     <div id="app">
+
         {{-- Header --}}
         <nav class="navbar navbar-expand-lg navbar-dark">
           <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('images/main/TfIcon.png') }}" alt="Logo de TecFever"></a>
@@ -33,48 +34,87 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form action="{{ route('products.shop') }}" class="form-inline my-2 my-lg-0" method="GET">
-              <input name="name" class="form-control mr-sm-2" size="40" type="search" placeholder="{{ __('¡Find what you are looking for with a click!') }}" aria-label="Search">
+              <input name="name" class="form-control mr-sm-2" size="40" type="search" placeholder="{{ __('¡Find what you are looking for with a click!') }}"
+                     @if (isset($name))
+                         value="{{ $name }}"
+                     @endif
+                     aria-label="Search">
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
             </form>
             <a class="btn btn-outline-success ml-2" href="{{ route('products.shop') }}">{{ __('Go to shop') }}</a>
+            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.router') }}"><i class="fas fa-shopping-cart fa-lg"></i>
+            @if (Auth::user()->shoppingCart)
+                <b>
+                    {{ Auth::user()->shoppingCart->amount }}
+                </b>
+            @endif
+            <b v-if="quantity>0">@{{ " + ( " + quantity + " )" }}</b>
+            </a>
+
             {{--Authentication--}}
-            <ul class="navbar-nav ml-auto">
-                @guest
-                    <li class="nav-item text-center text-sm-left">
-                        <a class="btn btn-dark align-items-center d-flex" href="{{ route('login') }}"><i class="far fa-user-circle pr-2 fa-lg"></i><b>{{ __('Login') }}</b></a>
-                    </li>
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            @if (Auth::user()->isAdmin)
-                                <a class="dropdown-item" href="{{ route('controlPanel') }}">
-                                    {{ __('Control Panel') }}
-                                </a>
-                            @endif
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name.' '.Auth::user()->surname }} <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        @if (Auth::user()->isAdmin)
+                            <a class="dropdown-item" href="{{ route('controlPanel') }}">
+                                {{ __('Control Panel') }}
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                  style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                @endguest
+                        @endif
+                        <a class="dropdown-item" href="{{ route('account', 0) }}">
+                            {{ __('Account') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('shopping-cart.router') }}">
+                          {{ __('Shopping cart') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                              style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
             </ul>
             {{--/Authentication--}}
+
           </div>
         </nav>
         {{-- /Header --}}
-        <main>
+
+        {{-- Main --}}
+        <main class="s-main">
             @yield('content')
         </main>
+        {{-- /Main --}}
+
+        {{-- Footer --}}
+        <div class="s-footer container-fluid py-3">
+            <div class="row text-center">
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("Terms and conditions") }}</a>
+                </div>
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("Privacy policies") }}</a>
+                </div>
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("About us") }}</a>
+                </div>
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("Contact us") }}</a>
+                </div>
+                <div class="col">
+                    <a class="nav-link" href="#">{{ __("Social networks") }}</a>
+                </div>
+            </div>
+        </div>
+        {{-- /Footer --}}
     </div>
 </body>
 </html>

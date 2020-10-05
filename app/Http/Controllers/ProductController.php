@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Product;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class ProductController
+ * @package App\Http\Controllers
+ */
 class ProductController extends Controller
 {
     public function __construct()
@@ -15,23 +21,24 @@ class ProductController extends Controller
         $this->middleware('auth');
         $this->middleware('isAdmin')->except('show');
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index() : View
     {
-        $products = Product::orderBy('id','DESC')->paginate();
+        $products = Product::query()->orderBy('id','DESC')->paginate();
         return view('products.index',compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create() : View
     {
         return view('products.create');
     }
@@ -39,40 +46,48 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateProductRequest $request
+     * @return RedirectResponse
      */
-    public function store(CreateProductRequest $request)
+    public function store(CreateProductRequest $request) : RedirectResponse
     {
         $request = $request->validated();
-        if($request['image'] != './public/storage/images/ASUSVivoBook.jpg'){
-            $imagePath = $request['image']->store('images', 'public');
+        if(isset($request['image'])){
+            $imagePath = $request['image']->store('images/products', 'public');
             unset($request['image']);
             $request = array_merge($request,['image' => $imagePath]);
         }
-        $product = Product::create($request);
-        $products = Product::paginate();
-        return view('products.index',compact('products'));
+        $product = (new Product)->create($request);
+        $product->save();
+        return redirect()->route('products.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return Object
      */
-    public function show(Product $product)
+    public function show(Product $product) : Object
     {
-        return view('products.show',compact('product'));
+        if (Auth::user()->isAdmin) {
+            return view('products.show',compact('product'));
+        } else {
+            if($product->isEnabled) {
+                return view('products.show',compact('product'));
+            } else {
+                return redirect()->route('home');
+            }
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return View
      */
-    public function edit(Product $product)
+    public function edit(Product $product) : View
     {
         return view('products.edit',compact('product'));
     }
@@ -80,36 +95,47 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param UpdateProductRequest $request
+     * @param Product $product
+     * @return RedirectResponse
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product) : RedirectResponse
     {
         $request = $request->validated();
-        if($request['image']){
-            if($request['image'] != './public/storage/images/ASUSVivoBook.jpg'){
-                $imagePath = $request['image']->store('images', 'public');
+        if (!isset($request['delete'])) {
+            if(isset($request['image'])){
+                $imagePath = $request['image']->store('images/products', 'public');
                 unset($request['image']);
                 $request = array_merge($request,['image' => $imagePath]);
+                Storage::disk('public')->delete($product->image);
+            } else {
+                unset($request['image']);
             }
-        } else
-            unset($request['image']);
+        } else {
+            $request['image'] = null;
+            Storage::disk('public')->delete($product->image);
+        }
+        if (isset($request['isEnabled'])) {
+            unset($request['isEnabled']);
+            $request = array_merge($request,['isEnabled' => true]);
+        } else {
+            $request = array_merge($request,['isEnabled' => false]);
+        }
         $product->update($request);
 
-        return view('products.show', compact('product'));
+        return redirect()->route('products.show', compact('product'))->with('status',__('Updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return RedirectResponse
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product) : RedirectResponse
     {
         Storage::disk('public')->delete($product->image);
         $product->delete();
-        return redirect()->route('products.shop');
+        return redirect()->route('products.index');
     }
 }

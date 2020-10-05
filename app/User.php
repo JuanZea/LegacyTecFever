@@ -6,7 +6,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+/**
+ * @property mixed isAdmin
+ */
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'isAdmin','isEnabled'
+        'name', 'surname', 'document', 'documentType', 'mobile', 'email', 'password', 'isAdmin','isEnabled'
     ];
 
     /**
@@ -36,4 +39,32 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Functions
+
+    /**
+     * Indicates if a user has pending payments
+    */
+    public function pendingpayment() {
+        $payments = $this->payments->where('status','PENDING');
+        $payments = $payments->merge($this->payments->where('status','OK'));
+        return count($payments) != 0;
+    }
+
+    /**
+     * Indicates if a user has payments history that are not pending
+    */
+    public function hasHistory() {
+        return count($this->payments->where('status', '!=', 'PENDING')) != 0;
+    }
+
+    // Reltaions
+
+    public function shoppingCart() {
+        return $this->hasOne(ShoppingCart::class);
+    }
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
 }

@@ -2,8 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed image
+ * @mixin Builder
+ */
 class Product extends Model
 {
 	/**
@@ -12,18 +17,46 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'category', 'image', 'price',
+        'name','isEnabled', 'description', 'category', 'image', 'price',
     ];
 
-    public function getGetImageAttribute()
+    /**
+     * Returns the url of the product image
+     * @return String
+     */
+    public function getGetImageAttribute() : String
     {
-        return url("storage/$this->image");
+        if ($this->image) {
+            return url("storage/$this->image");
+        }
+        return url("images/main/IND.png");
     }
 
     // Query Scopes
-    public function scopeName($query, $name)
+
+    /**
+     * Filter shop products by name
+     * @param Builder $query
+     * @param ?String $name
+     * @return Builder
+     */
+    public function scopeName(Builder $query, ?String $name) : Builder
     {
-        if($name)
+        if ($name) {
             return $query->where('name','LIKE',"%$name%");
+        }
+        return $query;
+    }
+
+    // Relations
+
+    public function shoppingCarts() : Object
+    {
+        return $this->belongsToMany(ShoppingCart::class);
+    }
+
+    public function immutableProducts() : Object
+    {
+        return $this->hasMany(ImmutableProduct::class);
     }
 }

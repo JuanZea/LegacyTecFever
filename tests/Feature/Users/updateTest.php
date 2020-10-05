@@ -4,10 +4,9 @@ namespace Tests\Feature\Users;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\TestCase;
-include_once 'tests/TestHelpers.php';
+use Tests\TestHelpers;
 
 class updateTest extends TestCase
 {
@@ -23,10 +22,10 @@ class updateTest extends TestCase
     public function anAdminCanUpdateUsersWithValidUserInputs(string $data)
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
         $user = factory(User::class)->create();
-        $oldData = removeTimeKeys($user->toArray());
-        $validRequest = VALIDREQUESTFORUSER;
+        $oldData = TestHelpers::removeTimeKeys($user->toArray());
+        $validRequest = TestHelpers::VALIDREQUESTFORUSER;
         if ($data != 'new')
             if($data == 'same')
                 $validRequest = $oldData;
@@ -39,7 +38,7 @@ class updateTest extends TestCase
 
         // Assert
         $response->assertOk();
-        $response->assertViewIs('users.show',$user->id);
+        $response->assertViewIs('users.show');
         $this->assertDatabaseHas('users',$validRequest);
         if ($data != 'new')
             if($data == 'same')
@@ -67,11 +66,10 @@ class updateTest extends TestCase
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
         $user = factory(User::class)->create();
-        $oldData = removeTimeKeys($user->toArray());
 
         // Act
         $this->actingAs($admin);
-        $invalidRequest = VALIDREQUESTFORUSER;
+        $invalidRequest = TestHelpers::VALIDREQUESTFORUSER;
         $invalidRequest[$field] = $value;
         if($value == 'nixon@admin.com'){
             $invalidRequest[$field] = $admin->email;

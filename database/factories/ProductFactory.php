@@ -8,10 +8,11 @@ use Faker\Generator as Faker;
 $factory->define(Product::class, function (Faker $faker) {
 	$categories = (['computer','smartphone','accessory']);
     return [
-        'name' => $faker->sentence(6),
-        'description' => $faker->text(1000),
+        'name' => $faker->text(30),
+        'isEnabled' => $faker->boolean($chanceOfGettingTrue = 70),
+        'description' => $faker->text(900),
         'category' => $categories[rand(0,2)],
-        'image' => 'images/'.$faker->image('public/storage/images',640,480, null, false),
-        'price' => rand(1,1000000)
+        'image' => null,
+        'price' => rand(1,19900)*50+5000 // prices between 1 and 1'000,000 cop
     ];
 });

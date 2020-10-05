@@ -26,29 +26,83 @@
 		<div class="s-presentation row">
 			<div class="col-9">
 				<div class="card border-0 shadow">
-					<div class="card-header bg-black p-1">
-						<img src="{{ $product->get_image }}" class="card-img-top">
+					<div class="card-header p-0">
+						<img src="{{ $product->get_image }}" class="card-img-top" alt="{{ __('Product image') }}">
 					</div>
+                    @switch($product->category)
+                        @case('computer')
+                        <?php $color = 'bg-computer' ?>
+                        @break
+                        @case('smartphone')
+                        <?php $color = 'bg-smartphone' ?>
+                        @break
+                        @case('accessory')
+                        <?php $color = 'bg-accessory' ?>
+                        @break
+                        @default
+                        <?php $color = 'bg-danger' ?>
+                    @endswitch
+                    <div class="text-center text-uppercase {{ $color }}">
+                        <span class="text-white">{{ $product->category }}</span><br>
+                    </div>
 					<div class="card-body">
+						<b>{{ __('Description').':' }}</b><br>
 						{{ __($product->description) }}
 					</div>
 				</div>
 			</div>
 			<div class="col">
+                @if($errors->all())
+                    <div class="card mb-4">
+                        <div class="card-header text-center bg-danger text-white">
+                            {{ __('Error') }}
+                        </div>
+                        <div class="card-body text-center bg-danger text-white">
+                            @foreach($errors->all() as $error)
+                                <b>{{ $error }}</b>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+                @if(Session::has('status'))
+                    <div class="card mb-4">
+                        <div class="card-header text-center bg-success text-white">
+                            <b>{{ Session::get('status', 'default') }}</b>
+                        </div>
+                    </div>
+                @endif
 				<div class="card">
-					<div class="card-header">
-						<span><b>{{ $product->price }}</b></span>
+					<div class="card-header price">
+						<span><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span>
 					</div>
 					<div class="card-body">
-						<a class="btn btn-primary btn-block" href="#">{{ __('Add to car') }}</a>
-						@if (Auth::user()->isAdmin)
-						<a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
-						<form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
-						@csrf
-						@method('DELETE')
-						<button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
-					</form>
-				@endif
+						<div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <form action="{{ route('shopping-cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
+                                        <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
+                                    </form>
+                                    @if (Auth::user()->isAdmin)
+                                        <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
+                                        <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
+                                        </form>
+                                        @if(!$product->isEnabled)
+                                            <div class="card bg-warning mt-2">
+                                                <div class="card-body text-center">
+                                                    <i class="fas fa-exclamation-triangle"></i> {{ __('Disabled!') }}
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
 					</div>
 				</div>
 			</div>

@@ -16,7 +16,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->isAdmin;
+        return true;
     }
 
     /**
@@ -27,41 +27,15 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'isAdmin' => 'nullable',
-            'isEnabled' => 'nullable',
-            'name' => 'bail|required|min:3|max:40',
+            'name' => 'bail|required|min:2|max:25',
+            'surname' => 'bail|nullable|min:2|max:25',
+            'document' => 'bail|string|nullable|min:4|max:25',
+            'documentType' => 'bail|string|nullable|min:2|max:5',
+            'mobile' => 'bail|numeric|nullable|digits_between: 8 , 15',
             'email' => 'bail|required|email|max:60|unique:users,email,'.$this->user->id,
             'password' => 'bail|nullable|min:8|max:20',
         ];
     }
-
-    // protected function prepareForValidation()
-    // {
-    //     $this->merge([
-    //         if(request()->has('isAdmin')){
-    //             'isAdmin' => 1;
-    //         }
-    //         if(request()->has('isEnabled')){
-    //             'isEnabled' => 1;
-    //         }
-    //         // $this->isPresentOrNot('isAdmin') => $this->onToTrueNullToFalse($this->request->all()['isAdmin']),
-    //         // 'isEnabled' => $this->onToTrueNullToFalse($this->request->all()['isEnabled'])
-    //     ]);
-    // }
-
-    // protected function isPresentOrNot(string $is) : string
-    // {
-    //     if (request()->has($is)) {
-    //         return
-    //     }
-    //     return ;
-    // }
-
-    // protected function onToTrueNullToFalse(?string $value) : bool
-    // {
-    //     return $value;
-    // }
-
 
     // public function messages()
     // {

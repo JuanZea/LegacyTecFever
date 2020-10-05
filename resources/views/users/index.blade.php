@@ -3,6 +3,7 @@
 @section('content')
 <section id="users-index">
     <div class="container pb-5">
+
         {{-- Header --}}
         <div class="s-header row py-4">
             <div class="col-1 px-0">
@@ -44,18 +45,26 @@
                         <td class="text-left">
                             {{ $user->name }}
                         </td>
-                        @if($user->isEnabled)
-                        <td>
-                            <span class="rounded-pill p-2 bg-success text-white">
-                                {{ __('Enabled') }}
-                            </span>
-                        </td>
+                        @if(!$user->isAdmin)
+                            @if($user->isEnabled)
+                            <td>
+                                <span class="rounded-pill p-2 bg-success text-white">
+                                    {{ __('Enabled') }}
+                                </span>
+                            </td>
+                            @else
+                            <td>
+                                <span class="rounded-pill p-2 bg-danger text-white">
+                                    {{ __('Disabled') }}
+                                </span>
+                            </td>
+                            @endif
                         @else
-                        <td>
-                            <span class="rounded-pill p-2 bg-danger text-white">
-                                {{ __('Disabled') }}
-                            </span>
-                        </td>
+                            <td>
+                                <span class="rounded-pill p-2 bg-warning text-white">
+                                    {{ __('Administrator') }}
+                                </span>
+                            </td>
                         @endif
                         <td>
                             <a class="btn btn-tec" href="{{ route('users.show',$user) }}">
@@ -74,6 +83,7 @@
             {{ $users->links() }}
         </div>
         {{-- /Paginate --}}
+
     </div>
 </section>
 @endsection
