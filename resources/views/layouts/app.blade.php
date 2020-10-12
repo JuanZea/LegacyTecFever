@@ -27,7 +27,7 @@
 
         {{-- Header --}}
         <nav class="navbar navbar-expand-lg navbar-dark">
-          <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('images/main/TfIcon.png') }}" alt="Logo de TecFever"></a>
+          <a class="navbar-brand hvr-pulse-grow" href="{{ route('home') }}"><img src="{{ asset('images/main/TfIcon.png') }}" alt="Logo de TecFever"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -42,7 +42,7 @@
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
             </form>
             <a class="btn btn-outline-success ml-2" href="{{ route('products.shop') }}">{{ __('Go to shop') }}</a>
-            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.router') }}"><i class="fas fa-shopping-cart fa-lg"></i>
+            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.router') }}"><i class="fas fa-shopping-cart fa-lg hvr-buzz-out"></i>
             @if (Auth::user()->shoppingCart)
                 <b>
                     {{ Auth::user()->shoppingCart->amount }}

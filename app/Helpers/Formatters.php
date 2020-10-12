@@ -11,28 +11,15 @@ class Formatters {
      *
      */
     public static function priceFormatter(String $price) : String {
-        $lenght = strlen($price);
+        $length = strlen($price);
         $formattedPrice = '$ ';
-        switch ($lenght) {
-            case $lenght > 9: {
-                $formattedPrice .= substr($price,0,-9).'.'.substr($price,-9,-6).'.'.substr($price,-6,-3).'.'.substr($price, -3);
-                break;
-            }
-            case $lenght > 6: {
-                $formattedPrice .= substr($price,0,-6).'\''.substr($price,-6,-3).'.'.substr($price, -3);
-                break;
-            }
-            case $lenght > 3: {
-                $formattedPrice .= substr($price,0,-3).'.'.substr($price, -3);
-                break;
-            }
-            default: {
-                $formattedPrice .= $price;
-                break;
-            }
+        $excess = $length%3;
+        $truncated = substr($price, $excess);
+        $formattedPrice .= $excess > 0 ? substr($price, 0, $excess).'.' : substr($price, 0, $excess);
+        for ($i=0; $i < intval($length/3); $i++) {
+            $formattedPrice .= substr($truncated, $i*3, 3).'.';
         }
-
-        return $formattedPrice;
+        return substr($formattedPrice, 0, strlen($formattedPrice)-1);
     }
 
     /**

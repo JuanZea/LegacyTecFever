@@ -15,10 +15,10 @@
 			<div class="s-showcase row">
 				@foreach($products as $product)
 				    @if($product->isEnabled)
-                        <div class="col-md-4 py-3">
+                        <div class="col-md-4 py-3 hvr-grow-shadow">
                             <form action="{{ route('products.show',$product) }}">
                                 <button class="card px-0 mask shadow">
-                                    <div class="card-header">
+                                    <div class="card-header p-0">
                                         <img class="img-fluid" src="{{ $product->get_image }}" alt="Imagen de producto">
                                     </div>
                                         @switch($product->category)
@@ -35,7 +35,7 @@
                                                         <?php $color = 'bg-danger' ?>
                                                 @endswitch
                                             <div class="align-self-center {{ $color }}">
-                                                <span class="text-white">{{ __($product->category) }}</span><br>
+                                                <span class="text-white">{{ strtoupper(__($product->category)) }}</span><br>
                                             </div>
                                     <div class="card-body d-flex flex-md-column justify-content-between">
                                         <div class="div">

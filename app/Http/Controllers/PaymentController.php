@@ -27,7 +27,7 @@ class PaymentController extends Controller
     }
 
     function payment(Request $request, PlacetoPay $placetopay) {
-        $shoppingCart = ShoppingCart::find($request->shopping_cart_id);
+        $shoppingCart = ShoppingCart::with('user')->find($request->shopping_cart_id);
         $user = $shoppingCart->user;
         $total = $shoppingCart->totalPrice;
         $reference = time().'-'.$user->id;
@@ -53,7 +53,7 @@ class PaymentController extends Controller
                     'total' => $total
                 ],
             ],
-            'expiration' => now()->addMinutes(10),
+            'expiration' => now()->addSecond(60),
             'ipAddress' => $request->ip(),
             'userAgent' => $request->header('User-Agent'),
             'returnUrl' => route('paymentResponse', compact('reference')),
@@ -72,7 +72,9 @@ class PaymentController extends Controller
 
             return redirect($url);
         } else {
+            return $response->status()->message();
             $response->status()->message();
+            dd('aqui');
         }
     }
 
