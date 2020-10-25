@@ -3,6 +3,7 @@
 namespace Tests\Feature\Products;
 
 use App\Product;
+use App\ShoppingCart;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -14,16 +15,17 @@ class updateTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Tests for update Product
+     * Verify that an admin can update products with valid information
      *
      * @test
      * @dataProvider validProductInputDataProvider
      * @param string $data
      */
-    public function anAdminCanUpdateProductsWithValidProductInputs($data)
+    public function anAdminCanUpdateProductsWithValidProductInputs(string $data)
     {
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
+        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
         $oldData = TestHelpers::removeTimeKeys($product->toArray());
         if (!$oldData['isEnabled']) {
@@ -40,15 +42,14 @@ class updateTest extends TestCase
 
         // Act
         $this->actingAs($admin);
-        $response = $this->put(route('products.update',$product),$validRequest);
+        $response = $this->put(route('products.update', $product),$validRequest);
 
         // Assert
         $response->assertRedirect();
-        // $response->assertViewIs('products.show');
-        $this->assertDatabaseHas('products',$validRequest);
+        $this->assertDatabaseHas('products', $validRequest);
         if ($data != 'new') {
             if($data == 'same') {
-                $this->assertDatabaseHas('products',$oldData);
+                $this->assertDatabaseHas('products', $oldData);
             }
             else {
                 $validRequest[$data] = $oldData[$data];
@@ -57,12 +58,12 @@ class updateTest extends TestCase
                 ]);
             }
         } else {
-            $this->assertDatabaseMissing('products',$oldData);
+            $this->assertDatabaseMissing('products', $oldData);
         }
     }
 
      /**
-     * Tests for update Prdoucts
+     * Verify that an admin cannot update products with invalid information
      *
      * @test
      * @dataProvider invalidProductInputDataProvider
@@ -85,6 +86,8 @@ class updateTest extends TestCase
         $response->assertSessionHasErrors();
         $this->assertDatabaseMissing('products',$invalidRequest);
     }
+
+    // PROVIDERS
 
     public function validProductInputDataProvider()
     {

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Products;
 
+use App\ShoppingCart;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class storeTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Tests for store Products
+     * Verify that an admin can create products with valid information
      *
      * @test
      */
@@ -21,18 +22,19 @@ class storeTest extends TestCase
     {
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
+        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
 
         // Act
         $this->actingAs($admin);
         $response = $this->post(route('products.store',TestHelpers::VALIDREQUESTFORPRODUCT));
 
         // Assert
-        $response->assertRedirect();
+        $response->assertRedirect(route('products.index'));
         $this->assertDatabaseHas('products', TestHelpers::VALIDREQUESTFORPRODUCT);
     }
 
     /**
-     * Tests for store Products
+     * Verify that an admin cannot create products with invalid information
      *
      * @test
      * @dataProvider invalidProductInputDataProvider
@@ -41,9 +43,9 @@ class storeTest extends TestCase
      */
     public function anAdminCannotStoreAProductWithInvalidProductInputs(string $field, ?string $value)
     {
-        $this->withExceptionHandling();
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true]);
+        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $invalidRequest = TestHelpers::VALIDREQUESTFORPRODUCT;
         $invalidRequest[$field] = $value;
 
@@ -57,6 +59,42 @@ class storeTest extends TestCase
         $this->assertDatabaseMissing('products',$invalidRequest);
     }
 
+    /**
+     * Verify that an user cannot create products
+     *
+     * @test
+     */
+    public function anUserCannotStoreAProduct()
+    {
+        // Arrange
+        $user = factory(User::class)->create();
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->post(route('products.store',TestHelpers::VALIDREQUESTFORPRODUCT));
+
+        // Assert
+        $response->assertRedirect();
+        $this->assertDatabaseMissing('products', TestHelpers::VALIDREQUESTFORPRODUCT);
+    }
+
+    /**
+     * Verify that a guest cannot create products
+     *
+     * @test
+     */
+    public function aGuestCannotStoreAProduct()
+    {
+        // Act
+        $response = $this->post(route('products.store',TestHelpers::VALIDREQUESTFORPRODUCT));
+
+        // Assert
+        $response->assertRedirect('login');
+        $this->assertDatabaseMissing('products', TestHelpers::VALIDREQUESTFORPRODUCT);
+    }
+
+    // PROVIDERS
 
     public function invalidProductInputDataProvider()
     {

@@ -33,7 +33,7 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form action="{{ route('products.shop') }}" class="form-inline my-2 my-lg-0" method="GET">
+            <form action="{{ route('shop') }}" class="form-inline my-2 my-lg-0" method="GET">
               <input name="name" class="form-control mr-sm-2" size="40" type="search" placeholder="{{ __('¡Find what you are looking for with a click!') }}"
                      @if (isset($name))
                          value="{{ $name }}"
@@ -41,15 +41,17 @@
                      aria-label="Search">
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
             </form>
-            <a class="btn btn-outline-success ml-2" href="{{ route('products.shop') }}">{{ __('Go to shop') }}</a>
-            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.router') }}"><i class="fas fa-shopping-cart fa-lg hvr-buzz-out"></i>
-            @if (Auth::user()->shoppingCart)
-                <b>
-                    {{ Auth::user()->shoppingCart->amount }}
-                </b>
-            @endif
-            <b v-if="quantity>0">@{{ " + ( " + quantity + " )" }}</b>
-            </a>
+            <a class="btn btn-outline-success ml-2" href="{{ route('shop') }}">{{ __('Go to shop') }}</a>
+            <shopping-cart-link-component :amount="{{ Auth::user()->shoppingCart->amount }}" :user="{{ Auth::id() }}" :quantity="quantity" :route="'{{ route('shoppingCarts.show', Auth::user()->shoppingCart) }}'"></shopping-cart-link-component>
+
+{{--            <a v-cloak class="ml-auto mr-3 text-warning nd" href="{{ route('shopping-cart.router') }}"><i class="fas fa-shopping-cart fa-lg hvr-buzz-out"></i>--}}
+{{--            @if (Auth::user()->shoppingCart)--}}
+{{--                <b>--}}
+{{--                    {{ Auth::user()->shoppingCart->amount }}--}}
+{{--                </b>--}}
+{{--            @endif--}}
+{{--            <b v-if="quantity>0">@{{ " + ( " + quantity + " )" }}</b>--}}
+{{--            </a>--}}
 
             {{--Authentication--}}
             <ul class="navbar-nav">
@@ -68,7 +70,7 @@
                         <a class="dropdown-item" href="{{ route('account', 0) }}">
                             {{ __('Account') }}
                         </a>
-                        <a class="dropdown-item" href="{{ route('shopping-cart.router') }}">
+                        <a class="dropdown-item" href="{{ route('shoppingCarts.show', Auth::user()->shoppingCart) }}">
                           {{ __('Shopping cart') }}
                         </a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -118,3 +120,9 @@
     </div>
 </body>
 </html>
+{{--<script>--}}
+{{--    import ShoppingCartLink from "../../js/components/ShoppingCartLink";--}}
+{{--    export default {--}}
+{{--        components: {ShoppingCartLink}--}}
+{{--    }--}}
+{{--</script>--}}

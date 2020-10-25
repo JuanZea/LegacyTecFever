@@ -54,7 +54,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                    @foreach($payment->products as $product)
+                                    @foreach(\GuzzleHttp\json_decode($payment->invoice) as $product)
                                         <li class="list-group-item list-group-item-action">
                                             <div class="container">
                                                 <div class="row">

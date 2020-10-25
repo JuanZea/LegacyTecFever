@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-2 py-3 bg-tec px-0 flex-column d-flex justify-content-around">
 
-                <a style="text-decoration: none" href="{{ substr(url()->current(),0,-1).'0' }}" class="d-flex align-items-center tab-sidebar @if ($section == 0)
+                <a style="text-decoration: none" href="{{ route('account', ['section' => 0]) }}" class="d-flex align-items-center tab-sidebar @if ($section == 0)
                     tab-sidebar-active
                 @endif">
                     <div class="container">
@@ -22,7 +22,7 @@
                     </div>
                 </a>
 
-                <a style="text-decoration: none" href="{{ substr(url()->current(),0,-1).'1' }}" class="d-flex align-items-center tab-sidebar @if ($section == 1)
+                <a style="text-decoration: none" href="{{ route('account', ['section' => 1]) }}" class="d-flex align-items-center tab-sidebar @if ($section == 1)
                     tab-sidebar-active
                 @endif">
                     <div class="container">
@@ -37,7 +37,7 @@
                     </div>
                 </a>
 
-                <a style="text-decoration: none" href="{{ substr(url()->current(),0,-1).'2' }}" class="d-flex align-items-center tab-sidebar @if ($section == 2)
+                <a style="text-decoration: none" href="{{ route('account', ['section' => 2]) }}" class="d-flex align-items-center tab-sidebar @if ($section == 2)
                     tab-sidebar-active
                 @endif">
                     <div class="container">

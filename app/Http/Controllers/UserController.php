@@ -14,7 +14,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('isAdmin');
+        $this->middleware('isAdmin')->except('update');
     }
 
     /**
@@ -97,7 +97,7 @@ class UserController extends Controller
         } else {
             $request = $request->validated();
             $user->update($request);
-            return back()->with('status', 'Successful edition');
+            return redirect()->route('account')->with('status', 'Successful edition');
         }
     }
 

@@ -6,20 +6,30 @@ use App\ImmutableProduct;
 use App\Payment;
 use App\Product;
 use App\ShoppingCart;
+use App\User;
 use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PaymentController extends Controller
 {
-    //
-    function retry(Request $request) {
-        $payment = Payment::find($request->payment_id);
-        $shoppingCart = ShoppingCart::create([
-            'user_id' => $payment->user_id,
-        ]);
+    public function __construct()
+	{
+		$this->middleware('auth');
+    	$this->middleware('verified');
+    	$this->middleware('isEnabled');
+	}
 
-        foreach ($payment->products as $product) {
-            $shoppingCart->carry($product->product, $product->amount);
+    function retry(Request $request) {
+        if (!isset($request->payment_id)) {
+            return back();
+        }
+        $payment = Payment::find($request->payment_id);
+        $user = User::find($payment->user_id);
+        $shoppingCart = $user->shoppingCart;
+
+        foreach (\GuzzleHttp\json_decode($payment->invoice) as $product) {
+            $shoppingCart->carry(Product::find($product->product_id), $product->amount);
         }
         $shoppingCart->save();
 
@@ -27,6 +37,9 @@ class PaymentController extends Controller
     }
 
     function payment(Request $request, PlacetoPay $placetopay) {
+        if (!isset($request->shopping_cart_id)) {
+            return back();
+        }
         $shoppingCart = ShoppingCart::with('user')->find($request->shopping_cart_id);
         $user = $shoppingCart->user;
         $total = $shoppingCart->totalPrice;
@@ -53,10 +66,10 @@ class PaymentController extends Controller
                     'total' => $total
                 ],
             ],
-            'expiration' => now()->addSecond(60),
+            'expiration' => now()->addMinutes(5),
             'ipAddress' => $request->ip(),
             'userAgent' => $request->header('User-Agent'),
-            'returnUrl' => route('paymentResponse', compact('reference')),
+            'returnUrl' => route('payment.response', compact('reference')),
         ];
 
         $response = $placetopay->request($requestPayment);
@@ -65,22 +78,47 @@ class PaymentController extends Controller
             $status = $response->status()->status();
             $message = $response->status()->message();
             $url = $response->processUrl();
-            $payment = Payment::create(['user_id' => $user->id, 'reference'=>$reference, 'status'=>$status, 'requestId'=>$requestId, 'message'=>$message, 'amount'=>$total, 'url'=>$url]);
+            $invoice = $shoppingCart->invoice();
+            Payment::create([
+                'user_id' => $user->id,
+                'reference'=> $reference,
+                'status'=> $status,
+                'requestId'=> $requestId,
+                'message'=> $message,
+                'invoice'=> $invoice,
+                'amount'=> $total,
+                'url'=> $url
+            ]);
 
-            $shoppingCart->immortalize($payment->id);
-            $shoppingCart->delete();
+            $shoppingCart->clean();
 
             return redirect($url);
         } else {
             return $response->status()->message();
-            $response->status()->message();
-            dd('aqui');
         }
     }
 
-    public function paymentResponse(Request $request) {
+    /**
+     * Display a payment response view.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function response(Request $request) : View {
         $payment = Payment::where('reference', $request->reference)->first();
         $payment->check();
-        return view('paymentResponse', compact('payment'));
+        return view('account.payment.response', compact('payment'));
+    }
+
+    /**
+     * Display a payment history view.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function history(Request $request) : View
+    {
+        $payment = Payment::find($request->payment_id);
+        return view('account.payment.history', compact('payment'));
     }
 }

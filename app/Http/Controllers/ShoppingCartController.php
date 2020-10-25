@@ -13,6 +13,12 @@ use Illuminate\View\View;
 
 class ShoppingCartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isEnabled');
+        $this->middleware('verified');
+    }
 
     /**
      * Display a listing of the resource.
@@ -72,7 +78,7 @@ class ShoppingCartController extends Controller
      */
     public function show(ShoppingCart $shoppingCart) : view
     {
-        return view('shopping-carts.show',compact('shoppingCart'));
+        return view('shoppingCarts.show',compact('shoppingCart'));
     }
 
     /**
@@ -84,7 +90,7 @@ class ShoppingCartController extends Controller
     public function edit(ShoppingCart $shoppingCart, Request $request) : view
     {
 //        dd($shoppingCart->products->where('id',$request->product_id));
-        return view('shopping-carts.edit', ['shoppingCart'=>$shoppingCart, 'product_id'=>$request->product_id]);
+        return view('shoppingCarts.edit', ['shoppingCart'=>$shoppingCart, 'product_id'=>$request->product_id]);
     }
 
     /**
@@ -97,7 +103,7 @@ class ShoppingCartController extends Controller
     public function update(Request $request, ShoppingCart $shoppingCart) : RedirectResponse
     {
         if ($request->amount < 0) {
-            return back()->with('error','Numeros negativos son invalidos');
+            return back()->with('error',__('Negative numbers are invalid'));
         }
         $product = Product::find($request->product_id);
         $amount = 0;
@@ -106,7 +112,22 @@ class ShoppingCartController extends Controller
         }
         $shoppingCart->change($product, $amount);
         $shoppingCart->save();
-        return redirect()->route('shopping-cart.router');
+        return redirect()->route('shoppingCarts.show', $shoppingCart);
+    }
+
+    /**
+     * Remove all products from the shopping cart
+     *
+     * @param  ShoppingCart $shoppingCart
+     * @return RedirectResponse
+     */
+    public function clean(ShoppingCart $shoppingCart) : RedirectResponse
+    {
+        if (!isset($shoppingCart)) {
+            return back();
+        }
+        $shoppingCart->clean();
+        return redirect()->route('shoppingCarts.show', $shoppingCart);
     }
 
     /**

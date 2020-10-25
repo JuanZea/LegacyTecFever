@@ -48,7 +48,7 @@
                     <a class="btn btn-block btn-outline-light" href="{{ route('home') }}">{{ __('Back to home') }}</a>
                 </div>
                 <div class="col">
-                    <a class="btn btn-block btn-outline-warning" href="{{ route('account', 1) }}">{{ __('Go to shopping history') }}</a>
+                    <a class="btn btn-block btn-outline-warning" href="{{ route('account', ['section' => 1]) }}">{{ __('Go to shopping history') }}</a>
                 </div>
             </div>
         </div>

@@ -72,7 +72,7 @@ class RouteController extends Controller
                 $empty=false;
             }
         }
-        return view('products.shop',['products'=>$products,'name'=>$name,'empty'=>$empty]);
+        return view('shop',['products'=>$products,'name'=>$name,'empty'=>$empty]);
     }
 
     /**
@@ -86,11 +86,11 @@ class RouteController extends Controller
 
         // Initialize shoppingCart
         if (!$shoppingCart) {
-            return view('shopping-carts.empty');
+            return view('shoppingCarts.empty');
         } else {
             if ($shoppingCart->amount == 0) {
                 $shoppingCart->delete();
-                return view('shopping-carts.empty');
+                return view('shoppingCarts.empty');
             }
         }
 
@@ -101,11 +101,16 @@ class RouteController extends Controller
     /**
      * Display a account view.
      *
-     * @param int $section
+     * @param Request $request
      * @return View
      */
-    public function account(int $section)
+    public function account(Request $request)
     {
+        if (!isset($request->section)) {
+            $section = 0;
+        } else {
+            $section = $request->section;
+        }
         $user = Auth::user();
         $payments = $user->payments;
         foreach ($payments as $payment) {
@@ -113,30 +118,18 @@ class RouteController extends Controller
         }
         switch ($section) {
             case 0: {
-                return view('account.profile', ['section'=>$section, 'user' =>$user]);
+                return view('account.profile', compact('user', 'section'));
             }
             case 1: {
-                return view('account.shoppingHistory', ['section'=>$section, 'user' =>$user]);
+                return view('account.shoppingHistory', compact('user', 'section'));
             }
             case 2: {
-                return view('account.configuration', ['section'=>$section, 'user' =>$user]);
+                return view('account.configuration', compact('user', 'section'));
             }
             default : {
                 abort(404);
             }
         }
-    }
-
-    /**
-     * Display a disabled view.
-     *
-     * @param Payment $payment
-     * @return Object
-     */
-    public function paymentHistory(Request $request) : Object
-    {
-        $payment = Payment::find($request->payment_id);
-        return view('account.paymentHistory', compact('payment'));
     }
 
     /**

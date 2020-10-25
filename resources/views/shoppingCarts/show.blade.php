@@ -11,6 +11,7 @@
                 </div>
                 <div class="container mt-3">
                         <div class="s-table">
+                            @if ($shoppingCart->amount != 0)
                             <table class="table table-dark table-striped">
                                 <thead>
                                     <tr class="bg-tec">
@@ -41,7 +42,7 @@
                                                 {{ \App\Helpers\Formatters::priceFormatter($product->price) }}
                                             </td>
                                             <td scope="col" class="text-center">
-                                                <form action="{{ route('shopping-cart.edit', $shoppingCart) }}">
+                                                <form action="{{ route('shoppingCarts.edit', $shoppingCart) }}">
                                                     @csrf
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                     <button class="btn btn-info">{{ __('Edit') }}</button>
@@ -62,14 +63,29 @@
                                             {{ \App\Helpers\Formatters::priceFormatter($shoppingCart->totalPrice) }}
                                         </th>
                                         <th scope="col" class="text-center">
-                                            <form action="{{ route('shopping-cart.destroy',$shoppingCart) }}" method="POST">
-                                                @csrf @method('DELETE')
+                                            <form action="{{ route('shoppingCarts.clean',$shoppingCart) }}" method="POST">
+                                                @csrf @method('PATCH')
                                                 <button class="btn btn-danger btn-block">{{ __('Clean') }}</button>
                                             </form>
                                         </th>
                                     </tr>
                                 </thead>
                             </table>
+                            @else
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card bg-tec text-center my-5 hvr-wobble-vertical">
+                                            <div class="card-header text-white text-uppercase">
+                                                <b>{{ __('Your shopping cart is empty') }}</b>
+                                            </div>
+                                            <div class="card-body text-white">
+                                                <p>{{ __('Go to the store and buy products!') }}</p>
+                                                <p>{{ __('Offers are for a limited time') }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                 </div>
             </div>
@@ -85,11 +101,19 @@
                             <p class="text-white text-center">{{ __('The most complete solution to accompany your digital transaction processes in different channels, with the highest security and functionalities that adapt to the needs of your business to make it grow. Now backed by Evertec.') }}</p>
                         </div>
                     </div>
+                    @if ($shoppingCart->amount != 0)
                     <div class="row">
                         <div class="col">
-                            <a class="btn btn-outline-danger btn-block" href="{{ route('payment',['shopping_cart_id'=>Auth::user()->shoppingCart->id]) }}">{{ __('Pay') }}</a>
+                            <a class="btn btn-outline-danger btn-block" href="{{ route('payment', ['shopping_cart_id' => Auth::user()->shoppingCart->id]) }}">{{ __('Pay') }}</a>
                         </div>
                     </div>
+                    @else
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-outline-success btn-block" href="{{ route('shop') }}">{{ __('Go to shop') }}</a>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

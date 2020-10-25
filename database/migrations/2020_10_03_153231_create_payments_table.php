@@ -21,6 +21,7 @@ class CreatePaymentsTable extends Migration
             $table->string('status');
             $table->string('requestId');
             $table->string('message');
+            $table->json('invoice');
             $table->string('amount');
             $table->text('url');
 

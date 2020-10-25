@@ -42,7 +42,7 @@
                                                 {{ $product->pivot->amount }}
                                             </td>
                                             <td scope="col" class="text-center">
-                                                {{ $product->price }}
+                                                {{ App\Helpers\Formatters::priceFormatter($product->price) }}
                                             </td>
                                             @if ($product->id == $product_id)
                                             <td scope="col" class="text-center">
@@ -52,8 +52,8 @@
                                             </td>
                                             @else
                                             <td scope="col" class="text-center">
-                                                <form action="{{ route('shopping-cart.edit', $shoppingCart) }}">
-                                                    @csrf @method('PUT')
+                                                <form action="{{ route('shoppingCarts.edit', $shoppingCart) }}">
+                                                    @csrf @method('PATCH')
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                     <button class="btn btn-info">{{ __('Edit') }}</button>
                                                 </form>
@@ -71,11 +71,11 @@
                                             {{ $shoppingCart->amount }}
                                         </th>
                                         <th scope="col" class="text-center">
-                                            {{ $shoppingCart->totalPrice }}
+                                            {{ App\Helpers\Formatters::priceFormatter($shoppingCart->totalPrice) }}
                                         </th>
                                         <th scope="col" class="text-center">
-                                            <form action="{{ route('shopping-cart.destroy',$shoppingCart) }}" method="POST">
-                                                @csrf @method('DELETE')
+                                            <form action="{{ route('shoppingCarts.clean', $shoppingCart) }}" method="POST">
+                                                @csrf @method('PATCH')
                                                 <button class="btn btn-danger btn-block">{{ __('Clean') }}</button>
                                             </form>
                                         </th>
@@ -96,8 +96,8 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <form action="{{ route('shopping-cart.update',$shoppingCart) }}" method="POST">
-                                @csrf @method('PUT')
+                            <form action="{{ route('shoppingCarts.update',$shoppingCart) }}" method="POST">
+                                @csrf @method('PATCH')
                                 <div class="form-row mb-4">
                                     <div class="col-md-6 d-flex justify-content-center">
                                         <label for="amount" class="text-white mb-0">
@@ -109,22 +109,29 @@
                                         <input type="hidden" name="product_id" value="{{ \App\Product::find($product_id)->id }}">
                                     </div>
                                 </div>
+                                @if (Session::has('error'))
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="text-white text-center"><b>{{ Session::get('error', 'default') }}</b></p>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="row mb-4">
                                     <div class="col">
                                         <button class="btn btn-outline-success btn-block">{{ __('Confirm') }}</button>
                                     </div>
                                     <div class="col">
-                                        <a class="btn btn-outline-warning btn-block" href="{{ route('shopping-cart.show', $shoppingCart) }}">{{ __('Cancel') }}</a>
-                                    </div>
-                                    <div class="col">
-                            </form>
-                                        <form action="{{ route('shopping-cart.update',$shoppingCart) }}" method="POST">
-                                            @csrf @method('PUT')
-                                            <input type="hidden" name="product_id" value="{{ \App\Product::find($product_id)->id }}">
-                                            <button class="btn btn-outline-danger btn-block">{{ __('Delete') }}</button>
-                                        </form>
+                                        <a class="btn btn-outline-warning btn-block" href="{{ route('shoppingCarts.show', $shoppingCart) }}">{{ __('Cancel') }}</a>
                                     </div>
                                 </div>
+                            </form>
+                            <div class="col p-0">
+                                <form action="{{ route('shoppingCarts.update',$shoppingCart) }}" method="POST">
+                                    @csrf @method('PATCH')
+                                    <input type="hidden" name="product_id" value="{{ \App\Product::find($product_id)->id }}">
+                                    <button type="submit" class="btn btn-outline-danger btn-block">{{ __('Delete') }}</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

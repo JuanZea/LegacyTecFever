@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Users;
 
+use App\ShoppingCart;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class updateTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Tests for update Users
+     * Verify that an admin can update users with valid information
      *
      * @test
      * @dataProvider validUserInputDataProvider
@@ -23,26 +24,31 @@ class updateTest extends TestCase
     {
         // Arrange
         $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
+        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $user = factory(User::class)->create();
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
         $oldData = TestHelpers::removeTimeKeys($user->toArray());
         $validRequest = TestHelpers::VALIDREQUESTFORUSER;
-        if ($data != 'new')
-            if($data == 'same')
+        if ($data != 'new') {
+            if($data == 'same') {
                 $validRequest = $oldData;
-            else
+            } else {
                 $validRequest[$data] = $oldData[$data];
+            }
+        }
+        $validRequest += ['permission' => 1];
 
         // Act
         $this->actingAs($admin);
-        $response = $this->put(route('users.update',$user),$validRequest);
+        $response = $this->patch(route('users.update', $user), $validRequest);
+        unset($validRequest['permission']);
 
         // Assert
-        $response->assertOk();
-        $response->assertViewIs('users.show');
-        $this->assertDatabaseHas('users',$validRequest);
+        $response->assertRedirect();
+        $this->assertDatabaseHas('users', $validRequest);
         if ($data != 'new')
             if($data == 'same')
-                $this->assertDatabaseHas('users',$oldData);
+                $this->assertDatabaseHas('users', $oldData);
             else{
                 $validRequest[$data] = $oldData[$data];
                 $this->assertDatabaseHas('users', [
@@ -50,11 +56,40 @@ class updateTest extends TestCase
                 ]);
             }
         else
-        $this->assertDatabaseMissing('users',$oldData);
+        $this->assertDatabaseMissing('users', $oldData);
     }
 
     /**
-     * Tests for update Users
+     * Verify that a user can update their information with valid information
+     *
+     * @test
+     */
+    public function anUserCanUpdateTheirInformationWithValidInformation()
+    {
+        $this->withoutExceptionHandling();
+        // Arrange
+        $user = factory(User::class)->create(['isEnabled' => true]);
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
+        $validRequest = [
+            'name' => 'Pedro',
+            'surname' => 'Coral',
+            'document' => '1234567890',
+            'documentType' => 'CC',
+            'mobile' => '3218832188',
+            'email' => 'p@admin.com'
+        ];
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->patch(route('users.update', $user), $validRequest);
+
+        // Assert
+        $response->assertRedirect(route('account'));
+        $this->assertDatabaseHas('users', $validRequest);
+    }
+
+    /**
+     * Verify that an admin cannot update users with invalid information
      *
      * @test
      * @dataProvider invalidUserInputDataProvider
@@ -82,6 +117,8 @@ class updateTest extends TestCase
         $this->assertDatabaseMissing('users',$invalidRequest);
     }
 
+    //PROVIDERS
+
     public function validUserInputDataProvider()
     {
         return [
@@ -98,7 +135,7 @@ class updateTest extends TestCase
     {
         return [
             'No name' => ['name', null],
-            'A name too short' => ['name', Str::random(2)],
+            'A name too short' => ['name', Str::random(1)],
             'A name too large' => ['name', Str::random(41)],
             'No email' => ['name', null],
             'A email too large' => ['email', Str::random(60) . '@test.com'],

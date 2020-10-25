@@ -79,17 +79,16 @@
 						<div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <form action="{{ route('shopping-cart.store') }}" method="POST">
+                                    <form action="{{ route('shoppingCarts.store') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
+                                        <input v-model="quantity" type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
                                         <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
                                     </form>
                                     @if (Auth::user()->isAdmin)
                                         <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
                                         <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
+                                            @csrf @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
                                         </form>
                                         @if(!$product->isEnabled)

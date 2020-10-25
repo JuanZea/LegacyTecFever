@@ -15,19 +15,28 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['verify' => true]);
 
+
 Route::get('/','RouteController@welcome')->name('welcome');
 Route::get('/home', 'RouteController@home')->name('home');
 Route::get('/controlPanel', 'RouteController@controlPanel')->name('controlPanel');
-Route::get('/account/{link}', 'RouteController@account')->name('account');
-Route::get('/shop', 'RouteController@shop')->name('products.shop');
-Route::get('/shopping-cart/empty', 'RouteController@shoppingCartRouter')->name('shopping-cart.router');
+Route::get('/account', 'RouteController@account')->name('account');
+Route::get('/shop', 'RouteController@shop')->name('shop');
 Route::get('/disabled', 'RouteController@disabled')->name('disabled');
-Route::get('/payment', 'PaymentController@payment')->name('payment');
-Route::get('/paymentRetry', 'PaymentController@retry')->name('payment.retry');
-Route::get('/paymentHistory', 'RouteController@paymentHistory')->name('payment.history');
+
 
 Route::resource('users', 'UserController');
-Route::resource('products', 'ProductController');
-Route::resource('shopping-cart', 'ShoppingCartController');
 
-Route::get('/paymentResponse', 'PaymentController@paymentResponse')->name('paymentResponse');
+
+Route::resource('products', 'ProductController');
+
+
+Route::get('/payment', 'PaymentController@payment')->name('payment');
+Route::get('/payment/Retry', 'PaymentController@retry')->name('payment.retry');
+Route::get('/payment/History', 'PaymentController@history')->name('payment.history');
+Route::get('/payment/Response', 'PaymentController@response')->name('payment.response');
+
+
+Route::resource('shoppingCarts', 'ShoppingCartController');
+Route::patch('shoppingCarts/clean/{shoppingCart}', 'ShoppingCartController@clean')->name('shoppingCarts.clean');
+
+
