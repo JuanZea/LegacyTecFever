@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @property mixed isAdmin
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 

@@ -30,7 +30,7 @@ Route::resource('users', 'UserController');
 Route::resource('products', 'ProductController');
 
 
-Route::get('/payment', 'PaymentController@payment')->name('payment');
+Route::post('/payment', 'PaymentController@payment')->name('payment');
 Route::get('/payment/Retry', 'PaymentController@retry')->name('payment.retry');
 Route::get('/payment/History', 'PaymentController@history')->name('payment.history');
 Route::get('/payment/Response', 'PaymentController@response')->name('payment.response');

@@ -43,7 +43,6 @@
                                             </td>
                                             <td scope="col" class="text-center">
                                                 <form action="{{ route('shoppingCarts.edit', $shoppingCart) }}">
-                                                    @csrf
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                     <button class="btn btn-info">{{ __('Edit') }}</button>
                                                 </form>
@@ -104,7 +103,10 @@
                     @if ($shoppingCart->amount != 0)
                     <div class="row">
                         <div class="col">
-                            <a class="btn btn-outline-danger btn-block" href="{{ route('payment', ['shopping_cart_id' => Auth::user()->shoppingCart->id]) }}">{{ __('Pay') }}</a>
+                            <form action="{{ route('payment', ['shopping_cart_id' => Auth::user()->shoppingCart->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-block">{{ __('Pay') }}</button>
+                            </form>
                         </div>
                     </div>
                     @else

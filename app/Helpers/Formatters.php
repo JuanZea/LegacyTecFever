@@ -10,7 +10,8 @@ class Formatters {
      * @return String $formattedPrice
      *
      */
-    public static function priceFormatter(String $price) : String {
+    public static function priceFormatter(String $price) : String
+    {
         $length = strlen($price);
         $formattedPrice = '$ ';
         $excess = $length%3;
@@ -28,7 +29,8 @@ class Formatters {
      * @return String $color
      *
      */
-    public static function stateColor(String $state) : String {
+    public static function stateColor(String $state) : String
+    {
         switch ($state) {
             case 'APPROVED': {
                 return '#38C172';

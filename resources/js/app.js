@@ -40,5 +40,5 @@ const app = new Vue({
             // .post('http://tecfever.test/api/user/'+this.user)
             // .then(response => (this.info = response))
         }
-    }
+    },
 });

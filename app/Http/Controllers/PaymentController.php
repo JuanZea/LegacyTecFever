@@ -9,6 +9,7 @@ use App\ShoppingCart;
 use App\User;
 use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 class PaymentController extends Controller
@@ -33,7 +34,8 @@ class PaymentController extends Controller
         }
         $shoppingCart->save();
 
-        return redirect()->route('payment',['shopping_cart_id'=> $shoppingCart->id]);
+        $request = new Request(['shopping_cart_id' => $shoppingCart->id]);
+        return $this->payment($request, resolve(PlacetoPay::class));
     }
 
     function payment(Request $request, PlacetoPay $placetopay) {
