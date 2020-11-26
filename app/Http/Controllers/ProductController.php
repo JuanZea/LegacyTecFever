@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Class ProductController
+ * Class ProductControllerx
  * @package App\Http\Controllers
  */
 class ProductController extends Controller
