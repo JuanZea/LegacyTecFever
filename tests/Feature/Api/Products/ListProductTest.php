@@ -15,10 +15,13 @@ class ListProductTest extends TestCase
      */
     public function canFetchSingleProduct()
     {
+        // Arrange
         $product = factory(Product::class)->create(['isEnabled' => rand(0, 1)]);
 
+        // Act
         $response = $this->getJson(route('api.products.show', $product));
 
+        // Assert
         $response->assertExactJson([
             'data' => [
                 'type' => 'products',
@@ -36,6 +39,8 @@ class ListProductTest extends TestCase
                 ]
             ]
         ]);
+
+        $response->assertOk();
     }
 
     /**
@@ -43,10 +48,13 @@ class ListProductTest extends TestCase
      */
     public function canFetchAllProduct()
     {
+        // Arrange
         $products = factory(Product::class)->times(3)->create(['isEnabled' => rand(0, 1)]);
 
+        // Act
         $response = $this->getJson(route('api.products.index'));
 
+        // Assert
         $response->assertJson([
             'data' => [
                 [
@@ -96,5 +104,7 @@ class ListProductTest extends TestCase
                 ]
             ],
         ]);
+
+        $response->assertOk();
     }
 }

@@ -16,5 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 // ESTO PARA QUE? middleware('auth:api')->
 
- Route::get('products', 'Api\ProductController@index')->name('api.products.index');
- Route::get('products/{product}', 'Api\ProductController@show')->name('api.products.show');
+Route::apiResource('products','Api\ProductController')->names([
+    'store' => 'api.products.store',
+    'index' => 'api.products.index',
+    'destroy' => 'api.products.destroy',
+    'update' => 'api.products.update',
+    'show' => 'api.products.show',
+]);
+
+// Route::get('products', 'Api\ProductController@index')->name('api.products.index');
+// Route::post('products', 'Api\ProductController@store')->name('api.products.create');
+// Route::get('products/{product}', 'Api\ProductController@show')->name('api.products.show');

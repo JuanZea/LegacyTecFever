@@ -15,10 +15,13 @@ class PaginateProductTest extends TestCase
      */
     public function canFetchPaginatedProducts()
     {
+        // Arrange
         $products = factory(Product::class)->times(30)->create(['isEnabled' => rand(0, 1)]);
 
+        // Act
         $response = $this->getJson(route('api.products.index', ['page[size]' => 3, 'page[number]' => 2]));
 
+        // Assert
         $response->assertJsonCount(3, 'data');
 
         $response->assertDontSee($products[0]->name);
