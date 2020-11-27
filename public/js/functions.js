@@ -1,3 +1,4 @@
-function ale() {
-    alert("Cualquier cosa");
+function openModal(name)
+{
+
 }

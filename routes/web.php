@@ -28,6 +28,7 @@ Route::resource('users', 'UserController');
 
 
 Route::resource('products', 'ProductController');
+Route::post('products/import', 'ProductController@import')->name('products.import');
 
 
 Route::post('/payment', 'PaymentController@payment')->name('payment');
@@ -38,5 +39,4 @@ Route::get('/payment/Response', 'PaymentController@response')->name('payment.res
 
 Route::resource('shoppingCarts', 'ShoppingCartController');
 Route::patch('shoppingCarts/clean/{shoppingCart}', 'ShoppingCartController@clean')->name('shoppingCarts.clean');
-
 

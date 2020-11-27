@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\Products\ImportRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Imports\ProductsImport;
 use App\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class ProductControllerx
@@ -137,5 +140,14 @@ class ProductController extends Controller
         Storage::disk('public')->delete($product->image);
         $product->delete();
         return redirect()->route('products.index');
+    }
+
+    public function import(ImportRequest $request)
+    {
+        $import = new ProductsImport();
+        $import->import($request->file('importFile'));
+        $importedProducts = $import->toArray($request->file('importFile'));
+
+        return redirect()->route('products.index')->with('message',__('File imported successfully', ['count' => count($importedProducts)]));
     }
 }

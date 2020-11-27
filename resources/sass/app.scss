@@ -222,7 +222,7 @@ $tec-color: #0D1931;
 #users-show .s-header > div > a > i,
 #products-index .s-header > div > a > i {
     font-size: 45px;
-    color: #D30303;
+    color: #000000;
 }
 
 #users-index .s-table th,
@@ -391,6 +391,10 @@ $tec-color: #0D1931;
 
 .br-black {
     -webkit-text-stroke: 1px black;
+}
+
+.sel:hover {
+    color: #0F9E5E;
 }
 
 .nd:hover {

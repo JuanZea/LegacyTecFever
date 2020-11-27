@@ -1,9 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('products.modals.actions')
 <section id="products-index">
     <div class="container">
         {{-- Header --}}
+        @if ($errors->any())
+            <div class="alert alert-primary" role="alert">
+                <ul>
+                    @foreach($errors->all() as $message)
+                        <ul>{{ __($message) }}</ul>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="s-header row py-4 d-flex align-items-center justify-content-between">
                 <div>
                     <a href="{{ route('controlPanel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
@@ -12,7 +22,7 @@
                     <h1 class="title-tec"><i class="fas fa-desktop px-2"></i></i>{{ __('Products Management') }}</h1>
                 </div>
                 <div>
-                    <a href="{{ route('products.create') }}"><i class="fas fa-plus-circle br-red"></i></a>
+                    <a class="hvr-pulse-grow" data-toggle="modal" data-target="#actionsModal"><i class="fas fa-database br-black"></i></a>
                 </div>
             </div>
         {{-- /Header --}}
@@ -71,7 +81,7 @@
                                 </span>
                             </td>
                             <td>
-                                {{ $product->price }}
+                                {{ App\Helpers\Formatters::priceFormatter($product->price) }}
                             </td>
                             <td>
                                 <a class="btn btn-tec" href="{{ route('products.show',$product) }}">{{ __('See in shop') }}</a>
