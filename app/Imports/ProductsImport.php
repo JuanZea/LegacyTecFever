@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Helpers\Formatters;
 use App\Product;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -20,10 +21,12 @@ class ProductsImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {
         return new Product([
+            'id' => $row['id'],
             'name' => $row['name'],
-            'is_enabled' => $row['is_enabled'],
+            'is_enabled' => Formatters::enabledFormatterBool($row['is_enabled']),
             'description' => $row['description'],
             'category' => $row['category'],
+            'image' => $row['image_path'],
             'price' => $row['price'],
             'stock' => $row['stock']
         ]);
@@ -32,6 +35,7 @@ class ProductsImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
+            'id' => 'bail|required|numeric',
             'name' => 'bail|required|min:3|max:60',
             'description' => 'bail|required|min:10|max:1000',
             'category' => 'bail|required|in:computer,smartphone,accessory',

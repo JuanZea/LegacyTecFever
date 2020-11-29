@@ -58,11 +58,18 @@ class ProductController extends Controller
         $request = $request->validated();
 
         // Save image
-        if(isset($request['image'])){
-            $imagePath = $request['image']->store('images/products', 'public');
+        if (isset($request['image_path'])) {
             unset($request['image']);
-            $request = array_merge($request,['image' => $imagePath]);
+            $request = array_merge($request,['image' => $request['image_path']]);
+            unset($request['image_path']);
+        } else {
+            if(isset($request['image'])){
+                $imagePath = $request['image']->store('images/products', 'public');
+                unset($request['image']);
+                $request = array_merge($request,['image' => $imagePath]);
+            }
         }
+
 
         Product::create($request);
 

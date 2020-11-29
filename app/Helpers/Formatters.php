@@ -47,4 +47,32 @@ class Formatters {
             }
         }
     }
+
+    /**
+     * Format prices
+     * @param bool $enabled
+     * @return String $enabledString
+     */
+    public static function enabledFormatterString(bool $enabled) : String
+    {
+        if($enabled) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
+    /**
+     * Format prices
+     * @param String $enabled
+     * @return bool $enabledString
+     */
+    public static function enabledFormatterBool(String $enabled) : bool
+    {
+        if($enabled == 'true') {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
 }
