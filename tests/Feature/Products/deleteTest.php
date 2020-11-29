@@ -22,7 +22,7 @@ class deleteTest extends TestCase
     {
         $this->withoutExceptionHandling();
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
         $data = TestHelpers::removeTimeKeys($product->toArray());

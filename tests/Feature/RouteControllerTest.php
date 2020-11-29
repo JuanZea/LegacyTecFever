@@ -59,7 +59,7 @@ class RouteControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
 
         // Act
@@ -81,7 +81,7 @@ class RouteControllerTest extends TestCase
     public function RouteIsForbiddenForEnabledUser(string $route) : void
     {
          // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
 
         // Act
         $this->actingAs($user);
@@ -101,7 +101,7 @@ class RouteControllerTest extends TestCase
     public function RouteIsAllowedForDisabledUser(string $route) : void
     {
          // Arrange
-        $user = factory(User::class)->create(['isEnabled' => false]);
+        $user = factory(User::class)->create(['is_enabled' => false]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
 
         // Act
@@ -123,7 +123,7 @@ class RouteControllerTest extends TestCase
     public function RouteIsForbiddenForDisabledUser(string $route) : void
     {
          // Arrange
-        $user = factory(User::class)->create(['isEnabled' => false]);
+        $user = factory(User::class)->create(['is_enabled' => false]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
 
         // Act
@@ -144,7 +144,7 @@ class RouteControllerTest extends TestCase
     public function RouteIsAllowedForAdmin(string $route) : void
     {
          // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
 
         // Act
@@ -166,7 +166,7 @@ class RouteControllerTest extends TestCase
     public function RouteIsForbiddenForAdmin(string $route) : void
     {
          // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
 
         // Act

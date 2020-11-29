@@ -24,13 +24,14 @@ class updateTest extends TestCase
     public function anAdminCanUpdateProductsWithValidProductInputs(string $data)
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
         $oldData = TestHelpers::removeTimeKeys($product->toArray());
-        if (!$oldData['isEnabled']) {
-            unset($oldData['isEnabled']);
+        if (!$oldData['is_enabled']) {
+            unset($oldData['is_enabled']);
         }
+//        dd($oldData, $product->toArray());
         $validRequest = TestHelpers::VALIDREQUESTFORPRODUCT;
         if ($data != 'new') {
             if($data == 'same') {
@@ -73,7 +74,7 @@ class updateTest extends TestCase
     public function anAdminCannotUpdateProductWithInvalidUserInputs(string $field, ?string $value)
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true]);
         $invalidRequest = TestHelpers::VALIDREQUESTFORPRODUCT;
         $invalidRequest[$field] = $value;
 
@@ -98,7 +99,8 @@ class updateTest extends TestCase
             'Same description' => ['description'],
             'Same category' => ['category'],
             'Same image' => ['image'],
-            'Same price' => ['price']
+            'Same price' => ['price'],
+            'Same stock' => ['stock']
         ];
     }
 

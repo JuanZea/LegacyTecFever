@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<section id="products-show">
+<section id="products-show" class="scene-wall">
 	<div class="container">
 		{{-- Header --}}
 		<div class="s-header row py-4">
@@ -85,13 +85,13 @@
                                         <input v-model="quantity" type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
                                         <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
                                     </form>
-                                    @if (Auth::user()->isAdmin)
+                                    @if (Auth::user()->is_admin)
                                         <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
                                         <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
                                             @csrf @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
                                         </form>
-                                        @if(!$product->isEnabled)
+                                        @if(!$product->is_enabled)
                                             <div class="card bg-warning mt-2">
                                                 <div class="card-body text-center">
                                                     <i class="fas fa-exclamation-triangle"></i> {{ __('Disabled!') }}

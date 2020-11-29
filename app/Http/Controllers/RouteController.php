@@ -18,8 +18,8 @@ class RouteController extends Controller
 	{
 		$this->middleware('auth')->except('welcome');
     	$this->middleware('verified')->except('welcome');
-    	$this->middleware('isAdmin')->only('controlPanel');
-    	$this->middleware('isEnabled')->except('welcome','disabled');
+    	$this->middleware('is_admin')->only('control_panel');
+    	$this->middleware('is_enabled')->except('welcome','disabled');
 	}
 
     /**
@@ -50,9 +50,9 @@ class RouteController extends Controller
      *
      * @return View
      */
-    public function controlPanel() : View
+    public function control_panel() : View
     {
-        return view('controlPanel');
+        return view('control_panel');
     }
 
     /**
@@ -68,7 +68,7 @@ class RouteController extends Controller
         ->paginate();
         $empty = true;
         foreach ($products as $product) {
-            if ($product->isEnabled) {
+            if ($product->is_enabled) {
                 $empty=false;
             }
         }
@@ -139,7 +139,7 @@ class RouteController extends Controller
      */
     public function disabled() : Object
     {
-        if (Auth::user()->isEnabled) {
+        if (Auth::user()->is_enabled) {
             return redirect()->route('home');
         }
         return view('disabled');

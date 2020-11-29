@@ -41,4 +41,14 @@ class ProductsImport implements ToModel, WithHeadingRow, WithValidation
             'price' => 'bail|required|digits_between:4,9'
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function customValidationMessages()
+    {
+        return [
+            'name.required' => 'te falto el nombre xd',
+        ];
+    }
 }

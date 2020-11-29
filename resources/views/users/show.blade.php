@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md">
                     <div class="card text-white
-                    @if ($user->isAdmin)
+                    @if ($user->is_admin)
                         bg-warning
                     @else
                         bg-primary
@@ -55,7 +55,7 @@
                             <h4 class="mb-0">{{ __('Rank') }}</h4>
                         </div>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            @if ($user->isAdmin)
+                            @if ($user->is_admin)
                                 <p>{{ __('Administrator') }}</p>
                             @else
                                 {{ __('Common User') }}
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md">
                     <div class="card text-white
-                    @if ($user->isEnabled)
+                    @if ($user->is_enabled)
                         bg-success
                     @else
                         bg-danger
@@ -74,7 +74,7 @@
                             <h4 class="mb-0">{{ __('Status') }}</h4>
                         </div>
                         <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            @if ($user->isEnabled)
+                            @if ($user->is_enabled)
                                 <p>{{ __('Enabled') }}</p>
                             @else
                                 <p>{{ __('Disabled') }}</p>

@@ -21,9 +21,9 @@ class userTest extends TestCase
     public function aGuestCannot(string $route) : void
     {
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
-        $user2 = factory(User::class)->create(['isEnabled' => true]);
+        $user2 = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user2->id]);
 
         // Act

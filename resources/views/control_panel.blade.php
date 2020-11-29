@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<section id="dashboard" class="d-flex align-items-center">
+	<section id="control-panel" class="scene-wall d-flex align-items-center">
         <div class="container">
             <div class="row p-5">
                 <div class="col col-sm-6">

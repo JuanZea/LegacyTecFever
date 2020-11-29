@@ -17,7 +17,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name','isEnabled', 'description', 'category', 'image', 'price',
+        'name','is_enabled', 'description', 'category', 'image', 'price', 'stock'
     ];
 
     /**
@@ -53,10 +53,5 @@ class Product extends Model
     public function shoppingCarts() : Object
     {
         return $this->belongsToMany(ShoppingCart::class);
-    }
-
-    public function immutableProducts() : Object
-    {
-        return $this->hasMany(ImmutableProduct::class);
     }
 }

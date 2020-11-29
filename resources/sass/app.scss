@@ -11,6 +11,7 @@ $tec-color: #0D1931;
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Welcome
 #welcome {
     background-image: url('public/images/commercial/Background1.jpg');
     background-size: cover;
@@ -56,6 +57,7 @@ $tec-color: #0D1931;
     padding-bottom: 100px;
 }
 
+// Login
 #login {
     background-image: url('public/images/commercial/Background1.jpg');
     background-size: cover;
@@ -76,6 +78,7 @@ $tec-color: #0D1931;
     text-transform: uppercase;
 }
 
+// Register
 #register {
     background-image: url('public/images/commercial/Background1.jpg');
     background-size: cover;
@@ -87,6 +90,41 @@ $tec-color: #0D1931;
     margin: 0;
 }
 
+// Scene
+.scene-wall{
+    background-image: url('public/images/commercial/Background3.jpg');
+    background-size: cover;
+    min-height: inherit;
+}
+.scene-wall-fixed {
+    background-image: url('public/images/commercial/Background3.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: inherit;
+}
+
+.scene-cobweb {
+    background-image: url('public/images/commercial/Background2.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.scene-tesla {
+    background-image: url('public/images/commercial/Background4.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: inherit;
+}
+
+.scene-disabled {
+    background-image: url('public/images/commercial/Background5.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: inherit;
+}
+
+// Home
 #home .s-services {
     background-color: #1d809f;
 }
@@ -95,6 +133,7 @@ $tec-color: #0D1931;
     color: #ffed4a;
 }
 
+// App
 #app {
     font-family: 'Baloo Da 2', cursive;
     font-size: 20px;
@@ -124,6 +163,7 @@ $tec-color: #0D1931;
     min-height: calc(100vh - 156.22px);
 }
 
+// Account
 #account,
 #account .container-fluid,
 #account .container-fluid .row,
@@ -132,6 +172,7 @@ $tec-color: #0D1931;
     min-height: inherit;
 }
 
+//Shopping Cart
 #shoppingCart-index,
 #shoppingCart-index .container-fluid,
 #shoppingCart-index .container-fluid .row,
@@ -141,49 +182,7 @@ $tec-color: #0D1931;
     min-height: inherit;
 }
 
-#users-index,
-#users-show,
-#products-index {
-    background-image: url('public/images/commercial/Background2.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    min-height: 100vh;
-}
-
-#dashboard,
-#products-create {
-    background-image: url('public/images/commercial/Background3.jpg');
-    background-size: cover;
-    //background-attachment: fixed;
-    min-height: inherit;
-}
-
-#products-shop {
-    background-image: url('public/images/commercial/Background4.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    min-height: inherit;
-}
-
 #products-shop .s-showcase>div>form>button>div {
-    min-height: inherit;
-}
-
-#products-show {
-    background-image: url('public/images/commercial/Background3.jpg');
-    background-size: cover;
-    min-height: inherit;
-}
-
-#summary {
-    background-image: url('public/images/commercial/Background3.jpg');
-    background-size: cover;
-}
-
-#disabled {
-    background-image: url('public/images/commercial/Background5.jpg');
-    background-size: cover;
-    background-attachment: fixed;
     min-height: inherit;
 }
 
@@ -349,6 +348,21 @@ $tec-color: #0D1931;
 
 .bg-accessory {
     background-color: #851de0;
+    width: 100%;
+}
+
+.br-computer {
+    -webkit-text-stroke: 1px #2C542B;
+    width: 100%;
+}
+
+.br-smartphone {
+    -webkit-text-stroke: 1px #f37121;
+    width: 100%;
+}
+
+.br-accessory {
+    -webkit-text-stroke: 1px #851de0;
     width: 100%;
 }
 

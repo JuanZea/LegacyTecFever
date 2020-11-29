@@ -16,7 +16,7 @@ class ListProductTest extends TestCase
     public function canFetchSingleProduct()
     {
         // Arrange
-        $product = factory(Product::class)->create(['isEnabled' => rand(0, 1)]);
+        $product = factory(Product::class)->create(['is_enabled' => rand(0, 1)]);
 
         // Act
         $response = $this->getJson(route('api.products.show', $product));
@@ -28,11 +28,12 @@ class ListProductTest extends TestCase
                 'id' => (String) $product->id,
                 'attributes' => [
                     'name' => $product->name,
-                    'isEnabled' => $product->isEnabled,
+                    'is_enabled' => $product->is_enabled,
                     'description' => $product->description,
                     'category' => $product->category,
                     'image' => $product->getImage,
-                    'price' => $product->price
+                    'price' => $product->price,
+                    'stock' => $product->stock
                 ],
                 'links' => [
                     'self' => url(route('api.products.show', $product)),
@@ -49,7 +50,7 @@ class ListProductTest extends TestCase
     public function canFetchAllProduct()
     {
         // Arrange
-        $products = factory(Product::class)->times(3)->create(['isEnabled' => rand(0, 1)]);
+        $products = factory(Product::class)->times(3)->create(['is_enabled' => rand(0, 1)]);
 
         // Act
         $response = $this->getJson(route('api.products.index'));
@@ -62,7 +63,7 @@ class ListProductTest extends TestCase
                     'id' => (String) $products[0]->id,
                     'attributes' => [
                         'name' => $products[0]->name,
-                        'isEnabled' => $products[0]->isEnabled,
+                        'is_enabled' => $products[0]->is_enabled,
                         'description' => $products[0]->description,
                         'category' => $products[0]->category,
                         'image' => $products[0]->getImage,
@@ -77,7 +78,7 @@ class ListProductTest extends TestCase
                     'id' => (String) $products[1]->id,
                     'attributes' => [
                         'name' => $products[1]->name,
-                        'isEnabled' => $products[1]->isEnabled,
+                        'is_enabled' => $products[1]->is_enabled,
                         'description' => $products[1]->description,
                         'category' => $products[1]->category,
                         'image' => $products[1]->getImage,
@@ -92,7 +93,7 @@ class ListProductTest extends TestCase
                     'id' => (String) $products[2]->id,
                     'attributes' => [
                         'name' => $products[2]->name,
-                        'isEnabled' => $products[2]->isEnabled,
+                        'is_enabled' => $products[2]->is_enabled,
                         'description' => $products[2]->description,
                         'category' => $products[2]->category,
                         'image' => $products[2]->getImage,

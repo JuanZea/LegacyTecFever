@@ -14,7 +14,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->isAdmin;
+        return Auth::user()->is_admin;
     }
 
     /**
@@ -29,9 +29,10 @@ class UpdateProductRequest extends FormRequest
             'description' => 'bail|required|min:10|max:1000',
             'category' => 'bail|required|in:computer,smartphone,accessory',
             'image' => 'bail|nullable|image',
-            'isEnabled' => 'nullable',
+            'is_enabled' => 'nullable',
             'delete' => 'nullable',
-            'price' => 'bail|required|digits_between:4,9'
+            'price' => 'bail|required|digits_between:4,9',
+            'stock' => 'bail|required'
         ];
     }
 

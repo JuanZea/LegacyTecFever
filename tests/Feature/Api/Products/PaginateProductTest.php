@@ -16,7 +16,7 @@ class PaginateProductTest extends TestCase
     public function canFetchPaginatedProducts()
     {
         // Arrange
-        $products = factory(Product::class)->times(30)->create(['isEnabled' => rand(0, 1)]);
+        $products = factory(Product::class)->times(30)->create(['is_enabled' => rand(0, 1)]);
 
         // Act
         $response = $this->getJson(route('api.products.index', ['page[size]' => 3, 'page[number]' => 2]));

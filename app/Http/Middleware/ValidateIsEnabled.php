@@ -16,7 +16,7 @@ class ValidateIsEnabled
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::user()->isEnabled)
+        if (!Auth::user()->is_enabled)
             return redirect()->route('disabled');
         return $next($request);
     }

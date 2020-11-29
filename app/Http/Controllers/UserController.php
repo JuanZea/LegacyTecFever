@@ -14,7 +14,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('isAdmin')->except('update');
+        $this->middleware('is_admin')->except('update');
     }
 
     /**
@@ -82,15 +82,15 @@ class UserController extends Controller
     {
         $permission = $request['permission'];
         if ($permission) {
-            $admin = $request['isAdmin'] == '1';
-            $enabled = $request['isEnabled'] == '1';
+            $admin = $request['is_admin'] == '1';
+            $enabled = $request['is_enabled'] == '1';
             $request = $request->validated();
             if ($admin) {
-                $request += ['isAdmin' => true];
-                $request += ['isEnabled' => true];
+                $request += ['is_admin' => true];
+                $request += ['is_enabled' => true];
             } else {
-                $request += ['isAdmin' => false];
-                $request += ['isEnabled' => $enabled];
+                $request += ['is_admin' => false];
+                $request += ['is_enabled' => $enabled];
             }
             $user->update($request);
             return redirect()->route('users.show', compact('user'));

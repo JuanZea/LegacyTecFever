@@ -34,7 +34,7 @@ class SearchBarTest extends TestCase
     public function AEnabledUserCanSearchAProduct()
     {
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
         $product = factory(Product::class)->create();
 
@@ -54,7 +54,7 @@ class SearchBarTest extends TestCase
     public function AAdminCanSearchAProduct()
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
 

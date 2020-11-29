@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<div id="products-shop">
+	<div id="products-shop" class="scene-tesla">
 		<div class="container">
 		{{-- Header --}}
             <div class="row text-center">
@@ -14,7 +14,7 @@
 		{{-- Showcase --}}
 			<div class="s-showcase row">
 				@foreach($products as $product)
-				    @if($product->isEnabled)
+				    @if($product->is_enabled)
                         <div class="col-md-4 py-3 hvr-grow-shadow">
                             <form action="{{ route('products.show',$product) }}">
                                 <button class="card px-0 mask shadow">

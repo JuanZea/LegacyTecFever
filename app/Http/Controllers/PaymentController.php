@@ -18,7 +18,7 @@ class PaymentController extends Controller
 	{
 		$this->middleware('auth');
     	$this->middleware('verified');
-    	$this->middleware('isEnabled');
+    	$this->middleware('is_enabled');
 	}
 
     function retry(Request $request) {

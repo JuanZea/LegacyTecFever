@@ -8,24 +8,25 @@ class TestHelpers{
 
     public const ONLYDISABLEDUSER = ['disabled'];
     public const ONLYGUEST = ['welcome','login','register'];
-    public const ONLYADMIN = ['controlPanel'];
+    public const ONLYADMIN = ['control_panel'];
     public const CRUD = ['index','create','store','show','edit','update','destroy'];
     public const DESPICABLES = [
-        'account'
+        'account', 'products.import'
     ];
     public const VALIDREQUESTFORUSER = [
         'name' => 'Nixon Jeiler',
         'email' => 'nixon@admin.com',
-        'isAdmin' => false,
-        'isEnabled' => true
+        'is_admin' => false,
+        'is_enabled' => true
     ];
     public const VALIDREQUESTFORPRODUCT = [
         'name' => 'Acer Aspire 5 Slim Laptop',
-        'isEnabled' => true,
+        'is_enabled' => true,
         'description' => '15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver',
         'category' => 'computer',
         'image' => null,
-        'price' => '2900000'
+        'price' => '2900000',
+        'stock' => '29'
     ];
 
     /**

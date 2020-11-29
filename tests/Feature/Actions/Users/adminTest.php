@@ -22,7 +22,7 @@ class adminTest extends TestCase
     public function anAdminCan(string $route) : void
     {
          // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $user = factory(User::class)->create();
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);

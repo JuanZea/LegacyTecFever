@@ -14408,6 +14408,40 @@ a.text-dark:focus {
   margin: 0;
 }
 
+.scene-wall {
+  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
+  background-size: cover;
+  min-height: inherit;
+}
+
+.scene-wall-fixed {
+  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: inherit;
+}
+
+.scene-cobweb {
+  background-image: url(/images/Background2.jpg?556539b76df945b464f3896e2c709a04);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.scene-tesla {
+  background-image: url(/images/Background4.jpg?05bbf7f685cce8be698c9e335ab43329);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: inherit;
+}
+
+.scene-disabled {
+  background-image: url(/images/Background5.jpg?80019707bef71c9c554f0abf171c3871);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: inherit;
+}
+
 #home .s-services {
   background-color: #1d809f;
 }
@@ -14484,48 +14518,7 @@ a.text-dark:focus {
   min-height: inherit;
 }
 
-#users-index,
-#users-show,
-#products-index {
-  background-image: url(/images/Background2.jpg?556539b76df945b464f3896e2c709a04);
-  background-size: cover;
-  background-attachment: fixed;
-  min-height: 100vh;
-}
-
-#dashboard,
-#products-create {
-  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
-  background-size: cover;
-  min-height: inherit;
-}
-
-#products-shop {
-  background-image: url(/images/Background4.jpg?05bbf7f685cce8be698c9e335ab43329);
-  background-size: cover;
-  background-attachment: fixed;
-  min-height: inherit;
-}
-
 #products-shop .s-showcase > div > form > button > div {
-  min-height: inherit;
-}
-
-#products-show {
-  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
-  background-size: cover;
-  min-height: inherit;
-}
-
-#summary {
-  background-image: url(/images/Background3.jpg?4d3cc909b5cb77a98660150cec58a6d2);
-  background-size: cover;
-}
-
-#disabled {
-  background-image: url(/images/Background5.jpg?80019707bef71c9c554f0abf171c3871);
-  background-size: cover;
-  background-attachment: fixed;
   min-height: inherit;
 }
 
@@ -14689,6 +14682,21 @@ a.text-dark:focus {
 
 .bg-accessory {
   background-color: #851de0;
+  width: 100%;
+}
+
+.br-computer {
+  -webkit-text-stroke: 1px #2C542B;
+  width: 100%;
+}
+
+.br-smartphone {
+  -webkit-text-stroke: 1px #f37121;
+  width: 100%;
+}
+
+.br-accessory {
+  -webkit-text-stroke: 1px #851de0;
   width: 100%;
 }
 

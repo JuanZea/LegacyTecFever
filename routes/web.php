@@ -18,7 +18,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/','RouteController@welcome')->name('welcome');
 Route::get('/home', 'RouteController@home')->name('home');
-Route::get('/controlPanel', 'RouteController@controlPanel')->name('controlPanel');
+Route::get('/control_panel', 'RouteController@control_panel')->name('control_panel');
 Route::get('/account', 'RouteController@account')->name('account');
 Route::get('/shop', 'RouteController@shop')->name('shop');
 Route::get('/disabled', 'RouteController@disabled')->name('disabled');

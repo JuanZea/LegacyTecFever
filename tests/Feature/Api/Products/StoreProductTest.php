@@ -18,7 +18,7 @@ class StoreProductTest extends TestCase
         $this->withoutExceptionHandling();
 
         // Arrange
-        $product = factory(Product::class)->raw(['isEnabled' => 1]);
+        $product = factory(Product::class)->raw(['is_enabled' => 1]);
 
         // Act
         $response = $this->postJson(route('api.products.store'), $product);

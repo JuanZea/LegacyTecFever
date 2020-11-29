@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\Products\ImportRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Imports\ProductsImport;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 /**
- * Class ProductControllerx
+ * Class ProductController
  * @package App\Http\Controllers
  */
 class ProductController extends Controller
@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('isAdmin')->except('show');
+        $this->middleware('is_admin')->except('show');
     }
 
     /**
@@ -49,19 +49,22 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateProductRequest $request
+     * @param StoreProductRequest $request
      * @return RedirectResponse
      */
-    public function store(CreateProductRequest $request) : RedirectResponse
+    public function store(StoreProductRequest $request) : RedirectResponse
     {
         $request = $request->validated();
+
+        // Save image
         if(isset($request['image'])){
             $imagePath = $request['image']->store('images/products', 'public');
             unset($request['image']);
             $request = array_merge($request,['image' => $imagePath]);
         }
-        $product = (new Product)->create($request);
-        $product->save();
+
+        Product::create($request);
+
         return redirect()->route('products.index');
     }
 
@@ -69,17 +72,17 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param Product $product
-     * @return Object
+     * @return View
      */
-    public function show(Product $product) : Object
+    public function show(Product $product) : View
     {
-        if (Auth::user()->isAdmin) {
+        if (Auth::user()->is_admin) {
             return view('products.show',compact('product'));
         } else {
-            if($product->isEnabled) {
+            if($product->is_enabled) {
                 return view('products.show',compact('product'));
             } else {
-                return redirect()->route('home');
+                return view('errors.disabled_product');
             }
         }
     }
@@ -105,6 +108,8 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product) : RedirectResponse
     {
         $request = $request->validated();
+
+        // Delete image
         if (!isset($request['delete'])) {
             if(isset($request['image'])){
                 $imagePath = $request['image']->store('images/products', 'public');
@@ -118,11 +123,13 @@ class ProductController extends Controller
             $request['image'] = null;
             Storage::disk('public')->delete($product->image);
         }
-        if (isset($request['isEnabled'])) {
-            unset($request['isEnabled']);
-            $request = array_merge($request,['isEnabled' => true]);
+
+        // To enable or disable
+        if (isset($request['is_enabled'])) {
+            unset($request['is_enabled']);
+            $request = array_merge($request,['is_enabled' => true]);
         } else {
-            $request = array_merge($request,['isEnabled' => false]);
+            $request = array_merge($request,['is_enabled' => false]);
         }
         $product->update($request);
 
