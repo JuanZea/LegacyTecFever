@@ -4,16 +4,8 @@
 @include('products.modals.actions')
 <section id="products-index" class="scene-cobweb">
     <div class="container">
+
         {{-- Header --}}
-        @if ($errors->any())
-            <div class="alert alert-danger mt-3" role="alert">
-                <ul>
-                    @foreach($errors->all() as $message)
-                        <ul>{{ __($message) }}</ul>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="s-header row py-4 d-flex align-items-center justify-content-between">
                 <div>
                     <a href="{{ route('control_panel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
@@ -28,6 +20,20 @@
         {{-- /Header --}}
 
         {{-- Table --}}
+        @if ($errors->any())
+            <div class="alert alert-danger mt-3" role="alert">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $message)
+                        <ul><h3 class="text-center my-0">{{ $message }}</h3></ul>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session()->has('message'))
+            <div class="alert alert-success mt-3" role="alert">
+                <h3 class="text-center my-0">{{ session('message') }}</h3>
+            </div>
+        @endif
         <div class="s-table row">
             <table class="table table-striped table-light">
                 <thead>

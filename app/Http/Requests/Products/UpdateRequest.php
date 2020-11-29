@@ -5,17 +5,16 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreProductRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() : bool
+    public function authorize()
     {
-//        return Auth::user()->isAdmin;
-        return true;
+        return Auth::user()->is_admin;
     }
 
     /**
@@ -30,6 +29,8 @@ class StoreProductRequest extends FormRequest
             'description' => 'bail|required|min:10|max:1000',
             'category' => 'bail|required|in:computer,smartphone,accessory',
             'image' => 'bail|nullable|image',
+            'is_enabled' => 'nullable',
+            'delete' => 'nullable',
             'price' => 'bail|required|digits_between:4,9',
             'stock' => 'bail|required'
         ];
@@ -43,18 +44,17 @@ class StoreProductRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'name.required' => trans('products.error_messages.name.required'),
-            'name.min' => trans('products.error_messages.name.min'),
-            'name.max' => trans('products.error_messages.name.max'),
-            'description.required' => trans('products.error_messages.description.required'),
-            'description.min' => trans('products.error_messages.description.min'),
-            'description.max' => trans('products.error_messages.description.max'),
-            'category.required' => trans('products.error_messages.category.required'),
-            'category.in' => trans('products.error_messages.category.in'),
-            'image.image' => trans('products.error_messages.image.image'),
-            'price.required' => trans('products.error_messages.price.required'),
-            'price.digits_between' => trans('products.error_messages.price.digits_between'),
-            'stock.required' => trans('products.error_messages.stock.required')
+            'name.required' => __("Your product needs a name"),
+            'name.min' => __("A good name has a minimum of 3 characters"),
+            'name.max' => __("Do not exceed 80 characters and keep calm"),
+            'description.required' => __("The description is very important, don't forget it"),
+            'description.min' => __("Push yourself and get at least 10 characters"),
+            'description.max' => __("Don't tell me your life, maximum 1000 characters for the description"),
+            'category.required' => __("No cheating, choose one of the 3 categories"),
+            'category.in' => __("No cheating, choose one of the 3 categories"),
+            'image.image' => __("Verify that what you are uploading is an image"),
+            'price.required' => __("The most important thing is missing"),
+            'price.digits_between' => __("The minimum price is 4 digits and the maximum is 9"),
         ];
     }
 
@@ -66,7 +66,7 @@ class StoreProductRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'category' => $this->translateCategory($this->get('category'))
+            'category' => $this->translateCategory(request()['category'])
         ]);
     }
 
@@ -76,7 +76,7 @@ class StoreProductRequest extends FormRequest
      * @param string|null $idx
      * @return string|null
      */
-    protected function translateCategory(?string $idx) : ?string
+    protected function translateCategory(?string $idx) : string
     {
         switch ($idx) {
             case '0':

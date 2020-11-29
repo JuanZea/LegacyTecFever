@@ -23,6 +23,7 @@ class updateTest extends TestCase
      */
     public function anAdminCanUpdateProductsWithValidProductInputs(string $data)
     {
+        $this->withoutExceptionHandling();
         // Arrange
         $admin = factory(User::class)->create(['is_admin' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\StoreRequest;
 use App\Http\Requests\Products\ImportRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Imports\ProductsImport;
 use App\Product;
 use Illuminate\Contracts\View\View;
@@ -49,10 +49,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreProductRequest $request
+     * @param StoreRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreProductRequest $request) : RedirectResponse
+    public function store(StoreRequest $request) : RedirectResponse
     {
         $request = $request->validated();
 
@@ -101,11 +101,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateProductRequest $request
+     * @param UpdateRequest $request
      * @param Product $product
      * @return RedirectResponse
      */
-    public function update(UpdateProductRequest $request, Product $product) : RedirectResponse
+    public function update(UpdateRequest $request, Product $product) : RedirectResponse
     {
         $request = $request->validated();
 
@@ -152,9 +152,9 @@ class ProductController extends Controller
     public function import(ImportRequest $request)
     {
         $import = new ProductsImport();
-        $import->import($request->file('importFile'));
-        $importedProducts = $import->toArray($request->file('importFile'));
+        $import->import($request->file('import_file'));
+        $importedProducts = $import->toArray($request->file('import_file'))[0];
 
-        return redirect()->route('products.index')->with('message',__('File imported successfully', ['count' => count($importedProducts)]));
+        return redirect()->route('products.index')->with('message', trans('products.messages.import', ['count' => count($importedProducts)]));
     }
 }

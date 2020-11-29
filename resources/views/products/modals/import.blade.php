@@ -8,9 +8,9 @@
           <div class="container">
               <div class="row">
                   <div class="col">
-                      <form id="importForm" action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
+                      <form id="import_form" action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
                           @csrf
-                          <input name="importFile" type="file">
+                          <input name="import_file" type="file">
                       </form>
                   </div>
               </div>
@@ -20,7 +20,7 @@
           <div class="container">
               <div class="row">
                   <div class="col">
-                    <button type="submit" form="importForm" class="btn btn-block btn-success">{{ __('Import') }}</button>
+                    <button type="submit" form="import_form" class="btn btn-block btn-success">{{ __('Import') }}</button>
                   </div>
                   <div class="col">
                     <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">{{ __('Cancel') }}</button>

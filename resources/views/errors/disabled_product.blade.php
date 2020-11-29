@@ -11,8 +11,7 @@
                         <b>{{ __('We are sorry') }}</b>
                     </div>
                     <div class="card-body">
-                        <p>{{ __('It seems that your account is disabled') }}</p>
-                        <p>{{ __('Contact us to reactivate your account') }}</p>
+                        <p>{{ __('This product is disabled') }}</p>
                     </div>
                 </div>
             </div>

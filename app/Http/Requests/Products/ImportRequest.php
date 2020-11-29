@@ -24,7 +24,21 @@ class ImportRequest extends FormRequest
     public function rules()
     {
         return [
-            'importFile' => 'required|file|mimes:xlsx'
+            'import_file' => 'required|file|mimes:xlsx'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages() : array
+    {
+        return [
+            'import_file.required' => trans('products.error_messages.import_file.required'),
+            'import_file.file' => trans('products.error_messages.import_file.file'),
+            'import_file.mimes' => trans('products.error_messages.import_file.mimes'),
         ];
     }
 }

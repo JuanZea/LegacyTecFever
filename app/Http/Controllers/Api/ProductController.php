@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\StoreRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Product;
@@ -25,10 +25,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreProductRequest $request
+     * @param StoreRequest $request
      * @return ProductResource
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreRequest $request)
     {
         $request = $request->validated();
         if(isset($request['image'])){

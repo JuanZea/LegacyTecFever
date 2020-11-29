@@ -6,6 +6,9 @@ return [
         'create' => 'Product creation',
         'update' => 'Product update'
     ],
+    'messages' => [
+        'import' => ':count products have been imported successfully'
+    ],
     'error_messages' => [
         'name' => [
             'required' => 'Your product needs a name',
@@ -29,6 +32,11 @@ return [
         ],
         'stock' => [
             'required' => 'Choose a stock quantity'
+        ],
+        'import_file' => [
+            'required' => 'No file found to import',
+            'file' => 'A valid file was not uploaded',
+            'mimes' => 'The file does not have a valid extension'
         ]
     ]
 ];

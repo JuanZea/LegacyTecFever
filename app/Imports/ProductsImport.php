@@ -21,12 +21,11 @@ class ProductsImport implements ToModel, WithHeadingRow, WithValidation
     {
         return new Product([
             'name' => $row['name'],
-            'isEnabled' => $row['is_enabled'],
+            'is_enabled' => $row['is_enabled'],
             'description' => $row['description'],
             'category' => $row['category'],
             'price' => $row['price'],
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at'],
+            'stock' => $row['stock']
         ]);
     }
 
