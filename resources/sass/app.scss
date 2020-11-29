@@ -102,16 +102,20 @@ $tec-color: #0D1931;
     background-attachment: fixed;
     min-height: inherit;
 }
-
 .scene-cobweb {
     background-image: url('public/images/commercial/Background2.jpg');
     background-size: cover;
     background-attachment: fixed;
     min-height: 100vh;
 }
-
-.scene-tesla {
-    background-image: url('public/images/commercial/Background4.jpg');
+.scene-chip-1 {
+    background-image: url('public/images/commercial/Background-chip-1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: inherit;
+}
+.scene-chip-2 {
+    background-image: url('public/images/commercial/Background-chip-2.jpg');
     background-size: cover;
     background-attachment: fixed;
     min-height: inherit;
@@ -122,6 +126,19 @@ $tec-color: #0D1931;
     background-size: cover;
     background-attachment: fixed;
     min-height: inherit;
+}
+
+// Carcass
+#carcass {
+    height: 400px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-color: firebrick;
+    border-width: 7px;
+}
+#carcass > .card-header,
+#carcass > .card-header > img {
+    height: 200px;
 }
 
 // Home
@@ -250,12 +267,6 @@ $tec-color: #0D1931;
 
 #users-show .s-userInfo > div > div {
     height: 210px;
-}
-
-#products-shop .s-showcase > div > form > button {
-    height: 400px;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
 }
 
 #products-shop .s-showcase > div > form > button .card-body {

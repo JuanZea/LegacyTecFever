@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-	<div id="products-shop" class="scene-tesla">
+	<div id="products-shop" class="
+    @if (rand(0,1) != 0)
+        scene-chip-1
+    @else
+        scene-chip-2
+    @endif
+    ">
 		<div class="container">
 		{{-- Header --}}
             <div class="row text-center">
@@ -12,41 +18,39 @@
 		{{-- /Header --}}
 
 		{{-- Showcase --}}
-			<div class="s-showcase row">
+			<div class="row">
 				@foreach($products as $product)
 				    @if($product->is_enabled)
-                        <div class="col-md-4 py-3 hvr-grow-shadow">
-                            <form action="{{ route('products.show',$product) }}">
-                                <button class="card px-0 mask shadow">
-                                    <div class="card-header p-0">
-                                        <img class="img-fluid" src="{{ $product->get_image }}" alt="Imagen de producto">
+                        <div class="col-md-4 py-3">
+                            <a id="carcass" class="card p-0 mask shadow hvr-grow-shadow text-decoration-none" href="{{ route('products.show',$product) }}">
+                                <div class="card-header text-center p-0">
+                                    <img class="img-fluid" src="{{ $product->get_image }}" alt="Imagen de producto">
+                                </div>
+                                @switch($product->category)
+                                    @case('computer')
+                                        <?php $color = 'bg-computer'?>
+                                        @break
+                                    @case('smartphone')
+                                        <?php $color = 'bg-smartphone'?>
+                                        @break
+                                    @case('accessory')
+                                        <?php $color = 'bg-accessory'?>
+                                        @break
+                                    @default
+                                        <?php $color = 'bg-danger'?>
+                                @endswitch
+                                <div class="text-center {{ $color }}">
+                                    <span class="text-white">{{ strtoupper(__($product->category)) }}</span>
+                                </div>
+                                <div class="card-body d-flex flex-md-column justify-content-between">
+                                    <div class="div">
+                                        <p class="text-dark text-center">{{ $product->name }}</p>
                                     </div>
-                                        @switch($product->category)
-                                                    @case('computer')
-                                                        <?php $color = 'bg-computer' ?>
-                                                        @break
-                                                    @case('smartphone')
-                                                        <?php $color = 'bg-smartphone' ?>
-                                                        @break
-                                                    @case('accessory')
-                                                        <?php $color = 'bg-accessory' ?>
-                                                        @break
-                                                    @default
-                                                        <?php $color = 'bg-danger' ?>
-                                                @endswitch
-                                            <div class="align-self-center {{ $color }}">
-                                                <span class="text-white">{{ strtoupper(__($product->category)) }}</span><br>
-                                            </div>
-                                    <div class="card-body d-flex flex-md-column justify-content-between">
-                                        <div class="div">
-                                            {{ $product->name }}
-                                        </div>
-                                            <div class="align-self-center price">
-                                                <span><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span><br>
-                                            </div>
+                                    <div class="align-self-center price">
+                                        <span><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span><br>
                                     </div>
-                                </button>
-                            </form>
+                                </div>
+                            </a>
                         </div>
                     @endif
                 @endforeach

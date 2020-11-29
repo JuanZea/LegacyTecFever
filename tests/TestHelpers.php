@@ -11,7 +11,7 @@ class TestHelpers{
     public const ONLYADMIN = ['control_panel'];
     public const CRUD = ['index','create','store','show','edit','update','destroy'];
     public const DESPICABLES = [
-        'account', 'products.import'
+        'account', 'products.import', 'products.export'
     ];
     public const VALIDREQUESTFORUSER = [
         'name' => 'Nixon Jeiler',

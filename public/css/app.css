@@ -14428,8 +14428,15 @@ a.text-dark:focus {
   min-height: 100vh;
 }
 
-.scene-tesla {
-  background-image: url(/images/Background4.jpg?05bbf7f685cce8be698c9e335ab43329);
+.scene-chip-1 {
+  background-image: url(/images/Background-chip-1.jpg?3ce1698f3435e0c14d9392a26556c730);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: inherit;
+}
+
+.scene-chip-2 {
+  background-image: url(/images/Background-chip-2.jpg?844d67b96d22b4380b91ef31d6b744f6);
   background-size: cover;
   background-attachment: fixed;
   min-height: inherit;
@@ -14440,6 +14447,19 @@ a.text-dark:focus {
   background-size: cover;
   background-attachment: fixed;
   min-height: inherit;
+}
+
+#carcass {
+  height: 400px;
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-color: firebrick;
+  border-width: 7px;
+}
+
+#carcass > .card-header,
+#carcass > .card-header > img {
+  height: 200px;
 }
 
 #home .s-services {
@@ -14586,12 +14606,6 @@ a.text-dark:focus {
 
 #users-show .s-userInfo > div > div {
   height: 210px;
-}
-
-#products-shop .s-showcase > div > form > button {
-  height: 400px;
-  border-bottom-right-radius: 50px;
-  border-bottom-left-radius: 50px;
 }
 
 #products-shop .s-showcase > div > form > button .card-body {
