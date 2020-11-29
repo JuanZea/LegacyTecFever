@@ -27,9 +27,9 @@ Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 Route::resource('users', 'UserController');
 
 
+Route::get('products/export', 'ProductController@export')->name('products.export');
 Route::resource('products', 'ProductController');
 Route::post('products/import', 'ProductController@import')->name('products.import');
-
 
 Route::post('/payment', 'PaymentController@payment')->name('payment');
 Route::get('/payment/Retry', 'PaymentController@retry')->name('payment.retry');

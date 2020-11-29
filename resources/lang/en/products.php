@@ -4,10 +4,13 @@ return [
     'titles' => [
         'index' => 'Products Management',
         'create' => 'Product creation',
-        'update' => 'Product update'
+        'update' => 'Product update',
+        'import' => 'Import product',
+        'export' => 'Export product'
     ],
     'messages' => [
-        'import' => ':count products have been imported successfully'
+        'import' => ':count products have been imported successfully',
+        'export' => 'Products have been exported successfully'
     ],
     'error_messages' => [
         'name' => [

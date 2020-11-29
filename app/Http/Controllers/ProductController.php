@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductsExport;
 use App\Http\Requests\StoreRequest;
 use App\Http\Requests\Products\ImportRequest;
 use App\Http\Requests\UpdateRequest;
@@ -156,5 +157,13 @@ class ProductController extends Controller
         $importedProducts = $import->toArray($request->file('import_file'))[0];
 
         return redirect()->route('products.index')->with('message', trans('products.messages.import', ['count' => count($importedProducts)]));
+    }
+
+    public function export()
+    {
+        $export = new ProductsExport();
+        return $export->download('products.xlsx');
+
+//        return redirect()->route('products.index')->with('message', trans('products.messages.export'));
     }
 }
