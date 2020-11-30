@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProductsExport;
+use App\Helpers\Detectors;
 use App\Http\Requests\StoreRequest;
 use App\Http\Requests\Products\ImportRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Imports\ProductsImport;
 use App\Product;
+use App\Report;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -70,8 +72,10 @@ class ProductController extends Controller
             }
         }
 
+        $product = Product::create($request);
 
-        Product::create($request);
+        // Store a new report
+        Report::create(['product_id' => $product->id]);
 
         return redirect()->route('products.index');
     }
@@ -84,6 +88,11 @@ class ProductController extends Controller
      */
     public function show(Product $product) : View
     {
+        // Add a view to reports
+        $report = Report::where('product_id', $product->id)->first();
+        $report->views = $report->views + 1;
+        $report->save();
+
         if (Auth::user()->is_admin) {
             return view('products.show',compact('product'));
         } else {
@@ -172,5 +181,18 @@ class ProductController extends Controller
         return $export->download('products.xlsx');
 
 //        return redirect()->route('products.index')->with('message', trans('products.messages.export'));
+    }
+
+    public function report_summary()
+    {
+        $products = Product::all();
+        $most_viewed_product = Detectors::most_viewed_product($products);
+        return view('products.report_summary',compact('most_viewed_product'));
+    }
+
+    public function specific_reports()
+    {
+        $products = Product::query()->orderBy('id','DESC')->paginate();
+        return view('products.specific_reports',compact('products'));
     }
 }

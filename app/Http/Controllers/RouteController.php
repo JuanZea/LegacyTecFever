@@ -121,7 +121,7 @@ class RouteController extends Controller
                 return view('account.profile', compact('user', 'section'));
             }
             case 1: {
-                return view('account.shoppingHistory', compact('user', 'section'));
+                return view('account.shopping_history', compact('user', 'section'));
             }
             case 2: {
                 return view('account.configuration', compact('user', 'section'));

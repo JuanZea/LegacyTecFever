@@ -14570,6 +14570,7 @@ a.text-dark:focus {
 #products-index .s-header > div > a > img,
 #products-create .s-header > div > a > img,
 #products-show .s-header > div > a > img,
+#products-report .s-header > div > a > img,
 #products-edit .s-header > div > a > img {
   height: 50px;
 }
@@ -14730,6 +14731,25 @@ a.text-dark:focus {
   font-size: 40px;
   color: yellow;
   -webkit-text-stroke: 2px black;
+}
+
+.views {
+  font-size: 40px;
+  color: firebrick;
+  -webkit-text-stroke: 2px black;
+}
+
+.ani-grow {
+  -webkit-animation-name: hvr-pulse-grow;
+  animation-name: hvr-pulse-grow;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
 }
 
 .service-icon {

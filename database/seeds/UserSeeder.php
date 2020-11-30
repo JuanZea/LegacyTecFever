@@ -11,6 +11,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $count = 29;
+
         App\User::create([
         'is_admin' => true,
         'is_enabled' => true,
@@ -25,6 +27,13 @@ class UserSeeder extends Seeder
         'remember_token' => Str::random(10),
         ]);
 
-        factory(App\User::class,29)->create();
+        factory(App\User::class,$count)->create();
+
+        // Assign shopping carts
+        for ($idx = 1; $idx <= $count; $idx++) {
+            factory(App\ShoppingCart::class)->create([
+                'user_id' => $idx
+            ]);
+        }
     }
 }

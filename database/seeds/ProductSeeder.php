@@ -11,6 +11,14 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Product::class,400)->create();
+        $count = 400;
+        factory(App\Product::class, $count)->create();
+
+        // Assign reports
+        for ($idx = 1; $idx <= $count; $idx++) {
+            factory(App\Report::class)->create([
+                'product_id' => $idx
+            ]);
+        }
     }
 }

@@ -6,7 +6,8 @@ return [
         'create' => 'Creación de producto',
         'update' => 'Actualización de producto',
         'import' => 'Importar producto',
-        'export' => 'Exportar producto'
+        'export' => 'Exportar producto',
+        'report' => 'Reporte de productos'
     ],
     'messages' => [
         'import' => ':count productos se han importado con éxito',
@@ -41,5 +42,9 @@ return [
             'file' => 'No se cargó un archivo válido',
             'mimes' => 'El archivo no tiene una extensión válida'
         ]
+    ],
+    'reports_messages' => [
+        'intro' => 'Hasta el momento, los siguientes informes se han formulado en base a la información recopilada de los productos, como las visualizaciones, ventas y existencias de cada uno.',
+        'most_viewed' => 'Entre todos los productos se ha detectado que el más visto es <strong>:most_viewed</strong> con <strong>:views</strong> vistas.'
     ]
 ];

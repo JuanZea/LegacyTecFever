@@ -54,4 +54,9 @@ class Product extends Model
     {
         return $this->belongsToMany(ShoppingCart::class);
     }
+
+    public function report() : Object
+    {
+        return $this->hasOne(Report::class);
+    }
 }

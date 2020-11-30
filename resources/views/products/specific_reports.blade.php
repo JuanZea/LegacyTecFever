@@ -1,0 +1,137 @@
+@extends('layouts.app')
+
+@section('content')
+<section id="products-report" class="scene-cobweb">
+    <div class="container">
+
+        {{-- Header --}}
+        <div class="s-header row py-4 d-flex align-items-center justify-content-between">
+                <div>
+                    <a href="{{ route('control_panel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
+                </div>
+                <div>
+                    <h1 class="title-tec d-flex align-items-center"><i class="fas fa-chart-line px-2"></i></i>@lang('products.titles.report')</h1>
+                </div>
+                <div>
+                    <a class="hvr-pulse-grow" data-toggle="modal" data-target="#actionsModal"><i class="fas fa-database br-black"></i></a>
+                </div>
+            </div>
+        {{-- /Header --}}
+
+        {{-- Nav --}}
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('products.report.summary') }}">@lang('Summary')</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{{ route('products.report.specific_reports') }}">@lang('Specific reports')</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">@lang('Charts [Very Soon]')</a>
+          </li>
+        </ul>
+        {{-- /Nav --}}
+
+        {{-- Table --}}
+        @if ($errors->any())
+            <div class="alert alert-danger mt-3" role="alert">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $message)
+                        <ul><h3 class="text-center my-0">{{ $message }}</h3></ul>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session()->has('message'))
+            <div class="alert alert-success mt-3" role="alert">
+                <h3 class="text-center my-0">{{ session('message') }}</h3>
+            </div>
+        @endif
+        <div class="s-table row">
+            <table class="table table-striped table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            {{ __('Id') }}
+                        </th>
+                        <th scope="col">
+                            @lang('common.fields.enabled')
+                        </th>
+                        <th class="text-left" scope="col">
+                            @lang('common.fields.name')
+                        </th>
+                        <th scope="col">
+                            @lang('common.fields.category')
+                        </th>
+                        <th scope="col">
+                            @lang('common.fields.price')
+                        </th>
+                        <th scope="col">
+                            @lang('common.fields.stock')
+                        </th>
+                        <th scope="col">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach($products as $product)
+                        <tr>
+                            <th scope="row">
+                                {{ $product->id }}
+                            </th>
+                            <td class="s-status text-center">
+                                 @if($product->is_enabled)
+                                    <span><i class="fas fa-check fa-2x text-success br-green"></i></span>
+                                @else
+                                    <span><i class="fas fa-exclamation-triangle fa-2x text-warning br-black"></i></span>
+                                @endif
+                            </td>
+                            <td class="text-left">
+                                {{ $product->name }}
+                            </td>
+                            <td>
+                                @switch($product->category)
+                                    @case('computer')
+                                        <?php $color = 'br-computer' ?>
+                                        @break
+                                    @case('smartphone')
+                                        <?php $color = 'br-smartphone' ?>
+                                        @break
+                                    @case('accessory')
+                                        <?php $color = 'br-accessory' ?>
+                                        @break
+                                    @default
+                                        <?php $color = 'br-danger' ?>
+                                @endswitch
+
+                                <span class="p-2 text-bold {{ $color }} text-white">
+                                    {{ __($product->category) }}
+                                </span>
+                            </td>
+                            <td>
+                                {{ App\Helpers\Formatters::priceFormatter($product->price) }}
+                            </td>
+                            <td>
+                                {{ $product->stock }}
+                            </td>
+                            <td>
+                                <a class="btn btn-tec" href="{{ route('products.show',$product) }}">{{ __('See in shop') }}</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                </tbody>
+            </table>
+        </div>
+        {{-- /Table --}}
+
+        {{-- Paginate --}}
+        <div class="actions d-flex justify-content-center">
+            {{ $products->links() }}
+        </div>
+        {{-- /Paginate --}}
+
+    </div>
+</section>
+@endsection
+

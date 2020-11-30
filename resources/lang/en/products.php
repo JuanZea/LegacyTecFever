@@ -6,7 +6,8 @@ return [
         'create' => 'Product creation',
         'update' => 'Product update',
         'import' => 'Import product',
-        'export' => 'Export product'
+        'export' => 'Export product',
+        'report' => 'Products report'
     ],
     'messages' => [
         'import' => ':count products have been imported successfully',
@@ -41,5 +42,9 @@ return [
             'file' => 'A valid file was not uploaded',
             'mimes' => 'The file does not have a valid extension'
         ]
+    ],
+    'reports_messages' => [
+        'intro' => 'So far the following reports have been formulated based on the information collected from the products, such as the views, sales, and stocks of each one.',
+        'most_viewed' => 'Among all the products it has been detected that the most viewed is <strong>:most_viewed</strong> with <strong>:views</strong> views.'
     ]
 ];

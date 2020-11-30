@@ -28,6 +28,8 @@ Route::resource('users', 'UserController');
 
 
 Route::get('products/export', 'ProductController@export')->name('products.export');
+Route::get('products/report/specific_reports', 'ProductController@specific_reports')->name('products.report.specific_reports');
+Route::get('products/report/summary', 'ProductController@report_summary')->name('products.report.summary');
 Route::resource('products', 'ProductController');
 Route::post('products/import', 'ProductController@import')->name('products.import');
 

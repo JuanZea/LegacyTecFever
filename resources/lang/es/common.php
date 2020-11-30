@@ -6,7 +6,9 @@ return [
         'update' => 'Actualizar',
         'import' => 'Importar',
         'download' => 'Descargar',
-        'cancel' => 'Cancelar'
+        'cancel' => 'Cancelar',
+        'buy' => 'Comprar',
+        'delete' => 'Eliminar'
     ],
     'fields' => [
         'name' => 'Nombre',
@@ -15,6 +17,7 @@ return [
         'category' => 'Categoría',
         'image' => 'Imagen',
         'price' => 'Precio',
-        'stock' => 'Existencias'
+        'stock' => 'Existencias',
+        'views' => 'Vistas'
     ]
 ];

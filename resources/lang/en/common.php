@@ -6,7 +6,9 @@ return [
         'update' => 'Update',
         'import' => 'Import',
         'download' => 'Download',
-        'cancel' => 'Cancel'
+        'cancel' => 'Cancel',
+        'buy' => 'Buy',
+        'delete' => 'Delete'
     ],
     'fields' => [
         'name' => 'Name',
@@ -15,6 +17,7 @@ return [
         'category' => 'Category',
         'image' => 'Image',
         'price' => 'Price',
-        'stock' => 'Stock'
+        'stock' => 'Stock',
+        'views' => 'Views'
     ]
 ];

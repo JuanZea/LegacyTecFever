@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('products.modals.edit')
 <section id="products-show" class="scene-wall">
 	<div class="container">
 		{{-- Header --}}
@@ -43,7 +44,7 @@
                         <?php $color = 'bg-danger' ?>
                     @endswitch
                     <div class="text-center text-uppercase {{ $color }}">
-                        <span class="text-white">{{ $product->category }}</span><br>
+                        <span class="text-white">{{ __($product->category) }}</span><br>
                     </div>
 					<div class="card-body">
 						<b>{{ __('Description').':' }}</b><br>
@@ -53,30 +54,36 @@
 			</div>
 			<div class="col">
                 @if($errors->all())
-                    <div class="card mb-4">
-                        <div class="card-header text-center bg-danger text-white">
-                            {{ __('Error') }}
-                        </div>
-                        <div class="card-body text-center bg-danger text-white">
-                            @foreach($errors->all() as $error)
-                                <b>{{ $error }}</b>
-                            @endforeach
-                        </div>
+                <div class="card mb-4">
+                    <div class="card-header text-center bg-danger text-white">
+                        {{ __('Error') }}
                     </div>
+                    <div class="card-body text-center bg-danger text-white">
+                        @foreach($errors->all() as $error)
+                            <b>{{ $error }}</b>
+                        @endforeach
+                    </div>
+                </div>
                 @endif
                 @if(Session::has('status'))
-                    <div class="card mb-4">
-                        <div class="card-header text-center bg-success text-white">
-                            <b>{{ Session::get('status', 'default') }}</b>
-                        </div>
+                <div class="card mb-4">
+                    <div class="card-header text-center bg-success text-white">
+                        <b>{{ Session::get('status', 'default') }}</b>
                     </div>
+                </div>
                 @endif
-				<div class="card">
-					<div class="card-header price">
-						<span><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span>
-					</div>
+                <div class="text-center">
+                    <h2 class="mb-0 title-tec">@lang('common.fields.price')</h2>
+                </div>
+                <div class="price text-center">
+                    <span class="hvr-buzz-out"><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span>
+                </div>
+				<div class="card mt-3">
 					<div class="card-body">
 						<div class="container">
+                            <div class="row justify-content-center">
+                                <h2 class="mb-2 views text-bold ani-grow">@lang('common.actions.buy')</h2>
+                            </div>
                             <div class="row">
                                 <div class="col">
                                     <form action="{{ route('shoppingCarts.store') }}" method="POST">
@@ -86,6 +93,7 @@
                                         <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
                                     </form>
                                     @if (Auth::user()->is_admin)
+                                        <a class="hvr-pulse-grow" data-toggle="modal" data-target="#editModal"><i class="fas fa-database br-black"></i></a>
                                         <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
                                         <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
                                             @csrf @method('DELETE')
@@ -104,6 +112,12 @@
                         </div>
 					</div>
 				</div>
+                <div class="text-center mt-4">
+                    <h2 class="mb-0 title-tec">@lang('common.fields.views')</h2>
+                </div>
+                <div class="views text-center">
+                    <span class="hvr-grow"><b>{{ $product->report->views }}</b></span>
+                </div>
 			</div>
 		</div>
 		{{-- /Presentation --}}
