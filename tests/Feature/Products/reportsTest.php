@@ -23,7 +23,7 @@ class reportsTest extends TestCase
         $user = factory(User::class)->create();
         $products = factory(Product::class)->times(29)->create();
         $product = $products[rand(0,28)];
-        factory(Report::class)->create(['assigned_to' => $product->id]);
+        factory(Report::class)->create(['product_id' => $product->id]);
 
         // Act
         $this->actingAs($user);

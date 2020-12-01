@@ -16,6 +16,9 @@
                 <div>
                     <a class="hvr-pulse-grow" data-toggle="modal" data-target="#actionsModal"><i class="fas fa-database br-black"></i></a>
                 </div>
+                <div>
+                    <a class="hvr-pulse-grow" href="{{ route('products.download') }}">Descagar</a>
+                </div>
             </div>
         {{-- /Header --}}
 

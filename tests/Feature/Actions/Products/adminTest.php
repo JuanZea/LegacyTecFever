@@ -3,6 +3,7 @@
 namespace Tests\Feature\Actions\Products;
 
 use App\Product;
+use App\Report;
 use App\ShoppingCart;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,10 +23,12 @@ class adminTest extends TestCase
      */
     public function anAdminCan(string $route) : void
     {
+        $this->withoutExceptionHandling();
         // Arrange
         $admin = factory(User::class)->create(['is_admin' => true, 'is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
+        factory(Report::class)->create(['product_id' => $product->id]);
 
         // Act
         $this->actingAs($admin);
@@ -42,6 +45,7 @@ class adminTest extends TestCase
         if (strpos($route, 'show') || strpos($route, 'edit')) {
             $response->assertViewHas('product');
             $responseProduct = $response->getOriginalContent()['product']->toArray();
+            unset($responseProduct['report']);
             $this->assertDatabaseHas('products', TestHelpers::removeTimeKeys($responseProduct));
         }
     }

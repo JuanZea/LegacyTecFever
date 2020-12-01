@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProductCreated;
 use App\Exports\ProductsExport;
 use App\Helpers\Detectors;
 use App\Http\Requests\StoreRequest;
@@ -72,10 +73,7 @@ class ProductController extends Controller
             }
         }
 
-        $product = Product::create($request);
-
-        // Store a new report
-        Report::create(['product_id' => $product->id]);
+        ProductCreated::dispatch(Product::create($request));
 
         return redirect()->route('products.index');
     }
@@ -178,9 +176,15 @@ class ProductController extends Controller
     public function export()
     {
         $export = new ProductsExport();
-        return $export->download('products.xlsx');
+        $export->store('products-'.now()->format('Y-m-d').'.xlsx','reports');
+//        return $export->download('products.xlsx');
 
-//        return redirect()->route('products.index')->with('message', trans('products.messages.export'));
+        return redirect()->route('products.index')->with('message', trans('products.messages.export'));
+    }
+
+     public function download()
+    {
+        return Storage::disk('reports')->download('products-2020-11-30.xlsx');
     }
 
     public function report_summary()

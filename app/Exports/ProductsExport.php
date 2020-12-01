@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Helpers\Formatters;
 use App\Product;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -17,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ProductsExport implements FromQuery, WithHeadings, WithMapping, WithColumnFormatting, WithColumnWidths, WithStyles
+class ProductsExport implements FromQuery, ShouldQueue, WithHeadings, WithMapping, WithColumnFormatting, WithColumnWidths, WithStyles
 {
     use Exportable;
 

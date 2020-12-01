@@ -11,7 +11,7 @@ class TestHelpers{
     public const ONLYADMIN = ['control_panel'];
     public const CRUD = ['index','create','store','show','edit','update','destroy'];
     public const DESPICABLES = [
-        'account', 'products.import', 'products.export'
+        'account'
     ];
     public const VALIDREQUESTFORUSER = [
         'name' => 'Nixon Jeiler',
@@ -38,6 +38,7 @@ class TestHelpers{
     {
         $routes = self::getRouteNames();
         $routes = self::removeCRUDRoutes($routes);
+        $routes = self::removeReportsRoutes($routes);
         $routes = self::removeDespicableRoutes($routes);
         return $routes;
     }
@@ -68,6 +69,23 @@ class TestHelpers{
         $cleanRoutes = [];
         foreach ($routes as $route) {
             if(!self::belongCRUD($route))
+                array_push($cleanRoutes, $route);
+        }
+
+        return $cleanRoutes;
+    }
+
+    /**
+     * Remove routes that do not belong to reports
+     *
+     * @param array $routes
+     * @return array
+     */
+    public static function removeReportsRoutes(array $routes)
+    {
+        $cleanRoutes = [];
+        foreach ($routes as $route) {
+            if(!self::belongReports($route))
                 array_push($cleanRoutes, $route);
         }
 
@@ -121,6 +139,14 @@ class TestHelpers{
         return false;
     }
 
+    public static function belongReports($name)
+    {
+        if(strpos($name, 'import') || strpos($name, 'export') || strpos($name, 'download') || strpos($name, 'report')) {
+            return true;
+        }
+        return false;
+    }
+
     public static function isDespicable(?string $name) : bool
     {
         if(strpos($name, 'assword') || strpos($name, 'erification') || strpos($name, 'ogout') || strpos($name, 'enerated') || strpos($name, 'ayment') || strpos($name, 'hoppingCarts') || is_null($name)) {
@@ -128,4 +154,6 @@ class TestHelpers{
         }
         return false;
     }
+
+
 }
