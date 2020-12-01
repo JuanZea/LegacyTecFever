@@ -21,6 +21,15 @@ class Product extends Model
     ];
 
     /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'stats' => '{"views":0}'
+    ];
+
+    /**
      * Returns the url of the product image
      * @return String
      */
@@ -53,10 +62,5 @@ class Product extends Model
     public function shoppingCarts() : Object
     {
         return $this->belongsToMany(ShoppingCart::class);
-    }
-
-    public function report() : Object
-    {
-        return $this->hasOne(Report::class);
     }
 }

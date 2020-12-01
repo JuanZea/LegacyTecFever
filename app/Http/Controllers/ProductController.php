@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ProductCreated;
+use App\Events\ProductViewed;
 use App\Exports\ProductsExport;
 use App\Helpers\Detectors;
 use App\Http\Requests\StoreRequest;
@@ -73,8 +74,8 @@ class ProductController extends Controller
             }
         }
 
-        ProductCreated::dispatch(Product::create($request));
-
+        $product = Product::create($request);
+//        ProductCreated::dispatch($product);
         return redirect()->route('products.index');
     }
 
@@ -86,10 +87,8 @@ class ProductController extends Controller
      */
     public function show(Product $product) : View
     {
-        // Add a view to reports
-        $report = Report::where('product_id', $product->id)->first();
-        $report->views = $report->views + 1;
-        $report->save();
+        // Add a view to stats
+        ProductViewed::dispatch($product);
 
         if (Auth::user()->is_admin) {
             return view('products.show',compact('product'));

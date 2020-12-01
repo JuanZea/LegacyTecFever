@@ -27,7 +27,6 @@ class userTest extends TestCase
         $user = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
         $product = factory(Product::class)->create(['is_enabled' => true]);
-        factory(Report::class)->create(['product_id' => $product->id]);
 
         // Act
         $this->actingAs($user);
@@ -38,7 +37,7 @@ class userTest extends TestCase
         $response->assertViewIs($route);
         $response->assertViewHas('product');
         $responseProduct = $response->getOriginalContent()['product']->toArray();
-        unset($responseProduct['report']);
+        unset($responseProduct['stats']);
         $this->assertDatabaseHas('products', TestHelpers::removeTimeKeys($responseProduct));
     }
 
@@ -56,7 +55,6 @@ class userTest extends TestCase
         $user = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
         $product = factory(Product::class)->create(['is_enabled' => false]);
-        factory(Report::class)->create(['product_id' => $product->id]);
 
         // Act
         $this->actingAs($user);

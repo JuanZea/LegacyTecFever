@@ -26,7 +26,7 @@ class TestHelpers{
         'category' => 'computer',
         'image' => null,
         'price' => '2900000',
-        'stock' => '29'
+        'stock' => '29',
     ];
 
     /**

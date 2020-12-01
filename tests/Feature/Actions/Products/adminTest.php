@@ -28,7 +28,6 @@ class adminTest extends TestCase
         $admin = factory(User::class)->create(['is_admin' => true, 'is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
-        factory(Report::class)->create(['product_id' => $product->id]);
 
         // Act
         $this->actingAs($admin);
@@ -45,7 +44,7 @@ class adminTest extends TestCase
         if (strpos($route, 'show') || strpos($route, 'edit')) {
             $response->assertViewHas('product');
             $responseProduct = $response->getOriginalContent()['product']->toArray();
-            unset($responseProduct['report']);
+            unset($responseProduct['stats']);
             $this->assertDatabaseHas('products', TestHelpers::removeTimeKeys($responseProduct));
         }
     }

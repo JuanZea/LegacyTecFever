@@ -29,10 +29,10 @@ class updateTest extends TestCase
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
         $oldData = TestHelpers::removeTimeKeys($product->toArray());
+        unset($oldData['stats']);
         if (!$oldData['is_enabled']) {
             unset($oldData['is_enabled']);
         }
-//        dd($oldData, $product->toArray());
         $validRequest = TestHelpers::VALIDREQUESTFORPRODUCT;
         if ($data != 'new') {
             if($data == 'same') {

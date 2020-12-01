@@ -43,10 +43,14 @@ class UserListenerTest extends TestCase
     {
         // Arrange
         Event::fake();
-        factory(Product::class)->create();
+        $admin = factory(User::class)->create(['is_admin' => true]);
+        $product = factory(Product::class)->raw();
+
+        // Act
+        $this->actingAs($admin);
+        $this->post(route('products.store'), $product);
 
         // Assert
         Event::assertDispatched(ProductCreated::class);
-
     }
 }

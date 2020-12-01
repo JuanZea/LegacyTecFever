@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('image')->nullable();
             $table->unsignedInteger('price');
             $table->unsignedInteger('stock');
+            $table->json('stats');
             $table->timestamps();
         });
     }

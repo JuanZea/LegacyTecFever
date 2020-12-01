@@ -86,19 +86,26 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <form action="{{ route('shoppingCarts.store') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input v-model="quantity" type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
-                                        <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
-                                    </form>
-                                    @if (Auth::user()->is_admin)
-                                        <a class="hvr-pulse-grow" data-toggle="modal" data-target="#editModal"><i class="fas fa-database br-black"></i></a>
-                                        <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
-                                        <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
+                                    <div class="row justify-content-center">
+                                        <form action="{{ route('shoppingCarts.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input v-model="quantity" type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
+                                            <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
                                         </form>
+                                    </div>
+                                    @if (Auth::user()->is_admin)
+                                    <div class="row mt-3">
+                                        <div class="col d-flex justify-content-center align-items-center">
+                                            <a href="{{ route('products.edit',$product) }}" class="text-warning br-black"><i class="fas fa-pencil-alt fa-3x hvr-grow" data-toggle="tooltip" data-placement="bottom" title="Importar productos"></i></i></a>
+                                        </div>
+                                        <div class="col d-flex justify-content-center align-items-center">
+                                           <form action="{{ route('products.destroy',$product) }}" method="POST" onclick="return confirm('¿Estás seguro?')">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="text-danger br-black button-naked"><i class="fas fa-trash-alt fa-3x hvr-grow" data-toggle="tooltip" data-placement="bottom" title="@lang('common.actions.delete')"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
                                         @if(!$product->is_enabled)
                                             <div class="card bg-warning mt-2">
                                                 <div class="card-body text-center">
@@ -116,7 +123,7 @@
                     <h2 class="mb-0 title-tec">@lang('common.fields.views')</h2>
                 </div>
                 <div class="views text-center">
-                    <span class="hvr-grow"><b>{{ $product->report->views }}</b></span>
+                    <span class="hvr-grow"><b>{{ \GuzzleHttp\json_decode($product->stats, true)['views'] }}</b></span>
                 </div>
 			</div>
 		</div>
