@@ -14,7 +14,7 @@ class Detectors {
      */
     public static function most_viewed_product(Collection $products) : ?Product
     {
-        if (empty($products)) {
+        if (count($products) == 0) {
             return null;
         }
 
@@ -22,7 +22,7 @@ class Detectors {
         $max_product = $products[0];
 
         foreach ($products as $product) {
-            $views = $product->report->views;
+            $views = \GuzzleHttp\json_decode($product->stats, true)['views'];
             if ($views > $max_views) {
                 $max_views = $views;
                 $max_product = $product;

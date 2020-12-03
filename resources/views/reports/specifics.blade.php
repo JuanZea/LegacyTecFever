@@ -20,27 +20,35 @@
 
         {{-- Nav --}}
         <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" href="{{ route('products.report.summary') }}">@lang('Summary')</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('products.report.specific_reports') }}">@lang('Specific reports')</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">@lang('Charts [Very Soon]')</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('reports.summary') }}">@lang('Summary')</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ route('reports.specifics') }}">@lang('Specific reports')</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('exports.index') }}">@lang('Exports')</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">@lang('Charts [Very Soon]')</a>
+            </li>
         </ul>
         {{-- /Nav --}}
 
         {{-- Introduction --}}
-        <div class="container bg-white pt-2">
+        <div class="container bg-cloud p-4">
+            <div class="row">
+                <div class="col">
+                    <div class="container bg-white pt-2">
             <div class="row">
                 <div class="col">
                     <p><b>@lang('Date'): </b>{{ now() }}</p>
                     <p><b>@lang('Reports'): </b></p>
                     <p>@lang('products.reports_messages.intro')</p>
                     <p><b>@lang('The most seen'):</b></p>
-                    <p>@lang('products.reports_messages.most_viewed', ['most_viewed' => $most_viewed_product->name, 'views' => $most_viewed_product->report->views])</p>
+                </div>
+            </div>
+        </div>
                 </div>
             </div>
         </div>

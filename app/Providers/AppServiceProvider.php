@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use App\Observers\ProductObserver;
-use App\Product;
+use App\Export;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Queue\Events\JobProcessed;
 
 class AppServiceProvider extends ServiceProvider
 {

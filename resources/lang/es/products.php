@@ -11,7 +11,7 @@ return [
     ],
     'messages' => [
         'import' => ':count productos se han importado con éxito',
-        'export' => 'Los productos se han exportado con éxito'
+        'export' => 'La exportación de productos comenzó con éxito'
     ],
     'error_messages' => [
         'name' => [

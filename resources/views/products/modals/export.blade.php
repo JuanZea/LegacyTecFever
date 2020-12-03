@@ -8,7 +8,11 @@
           <div class="container">
               <div class="row">
                   <div class="col">
-                      <a class="btn btn-block btn-outline-warning" href="{{ route('products.export') }}">@lang('common.actions.download')</a>
+                      <form id="export_form" action="{{ route('export') }}" method="POST" enctype="multipart/form-data">
+                          @csrf
+                          <label for="name">@lang('Enter the name of the export'):</label>
+                          <input id="name" name="name" type="text" class="form-control" placeholder="@lang('Name')">
+                      </form>
                   </div>
               </div>
           </div>
@@ -16,6 +20,9 @@
       <div class="modal-footer">
           <div class="container">
               <div class="row">
+                  <div class="col">
+                    <button type="submit" form="export_form" class="btn btn-block btn-success">@lang('common.actions.export')</button>
+                  </div>
                   <div class="col">
                     <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">@lang('common.actions.cancel')</button>
                   </div>

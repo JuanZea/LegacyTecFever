@@ -5,6 +5,7 @@ return [
         'create' => 'Crear',
         'update' => 'Actualizar',
         'import' => 'Importar',
+        'export' => 'Exportar',
         'download' => 'Descargar',
         'cancel' => 'Cancelar',
         'buy' => 'Comprar',

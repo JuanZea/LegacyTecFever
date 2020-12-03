@@ -16,9 +16,6 @@
                 <div>
                     <a class="hvr-pulse-grow" data-toggle="modal" data-target="#actionsModal"><i class="fas fa-database br-black"></i></a>
                 </div>
-                <div>
-                    <a class="hvr-pulse-grow" href="{{ route('products.download') }}">Descagar</a>
-                </div>
             </div>
         {{-- /Header --}}
 
@@ -34,7 +31,11 @@
         @endif
         @if (session()->has('message'))
             <div class="alert alert-success mt-3" role="alert">
-                <h3 class="text-center my-0">{{ session('message') }}</h3>
+                <h3 class="text-center my-0">{{ session('message') }}
+                @if (session()->has('link'))
+                    <a href="{{ route('exports.index') }}"> @lang('Check it here')</a>
+                @endif
+                </h3>
             </div>
         @endif
         <div class="s-table row">

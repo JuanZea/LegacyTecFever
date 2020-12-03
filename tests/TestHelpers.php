@@ -8,10 +8,10 @@ class TestHelpers{
 
     public const ONLYDISABLEDUSER = ['disabled'];
     public const ONLYGUEST = ['welcome','login','register'];
-    public const ONLYADMIN = ['control_panel'];
+    public const ONLYADMIN = ['control_panel','reports.specifics','reports.summary'];
     public const CRUD = ['index','create','store','show','edit','update','destroy'];
     public const DESPICABLES = [
-        'account'
+        'account', 'export'
     ];
     public const VALIDREQUESTFORUSER = [
         'name' => 'Nixon Jeiler',

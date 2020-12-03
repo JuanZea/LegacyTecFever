@@ -143,6 +143,7 @@ class RouteControllerTest extends TestCase
      */
     public function RouteIsAllowedForAdmin(string $route) : void
     {
+        $this->withoutExceptionHandling();
          // Arrange
         $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);

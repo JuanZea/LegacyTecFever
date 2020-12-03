@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@include('products.modals.edit')
 <section id="products-show" class="scene-wall">
 	<div class="container">
 		{{-- Header --}}

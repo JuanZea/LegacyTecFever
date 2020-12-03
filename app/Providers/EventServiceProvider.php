@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use App\Events\ProductCreated;
+use App\Events\JobDone;
 use App\Events\ProductViewed;
 use App\Listeners\AddAView;
 use App\Listeners\AssignShoppingCart;
+use App\Listeners\DoSome;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -24,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProductViewed::class => [
             AddAView::class,
+        ],
+        JobDone::class => [
+            DoSome::class,
         ],
     ];
 

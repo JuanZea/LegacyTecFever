@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ProductCreated;
 use App\Events\ProductViewed;
+use App\Export;
 use App\Exports\ProductsExport;
-use App\Helpers\Detectors;
 use App\Http\Requests\StoreRequest;
 use App\Http\Requests\Products\ImportRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Imports\ProductsImport;
+use App\Jobs\EnableDownloadButton;
 use App\Product;
-use App\Report;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -170,32 +170,5 @@ class ProductController extends Controller
         $importedProducts = $import->toArray($request->file('import_file'))[0];
 
         return redirect()->route('products.index')->with('message', trans('products.messages.import', ['count' => count($importedProducts)]));
-    }
-
-    public function export()
-    {
-        $export = new ProductsExport();
-        $export->store('products-'.now()->format('Y-m-d').'.xlsx','reports');
-//        return $export->download('products.xlsx');
-
-        return redirect()->route('products.index')->with('message', trans('products.messages.export'));
-    }
-
-     public function download()
-    {
-        return Storage::disk('reports')->download('products-2020-11-30.xlsx');
-    }
-
-    public function report_summary()
-    {
-        $products = Product::all();
-        $most_viewed_product = Detectors::most_viewed_product($products);
-        return view('products.report_summary',compact('most_viewed_product'));
-    }
-
-    public function specific_reports()
-    {
-        $products = Product::query()->orderBy('id','DESC')->paginate();
-        return view('products.specific_reports',compact('products'));
     }
 }
