@@ -32,7 +32,7 @@ class StoreRequest extends FormRequest
             'image' => 'bail|nullable|image',
             'image_path' => 'bail|nullable|string',
             'price' => 'bail|required|digits_between:4,9',
-            'stock' => 'bail|required'
+            'stock' => 'bail|required|digits_between:1,9'
         ];
     }
 
@@ -55,7 +55,8 @@ class StoreRequest extends FormRequest
             'image.image' => trans('products.error_messages.image.image'),
             'price.required' => trans('products.error_messages.price.required'),
             'price.digits_between' => trans('products.error_messages.price.digits_between'),
-            'stock.required' => trans('products.error_messages.stock.required')
+            'stock.required' => trans('products.error_messages.stock.required'),
+            'stock.digits_between' => trans('products.error_messages.stock.digits_between')
         ];
     }
 

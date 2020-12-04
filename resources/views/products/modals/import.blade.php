@@ -8,7 +8,7 @@
           <div class="container">
               <div class="row">
                   <div class="col">
-                      <form id="import_form" action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
+                      <form id="import_form" action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
                           @csrf
                           <input name="import_file" type="file">
                       </form>

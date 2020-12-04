@@ -11,13 +11,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
+    use \Staudenmeir\LaravelUpsert\Eloquent\HasUpsertQueries;
 	/**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name','is_enabled', 'description', 'category', 'image', 'price', 'stock'
+        'id', 'name','is_enabled', 'description', 'category', 'image', 'price', 'stock'
     ];
 
     /**

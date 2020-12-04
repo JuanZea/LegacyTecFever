@@ -27,7 +27,6 @@ Route::get('/control_panel', 'RouteController@control_panel')->name('control_pan
 Route::resource('users', 'UserController');
 
 // Products Routes
-Route::post('products/import', 'ProductController@import')->name('products.import');
 Route::resource('products', 'ProductController');
 
 // Payment Routes
@@ -46,6 +45,9 @@ Route::get('reports', 'ReportController@summary')->name('reports.summary');
 Route::post('exports', 'ExportController@export')->name('export');
 Route::get('reports/exports', 'ExportController@index')->name('exports.index');
 Route::delete('exports/{export}', 'ExportController@destroy')->name('exports.destroy');
+
+// Imports Routes
+Route::post('import', 'ImportController@import')->name('import');
 
 // Shopping Carts Routes
 Route::patch('shoppingCarts/clean/{shoppingCart}', 'ShoppingCartController@clean')->name('shoppingCarts.clean');

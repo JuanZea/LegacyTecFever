@@ -33,7 +33,7 @@ class UpdateRequest extends FormRequest
             'is_enabled' => 'nullable',
             'delete' => 'nullable',
             'price' => 'bail|required|digits_between:4,9',
-            'stock' => 'bail|required'
+            'stock' => 'bail|required|digits_between:1,9'
         ];
     }
 
@@ -56,6 +56,8 @@ class UpdateRequest extends FormRequest
             'image.image' => __("Verify that what you are uploading is an image"),
             'price.required' => __("The most important thing is missing"),
             'price.digits_between' => __("The minimum price is 4 digits and the maximum is 9"),
+            'stock.required' => trans('products.error_messages.stock.required'),
+            'stock.digits_between' => trans('products.error_messages.stock.digits_between')
         ];
     }
 

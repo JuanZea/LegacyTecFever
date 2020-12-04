@@ -2,6 +2,9 @@
 
 namespace App\Helpers;
 
+use phpDocumentor\Reflection\Types\Nullable;
+use function _HumbugBoxbde535255540\RingCentral\Psr7\str;
+
 class Formatters {
 
     /**
@@ -73,6 +76,33 @@ class Formatters {
             return '1';
         } else {
             return '0';
+        }
+    }
+
+    /**
+     * Format prices
+     * @param int|null $val
+     * @return int $val
+     */
+    public static function NullOrZero(?int $val) : int
+    {
+        if($val == null) {
+            return 0;
+        } else {
+            return $val;
+        }
+    }
+
+    /**
+     * @param String $image_path
+     * @return String $image_path
+     */
+    public static function imageLink(String $image_path) : ?String
+    {
+        if ($image_path == 'http://tecfever.test/images/main/IND.png') {
+            return null;
+        } else {
+            return  substr($image_path, 29);
         }
     }
 }

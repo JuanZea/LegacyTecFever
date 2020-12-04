@@ -74,7 +74,7 @@
                                               @if ($export->status == 0)
                                                  @lang('Export in progress')...
                                               @else
-                                                <form action="{{ route('exports.destroy', $export) }}" method="POST">
+                                                <form action="{{ route('exports.destroy', $export) }}" method="POST" onclick="return confirm('¿Estas seguro?')">
                                                     @csrf @method('DELETE')
                                                     <button class="btn btn-danger">@lang('common.actions.delete')</button>
                                                 </form>

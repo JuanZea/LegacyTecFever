@@ -64,10 +64,13 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-
         'reports' => [
             'driver' => 'local',
             'root' => storage_path('app/reports'),
+        ],
+        'test_files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/test_files'),
         ],
 
     ],

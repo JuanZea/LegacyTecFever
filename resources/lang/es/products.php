@@ -10,7 +10,7 @@ return [
         'report' => 'Reporte de productos'
     ],
     'messages' => [
-        'import' => ':count productos se han importado con éxito',
+        'import' => 'La importación de :count productos comenzó con éxito',
         'export' => 'La exportación de productos comenzó con éxito'
     ],
     'error_messages' => [
@@ -25,7 +25,7 @@ return [
             'max' => 'No me cuentes tu vida, máximo 1000 caracteres para la descripción'
         ],
         'category' => [
-            'in' => 'Sin trampas, elige una de las 3 categorías'
+            'required' => 'Sin trampas, elige una de las 3 categorías'
         ],
         'image' => [
             'image' => 'Verifica que lo que estás subiendo es una imagen'
@@ -35,12 +35,16 @@ return [
             'digits_between' => 'El precio mínimo es de 4 dígitos y el máximo de 9'
         ],
         'stock' => [
-            'required' => 'Elige una cantidad de existencias'
+            'required' => 'Elige una cantidad de existencias',
+            'digits_between' => 'Esa cantidad excede nuestros límites'
         ],
         'import_file' => [
             'required' => 'No se encontró ningún archivo para importar',
             'file' => 'No se cargó un archivo válido',
             'mimes' => 'El archivo no tiene una extensión válida'
+        ],
+        'image_path' => [
+            'string' => 'Ruta de imagen incorrecta'
         ]
     ],
     'reports_messages' => [

@@ -10,7 +10,7 @@ return [
         'report' => 'Products report'
     ],
     'messages' => [
-        'import' => ':count products have been imported successfully',
+        'import' => 'Import of :count products started successfully',
         'export' => 'The export of products started successfully'
     ],
     'error_messages' => [
@@ -35,12 +35,16 @@ return [
             'digits_between' => 'The minimum price is 4 digits and the maximum is 9'
         ],
         'stock' => [
-            'required' => 'Choose a stock quantity'
+            'required' => 'Choose a stock quantity',
+            'digits_between' => 'That amount exceeds our limits'
         ],
         'import_file' => [
             'required' => 'No file found to import',
             'file' => 'A valid file was not uploaded',
             'mimes' => 'The file does not have a valid extension'
+        ],
+        'image_path' => [
+            'string' => 'Wrong image path'
         ]
     ],
     'reports_messages' => [

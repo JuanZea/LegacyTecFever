@@ -38,6 +38,27 @@
                 </h3>
             </div>
         @endif
+
+        @if (count($products) == 0)
+            <div class="container bg-cloud p-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="container bg-white">
+                            <div class="row">
+                                <div class="col text-center">@lang('No products to display')</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col text-center">
+                        <a class="hvr-icon-spin text-dark"><i class="fas fa-10x fa-box-open hvr-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        @else
         <div class="s-table row">
             <table class="table table-striped table-light">
                 <thead>
@@ -121,6 +142,7 @@
             {{ $products->links() }}
         </div>
         {{-- /Paginate --}}
+        @endif
 
     </div>
 </section>
