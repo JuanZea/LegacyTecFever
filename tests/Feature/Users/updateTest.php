@@ -23,7 +23,7 @@ class updateTest extends TestCase
     public function anAdminCanUpdateUsersWithValidUserInputs(string $data)
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $user = factory(User::class)->create();
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
@@ -68,7 +68,7 @@ class updateTest extends TestCase
     {
         $this->withoutExceptionHandling();
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
         $validRequest = [
             'name' => 'Pedro',
@@ -99,7 +99,7 @@ class updateTest extends TestCase
     public function anAdminCannotUpdateUsersWithInvalidUserInputs(string $field, ?string $value)
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true]);
         $user = factory(User::class)->create();
 
         // Act
@@ -126,8 +126,8 @@ class updateTest extends TestCase
             'Same data' => ['same'],
             'Same name' => ['name'],
             'same email' => ['email'],
-            'Same isAdmin status' => ['isAdmin'],
-            'Same isEnabled status' => ['isEnabled']
+            'Same is_admin status' => ['is_admin'],
+            'Same is_enabled status' => ['is_enabled']
         ];
     }
 

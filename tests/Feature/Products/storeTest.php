@@ -21,7 +21,7 @@ class storeTest extends TestCase
     public function anAdminCanStoreAProductWithValidProductInputs()
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
 
         // Act
@@ -44,7 +44,7 @@ class storeTest extends TestCase
     public function anAdminCannotStoreAProductWithInvalidProductInputs(string $field, ?string $value)
     {
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $invalidRequest = TestHelpers::VALIDREQUESTFORPRODUCT;
         $invalidRequest[$field] = $value;

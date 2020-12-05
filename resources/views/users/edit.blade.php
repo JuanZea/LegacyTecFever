@@ -43,27 +43,27 @@
                                 <input class="form-control" name="surname" type="text" value="{{ $user->surname }}">
                             </div>
                             <div class="form-group col-12 col-md-4 d-flex flex-column justify-content-end">
-                                @if(!$user->isAdmin)
+                                @if(!$user->is_admin)
                                     <div class="custom-control custom-switch">
-                                        <input class="custom-control-input" id="isEnabled" name="isEnabled" type="checkbox" value="1"
-                                        @if($user->isEnabled)
+                                        <input class="custom-control-input" id="is_enabled" name="is_enabled" type="checkbox" value="1"
+                                        @if($user->is_enabled)
                                             checked
                                         @endif
                                         >
-                                        <label class="custom-control-label" for="isEnabled">
+                                        <label class="custom-control-label" for="is_enabled">
                                             {{ __('Enabled') }}
                                         </label>
                                     </div>
                                 @else
-                                    <input type="hidden" name="isEnabled" value="1">
+                                    <input type="hidden" name="is_enabled" value="1">
                                 @endif
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="isAdmin" name="isAdmin" type="checkbox" value="1"
-                                    @if($user->isAdmin)
+                                    <input class="custom-control-input" id="is_admin" name="is_admin" type="checkbox" value="1"
+                                    @if($user->is_admin)
                                         checked
                                     @endif
                                     >
-                                    <label class="custom-control-label" for="isAdmin">
+                                    <label class="custom-control-label" for="is_admin">
                                         {{ __('Administrator Permission') }}
                                     </label>
                                 </div>

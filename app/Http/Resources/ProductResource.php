@@ -20,11 +20,12 @@ class ProductResource extends JsonResource
             'id' => (String) $this->resource->id,
             'attributes' => [
                 'name' => $this->resource->name,
-                'isEnabled' => $this->resource->isEnabled,
+                'is_enabled' => $this->resource->is_enabled,
                 'description' => $this->resource->description,
                 'category' => $this->resource->category,
                 'image' => $this->resource->getImage,
-                'price' => $this->resource->price
+                'price' => $this->resource->price,
+                'stock' => $this->resource->stock
             ],
             'links' => [
                 'self' => route('api.products.show', $this->resource)

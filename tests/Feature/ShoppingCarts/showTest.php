@@ -20,7 +20,7 @@ class showTest extends TestCase
     public function aGuestCannotAShoppingCart()
     {
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         $shoppingCart = factory(ShoppingCart::class)->create([
             'user_id' => $user->id
         ]);
@@ -41,7 +41,7 @@ class showTest extends TestCase
     public function anUserCanShowTheirShoppingCart()
     {
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         $shoppingCart = factory(ShoppingCart::class)->create([
             'user_id' => $user->id
         ]);

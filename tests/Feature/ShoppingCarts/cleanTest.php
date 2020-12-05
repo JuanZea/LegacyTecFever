@@ -19,7 +19,7 @@ class cleanTest extends TestCase
     public function anUserCanCleanTheirShoppingCart()
     {
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         $shoppingCart = factory(ShoppingCart::class)->create([
             'user_id' => $user->id,
             'amount' => 15,

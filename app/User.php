@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @property mixed isAdmin
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use Notifiable;
 
@@ -19,7 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'document', 'documentType', 'mobile', 'email', 'password', 'isAdmin','isEnabled'
+        'name', 'surname', 'document', 'documentType', 'mobile', 'email', 'password', 'is_admin','is_enabled'
     ];
 
     /**

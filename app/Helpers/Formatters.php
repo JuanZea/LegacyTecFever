@@ -2,6 +2,9 @@
 
 namespace App\Helpers;
 
+use phpDocumentor\Reflection\Types\Nullable;
+use function _HumbugBoxbde535255540\RingCentral\Psr7\str;
+
 class Formatters {
 
     /**
@@ -45,6 +48,61 @@ class Formatters {
             default: {
                 return 'white';
             }
+        }
+    }
+
+    /**
+     * Format prices
+     * @param bool $enabled
+     * @return String $enabledString
+     */
+    public static function enabledFormatterString(bool $enabled) : String
+    {
+        if($enabled) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
+    /**
+     * Format prices
+     * @param String $enabled
+     * @return bool $enabledString
+     */
+    public static function enabledFormatterBool(String $enabled) : bool
+    {
+        if($enabled == 'true') {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+
+    /**
+     * Format prices
+     * @param int|null $val
+     * @return int $val
+     */
+    public static function NullOrZero(?int $val) : int
+    {
+        if($val == null) {
+            return 0;
+        } else {
+            return $val;
+        }
+    }
+
+    /**
+     * @param String $image_path
+     * @return String $image_path
+     */
+    public static function imageLink(String $image_path) : ?String
+    {
+        if ($image_path == 'http://tecfever.test/images/main/IND.png') {
+            return null;
+        } else {
+            return  substr($image_path, 29);
         }
     }
 }

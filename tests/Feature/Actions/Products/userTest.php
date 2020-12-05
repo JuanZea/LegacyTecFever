@@ -3,6 +3,7 @@
 namespace Tests\Feature\Actions\Products;
 
 use App\Product;
+use App\Report;
 use App\ShoppingCart;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,9 +24,9 @@ class userTest extends TestCase
     public function anUserCan(string $route) : void
     {
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
-        $product = factory(Product::class)->create(['isEnabled' => true]);
+        $product = factory(Product::class)->create(['is_enabled' => true]);
 
         // Act
         $this->actingAs($user);
@@ -36,6 +37,7 @@ class userTest extends TestCase
         $response->assertViewIs($route);
         $response->assertViewHas('product');
         $responseProduct = $response->getOriginalContent()['product']->toArray();
+        unset($responseProduct['stats']);
         $this->assertDatabaseHas('products', TestHelpers::removeTimeKeys($responseProduct));
     }
 
@@ -48,17 +50,22 @@ class userTest extends TestCase
      */
     public function anUserCannot(string $route) : void
     {
+        $this->withoutExceptionHandling();
         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
-        $product = factory(Product::class)->create(['isEnabled' => false]);
+        $product = factory(Product::class)->create(['is_enabled' => false]);
 
         // Act
         $this->actingAs($user);
         $response = $this->get(route($route, $product));
 
         // Assert
-        $response->assertRedirect();
+        if ($route == 'products.show') {
+            $response->assertViewIs('errors.disabled_product');
+        } else {
+            $response->assertRedirect();
+        }
     }
 
     // PROVIDER

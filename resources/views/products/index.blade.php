@@ -1,23 +1,64 @@
 @extends('layouts.app')
 
 @section('content')
-<section id="products-index">
+@include('products.modals.actions')
+<section id="products-index" class="scene-cobweb">
     <div class="container">
+
         {{-- Header --}}
         <div class="s-header row py-4 d-flex align-items-center justify-content-between">
                 <div>
-                    <a href="{{ route('controlPanel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
+                    <a href="{{ route('control_panel') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
                 </div>
                 <div>
-                    <h1 class="title-tec"><i class="fas fa-desktop px-2"></i></i>{{ __('Products Management') }}</h1>
+                    <h1 class="title-tec"><i class="fas fa-desktop px-2"></i></i>@lang('products.titles.index')</h1>
                 </div>
                 <div>
-                    <a href="{{ route('products.create') }}"><i class="fas fa-plus-circle br-red"></i></a>
+                    <a class="hvr-pulse-grow" data-toggle="modal" data-target="#actionsModal"><i class="fas fa-database br-black"></i></a>
                 </div>
             </div>
         {{-- /Header --}}
 
         {{-- Table --}}
+        @if ($errors->any())
+            <div class="alert alert-danger mt-3" role="alert">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $message)
+                        <ul><h3 class="text-center my-0">{{ $message }}</h3></ul>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session()->has('message'))
+            <div class="alert alert-success mt-3" role="alert">
+                <h3 class="text-center my-0">{{ session('message') }}
+                @if (session()->has('link'))
+                    <a href="{{ route('exports.index') }}"> @lang('Check it here')</a>
+                @endif
+                </h3>
+            </div>
+        @endif
+
+        @if (count($products) == 0)
+            <div class="container bg-cloud p-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="container bg-white">
+                            <div class="row">
+                                <div class="col text-center">@lang('No products to display')</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col text-center">
+                        <a class="hvr-icon-spin text-dark"><i class="fas fa-10x fa-box-open hvr-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        @else
         <div class="s-table row">
             <table class="table table-striped table-light">
                 <thead>
@@ -25,17 +66,20 @@
                         <th scope="col">
                             {{ __('Id') }}
                         </th>
+                        <th scope="col">
+                            @lang('common.fields.enabled')
+                        </th>
                         <th class="text-left" scope="col">
-                            {{ __('Name') }}
+                            @lang('common.fields.name')
                         </th>
                         <th scope="col">
-                            {{ __('Category') }}
+                            @lang('common.fields.category')
                         </th>
                         <th scope="col">
-                            {{ __('Price') }}
+                            @lang('common.fields.price')
                         </th>
                         <th scope="col">
-                            &nbsp;
+                            @lang('common.fields.stock')
                         </th>
                         <th scope="col">
                             &nbsp;
@@ -48,40 +92,43 @@
                             <th scope="row">
                                 {{ $product->id }}
                             </th>
+                            <td class="s-status text-center">
+                                 @if($product->is_enabled)
+                                    <span><i class="fas fa-check fa-2x text-success br-green"></i></span>
+                                @else
+                                    <span><i class="fas fa-exclamation-triangle fa-2x text-warning br-black"></i></span>
+                                @endif
+                            </td>
                             <td class="text-left">
                                 {{ $product->name }}
                             </td>
                             <td>
                                 @switch($product->category)
                                     @case('computer')
-                                        <?php $color = 'bg-computer' ?>
+                                        <?php $color = 'br-computer' ?>
                                         @break
                                     @case('smartphone')
-                                        <?php $color = 'bg-smartphone' ?>
+                                        <?php $color = 'br-smartphone' ?>
                                         @break
                                     @case('accessory')
-                                        <?php $color = 'bg-accessory' ?>
+                                        <?php $color = 'br-accessory' ?>
                                         @break
                                     @default
-                                        <?php $color = 'bg-danger' ?>
+                                        <?php $color = 'br-danger' ?>
                                 @endswitch
 
-                                <span class="rounded-pill p-2 {{ $color }} text-white">
+                                <span class="p-2 text-bold {{ $color }} text-white">
                                     {{ __($product->category) }}
                                 </span>
                             </td>
                             <td>
-                                {{ $product->price }}
+                                {{ App\Helpers\Formatters::priceFormatter($product->price) }}
+                            </td>
+                            <td>
+                                {{ $product->stock }}
                             </td>
                             <td>
                                 <a class="btn btn-tec" href="{{ route('products.show',$product) }}">{{ __('See in shop') }}</a>
-                            </td>
-                            <td class="s-status text-center">
-                                 @if($product->isEnabled)
-                                    <span><i class="fas fa-check fa-2x text-success br-green"></i></span>
-                                @else
-                                    <span><i class="fas fa-exclamation-triangle fa-2x text-warning br-black"></i></span>
-                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -95,6 +142,7 @@
             {{ $products->links() }}
         </div>
         {{-- /Paginate --}}
+        @endif
 
     </div>
 </section>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<section id="products-show">
+<section id="products-show" class="scene-wall">
 	<div class="container">
 		{{-- Header --}}
 		<div class="s-header row py-4">
@@ -43,7 +43,7 @@
                         <?php $color = 'bg-danger' ?>
                     @endswitch
                     <div class="text-center text-uppercase {{ $color }}">
-                        <span class="text-white">{{ $product->category }}</span><br>
+                        <span class="text-white">{{ __($product->category) }}</span><br>
                     </div>
 					<div class="card-body">
 						<b>{{ __('Description').':' }}</b><br>
@@ -53,45 +53,59 @@
 			</div>
 			<div class="col">
                 @if($errors->all())
-                    <div class="card mb-4">
-                        <div class="card-header text-center bg-danger text-white">
-                            {{ __('Error') }}
-                        </div>
-                        <div class="card-body text-center bg-danger text-white">
-                            @foreach($errors->all() as $error)
-                                <b>{{ $error }}</b>
-                            @endforeach
-                        </div>
+                <div class="card mb-4">
+                    <div class="card-header text-center bg-danger text-white">
+                        {{ __('Error') }}
                     </div>
+                    <div class="card-body text-center bg-danger text-white">
+                        @foreach($errors->all() as $error)
+                            <b>{{ $error }}</b>
+                        @endforeach
+                    </div>
+                </div>
                 @endif
                 @if(Session::has('status'))
-                    <div class="card mb-4">
-                        <div class="card-header text-center bg-success text-white">
-                            <b>{{ Session::get('status', 'default') }}</b>
-                        </div>
+                <div class="card mb-4">
+                    <div class="card-header text-center bg-success text-white">
+                        <b>{{ Session::get('status', 'default') }}</b>
                     </div>
+                </div>
                 @endif
-				<div class="card">
-					<div class="card-header price">
-						<span><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span>
-					</div>
+                <div class="text-center">
+                    <h2 class="mb-0 title-tec">@lang('common.fields.price')</h2>
+                </div>
+                <div class="price text-center">
+                    <span class="hvr-buzz-out"><b>{{ \App\Helpers\Formatters::priceFormatter($product->price) }}</b></span>
+                </div>
+				<div class="card mt-3">
 					<div class="card-body">
 						<div class="container">
+                            <div class="row justify-content-center">
+                                <h2 class="mb-2 views text-bold ani-grow">@lang('common.actions.buy')</h2>
+                            </div>
                             <div class="row">
                                 <div class="col">
-                                    <form action="{{ route('shoppingCarts.store') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input v-model="quantity" type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
-                                        <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
-                                    </form>
-                                    @if (Auth::user()->isAdmin)
-                                        <a class="btn btn-success btn-block mt-2" href="{{ route('products.edit',$product) }}">{{ __('Edit') }}</a>
-                                        <form class="mt-2" action="{{ route('products.destroy',$product) }}" method="POST">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-block">{{ __('Delete') }}</button>
+                                    <div class="row justify-content-center">
+                                        <form action="{{ route('shoppingCarts.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input v-model="quantity" type="number" name="amount" class="form-control" placeholder="{{ __('Quantity') }}">
+                                            <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
                                         </form>
-                                        @if(!$product->isEnabled)
+                                    </div>
+                                    @if (Auth::user()->is_admin)
+                                    <div class="row mt-3">
+                                        <div class="col d-flex justify-content-center align-items-center">
+                                            <a href="{{ route('products.edit',$product) }}" class="text-warning br-black"><i class="fas fa-pencil-alt fa-3x hvr-grow" data-toggle="tooltip" data-placement="bottom" title="Importar productos"></i></i></a>
+                                        </div>
+                                        <div class="col d-flex justify-content-center align-items-center">
+                                           <form action="{{ route('products.destroy',$product) }}" method="POST" onclick="return confirm('¿Estás seguro?')">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="text-danger br-black button-naked"><i class="fas fa-trash-alt fa-3x hvr-grow" data-toggle="tooltip" data-placement="bottom" title="@lang('common.actions.delete')"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                        @if(!$product->is_enabled)
                                             <div class="card bg-warning mt-2">
                                                 <div class="card-body text-center">
                                                     <i class="fas fa-exclamation-triangle"></i> {{ __('Disabled!') }}
@@ -104,9 +118,16 @@
                         </div>
 					</div>
 				</div>
+                <div class="text-center mt-4">
+                    <h2 class="mb-0 title-tec">@lang('common.fields.views')</h2>
+                </div>
+                <div class="views text-center">
+                    <span class="hvr-grow"><b>{{ \GuzzleHttp\json_decode($product->stats, true)['views'] }}</b></span>
+                </div>
 			</div>
 		</div>
 		{{-- /Presentation --}}
+
 	</div>
 </section>
 @endsection

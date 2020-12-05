@@ -22,7 +22,7 @@ class deleteTest extends TestCase
     {
         $this->withoutExceptionHandling();
         // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true]);
+        $admin = factory(User::class)->create(['is_admin' => true]);
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
         $data = TestHelpers::removeTimeKeys($product->toArray());
@@ -48,6 +48,7 @@ class deleteTest extends TestCase
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
         $product = factory(Product::class)->create();
         $data = TestHelpers::removeTimeKeys($product->toArray());
+        unset($data['stats']);
 
         // Act
         $this->actingAs($user);
@@ -68,6 +69,7 @@ class deleteTest extends TestCase
         // Arrange
         $product = factory(Product::class)->create();
         $data = TestHelpers::removeTimeKeys($product->toArray());
+        unset($data['stats']);
 
         // Act
         $response = $this->delete(route('products.destroy', $product));

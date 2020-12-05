@@ -16,7 +16,7 @@ class ValidateIsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::user()->isAdmin)
+        if (!Auth::user()->is_admin)
             return back();
         return $next($request);
     }

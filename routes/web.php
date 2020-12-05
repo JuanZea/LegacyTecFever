@@ -15,28 +15,44 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['verify' => true]);
 
-
+// Generic Routes
 Route::get('/','RouteController@welcome')->name('welcome');
 Route::get('/home', 'RouteController@home')->name('home');
-Route::get('/controlPanel', 'RouteController@controlPanel')->name('controlPanel');
-Route::get('/account', 'RouteController@account')->name('account');
 Route::get('/shop', 'RouteController@shop')->name('shop');
+Route::get('/account', 'RouteController@account')->name('account');
 Route::get('/disabled', 'RouteController@disabled')->name('disabled');
+Route::get('/control_panel', 'RouteController@control_panel')->name('control_panel');
 
-
+// Users Routes
 Route::resource('users', 'UserController');
 
-
+// Products Routes
 Route::resource('products', 'ProductController');
 
-
-Route::post('/payment', 'PaymentController@payment')->name('payment');
-Route::get('/payment/Retry', 'PaymentController@retry')->name('payment.retry');
-Route::get('/payment/History', 'PaymentController@history')->name('payment.history');
+// Payment Routes
 Route::get('/payment/Response', 'PaymentController@response')->name('payment.response');
+Route::get('/payment/History', 'PaymentController@history')->name('payment.history');
+Route::get('/payment/Retry', 'PaymentController@retry')->name('payment.retry');
+Route::post('/payment', 'PaymentController@payment')->name('payment');
 
 
-Route::resource('shoppingCarts', 'ShoppingCartController');
+// Reports Routes
+Route::get('reports/specifics', 'ReportController@specifics')->name('reports.specifics');
+Route::post('reports/generate', 'ReportController@generate')->name('reports.generate');
+Route::get('reports/download/{report}', 'ReportController@download')->name('reports.download');
+Route::delete('reports/delete/{report}', 'ReportController@destroy')->name('reports.destroy');
+Route::get('reports', 'ReportController@summary')->name('reports.summary');
+
+// Exports Routes
+Route::get('exports/exports', 'ExportController@index')->name('exports.index');
+Route::get('exports/download/{export}', 'ExportController@download')->name('exports.download');
+Route::delete('exports/{export}', 'ExportController@destroy')->name('exports.destroy');
+Route::post('exports', 'ExportController@export')->name('export');
+
+// Imports Routes
+Route::post('import', 'ImportController@import')->name('import');
+
+// Shopping Carts Routes
 Route::patch('shoppingCarts/clean/{shoppingCart}', 'ShoppingCartController@clean')->name('shoppingCarts.clean');
-
+Route::resource('shoppingCarts', 'ShoppingCartController');
 

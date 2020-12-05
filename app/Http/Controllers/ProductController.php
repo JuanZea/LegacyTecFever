@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Events\ProductViewed;
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Class ProductControllerx
+ * Class ProductController
  * @package App\Http\Controllers
  */
 class ProductController extends Controller
@@ -19,7 +21,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('isAdmin')->except('show');
+        $this->middleware('is_admin')->except('show');
     }
 
     /**
@@ -46,19 +48,28 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateProductRequest $request
+     * @param StoreRequest $request
      * @return RedirectResponse
      */
-    public function store(CreateProductRequest $request) : RedirectResponse
+    public function store(StoreRequest $request) : RedirectResponse
     {
         $request = $request->validated();
-        if(isset($request['image'])){
-            $imagePath = $request['image']->store('images/products', 'public');
+
+        // Save image
+        if (isset($request['image_path'])) {
             unset($request['image']);
-            $request = array_merge($request,['image' => $imagePath]);
+            $request = array_merge($request,['image' => $request['image_path']]);
+            unset($request['image_path']);
+        } else {
+            if(isset($request['image'])){
+                $imagePath = $request['image']->store('images/products', 'public');
+                unset($request['image']);
+                $request = array_merge($request,['image' => $imagePath]);
+            }
         }
-        $product = (new Product)->create($request);
-        $product->save();
+
+        $product = Product::create($request);
+//        ProductCreated::dispatch($product);
         return redirect()->route('products.index');
     }
 
@@ -66,17 +77,20 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param Product $product
-     * @return Object
+     * @return View
      */
-    public function show(Product $product) : Object
+    public function show(Product $product) : View
     {
-        if (Auth::user()->isAdmin) {
+        // Add a view to stats
+        ProductViewed::dispatch($product);
+
+        if (Auth::user()->is_admin) {
             return view('products.show',compact('product'));
         } else {
-            if($product->isEnabled) {
+            if($product->is_enabled) {
                 return view('products.show',compact('product'));
             } else {
-                return redirect()->route('home');
+                return view('errors.disabled_product');
             }
         }
     }
@@ -95,13 +109,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateProductRequest $request
+     * @param UpdateRequest $request
      * @param Product $product
      * @return RedirectResponse
      */
-    public function update(UpdateProductRequest $request, Product $product) : RedirectResponse
+    public function update(UpdateRequest $request, Product $product) : RedirectResponse
     {
         $request = $request->validated();
+
+        // Delete image
         if (!isset($request['delete'])) {
             if(isset($request['image'])){
                 $imagePath = $request['image']->store('images/products', 'public');
@@ -115,11 +131,13 @@ class ProductController extends Controller
             $request['image'] = null;
             Storage::disk('public')->delete($product->image);
         }
-        if (isset($request['isEnabled'])) {
-            unset($request['isEnabled']);
-            $request = array_merge($request,['isEnabled' => true]);
+
+        // To enable or disable
+        if (isset($request['is_enabled'])) {
+            unset($request['is_enabled']);
+            $request = array_merge($request,['is_enabled' => true]);
         } else {
-            $request = array_merge($request,['isEnabled' => false]);
+            $request = array_merge($request,['is_enabled' => false]);
         }
         $product->update($request);
 

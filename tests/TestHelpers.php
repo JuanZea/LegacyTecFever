@@ -8,24 +8,25 @@ class TestHelpers{
 
     public const ONLYDISABLEDUSER = ['disabled'];
     public const ONLYGUEST = ['welcome','login','register'];
-    public const ONLYADMIN = ['controlPanel'];
+    public const ONLYADMIN = ['control_panel','reports.specifics','reports.summary'];
     public const CRUD = ['index','create','store','show','edit','update','destroy'];
     public const DESPICABLES = [
-        'account'
+        'account', 'export'
     ];
     public const VALIDREQUESTFORUSER = [
         'name' => 'Nixon Jeiler',
         'email' => 'nixon@admin.com',
-        'isAdmin' => false,
-        'isEnabled' => true
+        'is_admin' => false,
+        'is_enabled' => true
     ];
     public const VALIDREQUESTFORPRODUCT = [
         'name' => 'Acer Aspire 5 Slim Laptop',
-        'isEnabled' => true,
+        'is_enabled' => true,
         'description' => '15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver',
         'category' => 'computer',
         'image' => null,
-        'price' => '2900000'
+        'price' => '2900000',
+        'stock' => '29',
     ];
 
     /**
@@ -37,6 +38,7 @@ class TestHelpers{
     {
         $routes = self::getRouteNames();
         $routes = self::removeCRUDRoutes($routes);
+        $routes = self::removeReportsRoutes($routes);
         $routes = self::removeDespicableRoutes($routes);
         return $routes;
     }
@@ -67,6 +69,23 @@ class TestHelpers{
         $cleanRoutes = [];
         foreach ($routes as $route) {
             if(!self::belongCRUD($route))
+                array_push($cleanRoutes, $route);
+        }
+
+        return $cleanRoutes;
+    }
+
+    /**
+     * Remove routes that do not belong to reports
+     *
+     * @param array $routes
+     * @return array
+     */
+    public static function removeReportsRoutes(array $routes)
+    {
+        $cleanRoutes = [];
+        foreach ($routes as $route) {
+            if(!self::belongReports($route))
                 array_push($cleanRoutes, $route);
         }
 
@@ -120,6 +139,14 @@ class TestHelpers{
         return false;
     }
 
+    public static function belongReports($name)
+    {
+        if(strpos($name, 'mport') || strpos($name, 'xport') || strpos($name, 'download') || strpos($name, 'eport')) {
+            return true;
+        }
+        return false;
+    }
+
     public static function isDespicable(?string $name) : bool
     {
         if(strpos($name, 'assword') || strpos($name, 'erification') || strpos($name, 'ogout') || strpos($name, 'enerated') || strpos($name, 'ayment') || strpos($name, 'hoppingCarts') || is_null($name)) {
@@ -127,4 +154,6 @@ class TestHelpers{
         }
         return false;
     }
+
+
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<section id="disabled">
+<section id="disabled" class="scene-disabled">
     {{--Main--}}
     <div class="container">
         <div class="s-header row">
