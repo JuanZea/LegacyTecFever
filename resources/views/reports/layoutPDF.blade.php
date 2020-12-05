@@ -69,7 +69,7 @@
     <div class="row">
         <div class="col">
             @if ($best_sellers[5])
-                <p class="pdf-text">@lang('reports.pdf.best_seller.winner', ['winner' => $most_viewed_products[0]['name'], 'sales' => \GuzzleHttp\json_decode($most_viewed_products[0]['stats'], true)['sales']])</p>
+                <p class="pdf-text">@lang('reports.pdf.best_seller.winner', ['winner' => $best_sellers[0]['name'], 'sales' => \GuzzleHttp\json_decode($best_sellers[0]['stats'], true)['sales']])</p>
             @endif
             <p class="pdf-text">@lang('reports.pdf.best_seller.content')</p>
 
@@ -131,6 +131,16 @@
                     @endforeach
                   </tbody>
                 </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 offset-4 mt-1 text-center">
+            <img class="img-fluid" src="{{ asset('images/main/TfLogo.png') }}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 offset-1 text-center">
+            <img class="img-fluid" src="{{ asset('images/main/PlacetoPayLogo.png') }}">
         </div>
     </div>
 </div>
