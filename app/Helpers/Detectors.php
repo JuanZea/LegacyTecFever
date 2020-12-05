@@ -10,18 +10,18 @@ class Detectors {
     /**
      * Detect of most viewed
      * @param array $products
-     * @param array|null $most_viewed_products
+     * @param array|null $max_stats
      * @return array|null $most_viewed_product
      */
-    public static function most_viewed_products(array $products, array $most_viewed_products) : ?array
+    public static function max_products_stats(array $products, array $max_stats, $stats) : ?array
     {
-//        if (count($products) == 0 && count($most_viewed_products) != 5) {
-//            return null;
-//        }
-        if (count($most_viewed_products) == 5) {
-            $winner = \GuzzleHttp\json_decode($most_viewed_products[0]['stats'], true)['views'] == \GuzzleHttp\json_decode($most_viewed_products[1]['stats'], true)['views'] ? false : true;
-            array_push($most_viewed_products, $winner);
-            return $most_viewed_products;
+        if (count($products) == 0 && count($max_stats) != 5) {
+            return null;
+        }
+        if (count($max_stats) == 5) {
+            $winner = \GuzzleHttp\json_decode($max_stats[0]['stats'], true)[$stats] == \GuzzleHttp\json_decode($max_stats[1]['stats'], true)['views'] ? false : true;
+            array_push($max_stats, $winner);
+            return $max_stats;
         }
 
         $max_views = 0;
@@ -29,7 +29,7 @@ class Detectors {
         $max_idx = 0;
 
         for ($idx = 0; $idx < count($products); $idx++) {
-            $views = \GuzzleHttp\json_decode($products[$idx]['stats'], true)['views'];
+            $views = \GuzzleHttp\json_decode($products[$idx]['stats'], true)[$stats];
             if ($views > $max_views) {
                 $max_views = $views;
                 $max_product = $products[$idx];
@@ -37,23 +37,32 @@ class Detectors {
             }
         }
 
-        array_push($most_viewed_products, $max_product);
+        array_push($max_stats, $max_product);
         unset($products[$max_idx]);
         $new_products = [];
         foreach ($products as $product) {
             array_push($new_products, $product);
         }
 
-        return self::most_viewed_products($new_products, $most_viewed_products);
+        return self::max_products_stats($new_products, $max_stats, $stats);
     }
 
     /**
      * @param array $products
-     * @param array $payments
+     * @return array
      */
-    public static function most_bought_products(array $products, array $payments)
+    public static function most_stock(array $products)
     {
+        $most_stock = [];
+        for ($idx = 0; $idx < 5; $idx++) {
+            array_push($most_stock, $products[$idx]);
+        }
+        if ($most_stock[0] != $most_stock[1]) {
+            array_push($most_stock, true);
+        } else {
+            array_push($most_stock, false);
+        }
 
-        dd($payments);
+        return $most_stock;
     }
 }

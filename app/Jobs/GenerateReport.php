@@ -43,9 +43,10 @@ class GenerateReport implements ShouldQueue
     public function handle()
     {
         // Stats
-        $products = Product::all()->toArray();
-        $most_viewed_products = Detectors::most_viewed_products($products, []);
-        $the_most_bought = Detectors::most_bought_products($products, Payment::where('status', 'APPROVED')->get()->toArray());
+        $products = Product::query()->orderBy('stock','DESC')->get()->toArray();
+        $most_viewed_products = Detectors::max_products_stats($products, [], 'views');
+        $best_sellers = Detectors::max_products_stats($products, [], 'sales');
+        $most_stock = Detectors::most_stock($products);
 
         // PDF
         $options = new Options();
@@ -56,6 +57,8 @@ class GenerateReport implements ShouldQueue
             'date' => $this->date,
             'name' => $this->name,
             'most_viewed_products' => $most_viewed_products,
+            'best_sellers' => $best_sellers,
+            'most_stock' => $most_stock,
         ]));
         $dompdf->setPaper('A4');
         $dompdf->render();

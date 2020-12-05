@@ -61,6 +61,78 @@
                 </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="pdf-subtitle text-danger">@lang('reports.pdf.best_seller.title')</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @if ($best_sellers[5])
+                <p class="pdf-text">@lang('reports.pdf.best_seller.winner', ['winner' => $most_viewed_products[0]['name'], 'sales' => \GuzzleHttp\json_decode($most_viewed_products[0]['stats'], true)['sales']])</p>
+            @endif
+            <p class="pdf-text">@lang('reports.pdf.best_seller.content')</p>
+
+                <table class="table table-info">
+                  <thead>
+                    <tr>
+                        <th scope="col">@lang('common.fields.id')</th>
+                        <th scope="col">@lang('common.fields.name')</th>
+                        <th scope="col">@lang('common.fields.sales')</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($best_sellers as $product)
+                        @if ($product === true || $product === false)
+                            @continue
+                        @else
+                            <tr>
+                                <th scope="row">{{ $product['id'] }}</th>
+                                <td>{{ $product['name'] }}</td>
+                                <td>{{ \GuzzleHttp\json_decode($product['stats'], true)['sales'] }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                  </tbody>
+                </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="pdf-subtitle text-danger">@lang('reports.pdf.most_stock.title')</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @if ($best_sellers[5])
+                <p class="pdf-text">@lang('reports.pdf.most_stock.winner', ['winner' => $most_stock[0]['name'], 'stock' => $most_stock[0]['stock']])</p>
+            @endif
+            <p class="pdf-text">@lang('reports.pdf.most_stock.content')</p>
+
+                <table class="table table-info">
+                  <thead>
+                    <tr>
+                        <th scope="col">@lang('common.fields.id')</th>
+                        <th scope="col">@lang('common.fields.name')</th>
+                        <th scope="col">@lang('common.fields.stock')</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($most_stock as $product)
+                        @if ($product === true || $product === false)
+                            @continue
+                        @else
+                            <tr>
+                                <th scope="row">{{ $product['id'] }}</th>
+                                <td>{{ $product['name'] }}</td>
+                                <td>{{ $product['stock'] }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                  </tbody>
+                </table>
+        </div>
+    </div>
 </div>
 <style>
     .pdf-bg {
