@@ -36,10 +36,6 @@ class Payment extends Model
 
     // Relations
 
-    public function products() {
-        return $this->hasMany(ImmutableProduct::class);
-    }
-
     public function user() {
         return $this->belongsTo(User::class);
     }

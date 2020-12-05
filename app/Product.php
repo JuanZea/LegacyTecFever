@@ -27,7 +27,7 @@ class Product extends Model
      * @var array
      */
     protected $attributes = [
-        'stats' => '{"views":0}'
+        'stats' => '{"views":0,"sales":0}'
     ];
 
     /**

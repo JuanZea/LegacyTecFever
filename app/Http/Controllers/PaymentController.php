@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PaymentCompleted;
 use App\ImmutableProduct;
 use App\Payment;
 use App\Product;
@@ -68,7 +69,7 @@ class PaymentController extends Controller
                     'total' => $total
                 ],
             ],
-            'expiration' => now()->addMinutes(5),
+            'expiration' => now()->addMinutes(10),
             'ipAddress' => $request->ip(),
             'userAgent' => $request->header('User-Agent'),
             'returnUrl' => route('payment.response', compact('reference')),
@@ -109,6 +110,7 @@ class PaymentController extends Controller
     public function response(Request $request) : View {
         $payment = Payment::where('reference', $request->reference)->first();
         $payment->check();
+        event(new PaymentCompleted($payment));
         return view('account.payment.response', compact('payment'));
     }
 

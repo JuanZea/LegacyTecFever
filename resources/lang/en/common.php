@@ -21,6 +21,7 @@ return [
         'price' => 'Price',
         'stock' => 'Stock',
         'date' => 'Date',
+        'sales' => 'Sales',
         'views' => 'Views'
     ],
     'empty_table' => [

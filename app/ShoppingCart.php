@@ -84,7 +84,6 @@ class ShoppingCart extends Model
                 'description' => $product->description,
                 'amount' => $product->pivot->amount,
                 'category' => $product->category,
-                'image' => substr_replace($product->image, 'immutableProducts', 7, 8),
                 'price' => $product->price,
                 'product_id' => $product->id
                 ]

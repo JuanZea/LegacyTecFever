@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Helpers\Detectors;
+use App\Payment;
 use App\Product;
 use App\Report;
 use Dompdf\Dompdf;
@@ -42,7 +43,9 @@ class GenerateReport implements ShouldQueue
     public function handle()
     {
         // Stats
-        $most_viewed_products = Detectors::most_viewed_products(Product::all()->toArray(), []);
+        $products = Product::all()->toArray();
+        $most_viewed_products = Detectors::most_viewed_products($products, []);
+        $the_most_bought = Detectors::most_bought_products($products, Payment::where('status', 'APPROVED')->get()->toArray());
 
         // PDF
         $options = new Options();

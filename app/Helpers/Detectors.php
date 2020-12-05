@@ -46,4 +46,14 @@ class Detectors {
 
         return self::most_viewed_products($new_products, $most_viewed_products);
     }
+
+    /**
+     * @param array $products
+     * @param array $payments
+     */
+    public static function most_bought_products(array $products, array $payments)
+    {
+
+        dd($payments);
+    }
 }

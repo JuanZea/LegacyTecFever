@@ -21,6 +21,7 @@ return [
         'price' => 'Precio',
         'stock' => 'Existencias',
         'date' => 'Fecha',
+        'sales' => 'Ventas',
         'views' => 'Vistas'
     ],
     'empty_table' => [

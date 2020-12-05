@@ -124,6 +124,12 @@
                 <div class="views text-center">
                     <span class="hvr-grow"><b>{{ \GuzzleHttp\json_decode($product->stats, true)['views'] }}</b></span>
                 </div>
+                <div class="text-center mt-4">
+                    <h2 class="mb-0 title-tec">@lang('common.fields.sales')</h2>
+                </div>
+                <div class="views text-center">
+                    <span class="hvr-grow"><b>{{ \GuzzleHttp\json_decode($product->stats, true)['sales'] }}</b></span>
+                </div>
 			</div>
 		</div>
 		{{-- /Presentation --}}
