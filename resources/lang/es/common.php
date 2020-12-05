@@ -12,6 +12,7 @@ return [
         'delete' => 'Eliminar'
     ],
     'fields' => [
+        'id' => 'Id',
         'name' => 'Nombre',
         'enabled' => 'Habilitado',
         'description' => 'Descripción',
@@ -19,6 +20,10 @@ return [
         'image' => 'Imagen',
         'price' => 'Precio',
         'stock' => 'Existencias',
+        'date' => 'Fecha',
         'views' => 'Vistas'
+    ],
+    'empty_table' => [
+        'reports' => 'Sin reportes para mostrar'
     ]
 ];

@@ -48,7 +48,7 @@ return [
         ]
     ],
     'reports_messages' => [
-        'intro' => 'Hasta el momento, los siguientes informes se han formulado en base a la información recopilada de los productos, como las visualizaciones, ventas y existencias de cada uno.',
+        'intro' => 'Aquí puede generar un informe basado en la información recopilada de todos los productos TecFever hasta la fecha.',
         'most_viewed' => 'Entre todos los productos se ha detectado que el más visto es <strong>:most_viewed</strong> con <strong>:views</strong> vistas.'
     ]
 ];

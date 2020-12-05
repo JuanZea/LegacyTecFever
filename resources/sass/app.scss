@@ -108,6 +108,12 @@ $tec-color: #0D1931;
     background-attachment: fixed;
     min-height: 100vh;
 }
+.scene-cobweb-base {
+    background-image: url('public/images/commercial/Background2.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: inherit;
+}
 .scene-chip-1 {
     background-image: url('public/images/commercial/Background-chip-1.jpg');
     background-size: cover;

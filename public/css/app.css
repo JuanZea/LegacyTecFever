@@ -14428,6 +14428,13 @@ a.text-dark:focus {
   min-height: 100vh;
 }
 
+.scene-cobweb-base {
+  background-image: url(/images/Background2.jpg?556539b76df945b464f3896e2c709a04);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: inherit;
+}
+
 .scene-chip-1 {
   background-image: url(/images/Background-chip-1.jpg?3ce1698f3435e0c14d9392a26556c730);
   background-size: cover;

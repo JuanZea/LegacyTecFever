@@ -50,40 +50,40 @@
                                     <p>@lang('Looks like you haven\'t exported yet.')</p>
                                 @else
                                     <table class="table table-dark">
-                                  <thead>
-                                    <tr class="text-center">
-                                      <th scope="col">@lang('Date'){{ ' ( D / M / Y )' }}</th>
-                                      <th scope="col">@lang('common.fields.name')</th>
-                                      <th scope="col">@lang('common.actions.download')</th>
-                                      <th scope="col">@lang('common.actions.delete')</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    @foreach($exports as $export)
+                                      <thead>
                                         <tr class="text-center">
-                                          <td>{{ $export->date }}</td>
-                                          <td>{{ $export->name }}</td>
-                                          <td>
-                                              @if ($export->status == 0)
-                                                 @lang('Export in progress')...
-                                              @else
-                                                <a class="btn btn-success" href="{{ route('reports.download', $export) }}">@lang('common.actions.download')</a>
-                                              @endif
-                                          </td>
-                                            <td>
-                                              @if ($export->status == 0)
-                                                 @lang('Export in progress')...
-                                              @else
-                                                <form action="{{ route('exports.destroy', $export) }}" method="POST" onclick="return confirm('¿Estas seguro?')">
-                                                    @csrf @method('DELETE')
-                                                    <button class="btn btn-danger">@lang('common.actions.delete')</button>
-                                                </form>
-                                              @endif
-                                            </td>
+                                          <th scope="col">@lang('Date'){{ ' ( D / M / Y )' }}</th>
+                                          <th scope="col">@lang('common.fields.name')</th>
+                                          <th scope="col">@lang('common.actions.download')</th>
+                                          <th scope="col">@lang('common.actions.delete')</th>
                                         </tr>
-                                    @endforeach
-                                  </tbody>
-                                </table>
+                                      </thead>
+                                      <tbody>
+                                        @foreach($exports as $export)
+                                            <tr class="text-center">
+                                              <td>{{ $export->date }}</td>
+                                              <td>{{ $export->name }}</td>
+                                              <td>
+                                                  @if ($export->status == 0)
+                                                     @lang('Export in progress')...
+                                                  @else
+                                                    <a class="btn btn-success" href="{{ route('exports.download', $export) }}">@lang('common.actions.download')</a>
+                                                  @endif
+                                              </td>
+                                                <td>
+                                                  @if ($export->status == 0)
+                                                     @lang('Export in progress')...
+                                                  @else
+                                                    <form action="{{ route('exports.destroy', $export) }}" method="POST" onclick="return confirm('¿Estas seguro?')">
+                                                        @csrf @method('DELETE')
+                                                        <button class="btn btn-danger">@lang('common.actions.delete')</button>
+                                                    </form>
+                                                  @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                      </tbody>
+                                    </table>
                                 @endif
                                 {{-- /Table --}}
 

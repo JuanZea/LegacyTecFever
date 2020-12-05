@@ -48,7 +48,7 @@ return [
         ]
     ],
     'reports_messages' => [
-        'intro' => 'So far the following reports have been formulated based on the information collected from the products, such as the views, sales, and stocks of each one.',
+        'intro' => 'Here you can generate a report based on the information collected from all TecFever products to date.',
         'most_viewed' => 'Among all the products it has been detected that the most viewed is <strong>:most_viewed</strong> with <strong>:views</strong> views.'
     ]
 ];

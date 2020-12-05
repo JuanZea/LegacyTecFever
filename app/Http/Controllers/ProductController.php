@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Events\ProductViewed;
-use App\Export;
-use App\Exports\ProductsExport;
 use App\Http\Requests\StoreRequest;
-use App\Http\Requests\Products\ImportRequest;
 use App\Http\Requests\UpdateRequest;
-use App\Imports\ProductsImport;
-use App\Jobs\EnableDownloadButton;
 use App\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class ProductController

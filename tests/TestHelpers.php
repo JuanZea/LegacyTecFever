@@ -141,7 +141,7 @@ class TestHelpers{
 
     public static function belongReports($name)
     {
-        if(strpos($name, 'mport') || strpos($name, 'export') || strpos($name, 'download') || strpos($name, 'report')) {
+        if(strpos($name, 'mport') || strpos($name, 'xport') || strpos($name, 'download') || strpos($name, 'eport')) {
             return true;
         }
         return false;

@@ -64,6 +64,10 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
+        'exports' => [
+            'driver' => 'local',
+            'root' => storage_path('app/exports'),
+        ],
         'reports' => [
             'driver' => 'local',
             'root' => storage_path('app/reports'),

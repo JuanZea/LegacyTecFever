@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Helpers\Detectors;
 use App\Product;
 use App\ShoppingCart;
 use App\User;
@@ -11,6 +12,7 @@ use Tests\TestCase;
 class SearchBarTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * Check that a guest cannot search for products
      * @test

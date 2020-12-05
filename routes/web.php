@@ -38,13 +38,16 @@ Route::post('/payment', 'PaymentController@payment')->name('payment');
 
 // Reports Routes
 Route::get('reports/specifics', 'ReportController@specifics')->name('reports.specifics');
-Route::get('reports/download/{export}', 'ReportController@download')->name('reports.download');
+Route::post('reports/generate', 'ReportController@generate')->name('reports.generate');
+Route::get('reports/download/{report}', 'ReportController@download')->name('reports.download');
+Route::delete('reports/delete/{report}', 'ReportController@destroy')->name('reports.destroy');
 Route::get('reports', 'ReportController@summary')->name('reports.summary');
 
 // Exports Routes
-Route::post('exports', 'ExportController@export')->name('export');
-Route::get('reports/exports', 'ExportController@index')->name('exports.index');
+Route::get('exports/exports', 'ExportController@index')->name('exports.index');
+Route::get('exports/download/{export}', 'ExportController@download')->name('exports.download');
 Route::delete('exports/{export}', 'ExportController@destroy')->name('exports.destroy');
+Route::post('exports', 'ExportController@export')->name('export');
 
 // Imports Routes
 Route::post('import', 'ImportController@import')->name('import');

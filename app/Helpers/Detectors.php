@@ -10,25 +10,40 @@ class Detectors {
     /**
      * Detect of most viewed
      * @param array $products
-     * @return Product|null $most_viewed_product
+     * @param array|null $most_viewed_products
+     * @return array|null $most_viewed_product
      */
-    public static function most_viewed_product(Collection $products) : ?Product
+    public static function most_viewed_products(array $products, array $most_viewed_products) : ?array
     {
-        if (count($products) == 0) {
-            return null;
+//        if (count($products) == 0 && count($most_viewed_products) != 5) {
+//            return null;
+//        }
+        if (count($most_viewed_products) == 5) {
+            $winner = \GuzzleHttp\json_decode($most_viewed_products[0]['stats'], true)['views'] == \GuzzleHttp\json_decode($most_viewed_products[1]['stats'], true)['views'] ? false : true;
+            array_push($most_viewed_products, $winner);
+            return $most_viewed_products;
         }
 
         $max_views = 0;
         $max_product = $products[0];
+        $max_idx = 0;
 
-        foreach ($products as $product) {
-            $views = \GuzzleHttp\json_decode($product->stats, true)['views'];
+        for ($idx = 0; $idx < count($products); $idx++) {
+            $views = \GuzzleHttp\json_decode($products[$idx]['stats'], true)['views'];
             if ($views > $max_views) {
                 $max_views = $views;
-                $max_product = $product;
+                $max_product = $products[$idx];
+                $max_idx = $idx;
             }
         }
 
-        return $max_product;
+        array_push($most_viewed_products, $max_product);
+        unset($products[$max_idx]);
+        $new_products = [];
+        foreach ($products as $product) {
+            array_push($new_products, $product);
+        }
+
+        return self::most_viewed_products($new_products, $most_viewed_products);
     }
 }
