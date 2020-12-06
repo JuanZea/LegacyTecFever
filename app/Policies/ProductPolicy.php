@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Product;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -10,93 +9,92 @@ class ProductPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user)
+    /**
+     * @param $user
+     * @return bool|null
+     */
+    public function before($user): ?bool
     {
         if($user->hasRole('admin')) {
-
-            dd(3);
             return true;
         }
+        return null;
     }
+
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasPermissionTo('viewAny_products');
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\Product  $product
+     * @param User $user
      * @return mixed
      */
-    public function view(User $user, Product $product)
+    public function view(User $user)
     {
-        //
+        return $user->hasPermissionTo('view_products');
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can see create form.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
     {
-        //
+        return $user->hasPermissionTo('create_products');
+    }
+
+    /**
+     * Determine whether the user can store models.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function store(User $user)
+    {
+        return $user->hasPermissionTo('store_products');
+    }
+
+    /**
+     * Determine whether the user can see edit form.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function edit(User $user)
+    {
+        return $user->hasPermissionTo('edit_products');
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\Product  $product
+     * @param User $user
      * @return mixed
      */
-    public function update(User $user, Product $product)
+    public function update(User $user)
     {
-        return $user->hasRole('admin');
+        return $user->hasPermissionTo('update_products');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\Product  $product
+     * @param User $user
      * @return mixed
      */
-    public function delete(User $user, Product $product)
+    public function delete(User $user)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Product  $product
-     * @return mixed
-     */
-    public function restore(User $user, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Product  $product
-     * @return mixed
-     */
-    public function forceDelete(User $user, Product $product)
-    {
-        //
+        return $user->hasPermissionTo('destroy_products');
     }
 }

@@ -10,6 +10,7 @@ return [
         'report' => 'Products report'
     ],
     'messages' => [
+        'created' => 'A product was created successfully',
         'import' => 'Import of :count products started successfully',
         'export' => 'The export of products started successfully'
     ],

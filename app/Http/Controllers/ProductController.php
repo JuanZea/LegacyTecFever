@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Products\StoreProductAction;
+use App\Actions\Products\UpdateProductAction;
 use App\Events\ProductViewed;
-use App\Http\Requests\Products\StoreRequest;
-use App\Http\Requests\Products\UpdateRequest;
+use App\Http\Requests\Products\StoreProductRequest;
+use App\Http\Requests\Products\UpdateProductRequest;
 use App\Product;
+use App\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +23,6 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('is_admin')->except('show');
     }
 
     /**
@@ -31,6 +32,7 @@ class ProductController extends Controller
      */
     public function index() : View
     {
+        $this->authorize('viewAny', new Product());
         $products = Product::query()->orderBy('id','DESC')->paginate();
         return view('products.index',compact('products'));
     }
@@ -42,35 +44,21 @@ class ProductController extends Controller
      */
     public function create() : View
     {
+        $this->authorize('create', new Product());
         return view('products.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreRequest $request
+     * @param StoreProductRequest $request
+     * @param StoreProductAction $storeProductAction
      * @return RedirectResponse
      */
-    public function store(StoreRequest $request) : RedirectResponse
+    public function store(StoreProductRequest $request, StoreProductAction $storeProductAction) : RedirectResponse
     {
-        $request = $request->validated();
-
-        // Save image
-        if (isset($request['image_path'])) {
-            unset($request['image']);
-            $request = array_merge($request,['image' => $request['image_path']]);
-            unset($request['image_path']);
-        } else {
-            if(isset($request['image'])){
-                $imagePath = $request['image']->store('images/products', 'public');
-                unset($request['image']);
-                $request = array_merge($request,['image' => $imagePath]);
-            }
-        }
-
-        $product = Product::create($request);
-//        ProductCreated::dispatch($product);
-        return redirect()->route('products.index');
+        $storeProductAction->execute($request->validated());
+        return redirect()->route('products.index')->with('message', trans('products.messages.created'));
     }
 
     /**
@@ -81,17 +69,13 @@ class ProductController extends Controller
      */
     public function show(Product $product) : View
     {
-        // Add a view to stats
+        $this->authorize('view', new Product());
         ProductViewed::dispatch($product);
 
-        if (Auth::user()->hasRole('admin')) {
+        if (Auth::user()->hasRole('admin') || $product->is_enabled) {
             return view('products.show',compact('product'));
         } else {
-            if($product->is_enabled) {
-                return view('products.show',compact('product'));
-            } else {
-                return view('errors.disabled_product');
-            }
+            return view('errors.disabled_product');
         }
     }
 
@@ -103,46 +87,21 @@ class ProductController extends Controller
      */
     public function edit(Product $product) : View
     {
+        $this->authorize('edit', new Product());
         return view('products.edit',compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateRequest $request
+     * @param UpdateProductRequest $request
      * @param Product $product
      * @return RedirectResponse
      */
-    public function update(UpdateRequest $request, Product $product) : RedirectResponse
+    public function update(UpdateProductRequest $request, Product $product, UpdateProductAction $updateProductAction) : RedirectResponse
     {
-        $request = $request->validated();
-
-        // Delete image
-        if (!isset($request['delete'])) {
-            if(isset($request['image'])){
-                $imagePath = $request['image']->store('images/products', 'public');
-                unset($request['image']);
-                $request = array_merge($request,['image' => $imagePath]);
-                Storage::disk('public')->delete($product->image);
-            } else {
-                unset($request['image']);
-            }
-        } else {
-            $request['image'] = null;
-            Storage::disk('public')->delete($product->image);
-        }
-
-        // To enable or disable
-        if (isset($request['is_enabled'])) {
-            unset($request['is_enabled']);
-            $request = array_merge($request,['is_enabled' => true]);
-        } else {
-            $request = array_merge($request,['is_enabled' => false]);
-        }
-
-        $product->update($request);
-
-        return redirect()->route('products.show', compact('product'))->with('status',__('Updated'));
+        $updateProductAction->execute($request->validated(), $product);
+        return redirect()->route('products.show', compact('product'))->with('message', trans('products.messages.updated'));
     }
 
     /**

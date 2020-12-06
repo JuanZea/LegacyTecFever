@@ -10,6 +10,7 @@ return [
         'report' => 'Reporte de productos'
     ],
     'messages' => [
+        'created' => 'Se creó un producto con éxito',
         'import' => 'La importación de :count productos comenzó con éxito',
         'export' => 'La exportación de productos comenzó con éxito'
     ],
