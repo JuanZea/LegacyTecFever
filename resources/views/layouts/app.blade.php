@@ -63,7 +63,7 @@
                         {{ Auth::user()->name.' '.Auth::user()->surname }} <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        @if (Auth::user()->is_admin)
+                        @if (Auth::user()->hasRole('admin'))
                             <a class="dropdown-item" href="{{ route('control_panel') }}">
                                 {{ __('Control Panel') }}
                             </a>

@@ -8,10 +8,17 @@ use App\ShoppingCart;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Tests\TestHelpers;
 
 class SearchBarTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        TestHelpers::activeRoles();
+    }
 
     /**
      * Check that a guest cannot search for products
@@ -56,7 +63,7 @@ class SearchBarTest extends TestCase
     public function AAdminCanSearchAProduct()
     {
         // Arrange
-        $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
+        $admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
         $product = factory(Product::class)->create();
 

@@ -22,7 +22,8 @@ return [
         'stock' => 'Stock',
         'date' => 'Date',
         'sales' => 'Sales',
-        'views' => 'Views'
+        'views' => 'Views',
+        'permissions' => 'Permissions',
     ],
     'empty_table' => [
         'reports' => 'No reports to show'

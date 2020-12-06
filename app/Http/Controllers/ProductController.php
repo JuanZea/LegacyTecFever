@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\ProductViewed;
-use App\Http\Requests\StoreRequest;
-use App\Http\Requests\UpdateRequest;
+use App\Http\Requests\Products\StoreRequest;
+use App\Http\Requests\Products\UpdateRequest;
 use App\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -84,7 +84,7 @@ class ProductController extends Controller
         // Add a view to stats
         ProductViewed::dispatch($product);
 
-        if (Auth::user()->is_admin) {
+        if (Auth::user()->hasRole('admin')) {
             return view('products.show',compact('product'));
         } else {
             if($product->is_enabled) {
@@ -139,6 +139,7 @@ class ProductController extends Controller
         } else {
             $request = array_merge($request,['is_enabled' => false]);
         }
+
         $product->update($request);
 
         return redirect()->route('products.show', compact('product'))->with('status',__('Updated'));
