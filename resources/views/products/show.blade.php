@@ -93,10 +93,10 @@
                                             <button class="btn btn-primary btn-block mt-2">{{ __('Add to car') }}</button>
                                         </form>
                                     </div>
-                                    @if (Auth::user()->is_admin)
+                                    @if (Auth::user()->hasRole('admin'))
                                     <div class="row mt-3">
                                         <div class="col d-flex justify-content-center align-items-center">
-                                            <a href="{{ route('products.edit',$product) }}" class="text-warning br-black"><i class="fas fa-pencil-alt fa-3x hvr-grow" data-toggle="tooltip" data-placement="bottom" title="Importar productos"></i></i></a>
+                                            <a href="{{ route('products.edit',$product) }}" class="text-warning br-black"><i class="fas fa-pencil-alt fa-3x hvr-grow" data-toggle="tooltip" data-placement="bottom" title="Importar productos"></i></a>
                                         </div>
                                         <div class="col d-flex justify-content-center align-items-center">
                                            <form action="{{ route('products.destroy',$product) }}" method="POST" onclick="return confirm('¿Estás seguro?')">

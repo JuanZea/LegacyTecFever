@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Products\ImportRequest;
+use App\Http\Requests\Products\Products\Products\ImportRequest;
 use App\Imports\ProductsImport;
 use Illuminate\Http\Request;
 

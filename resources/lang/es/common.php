@@ -22,7 +22,8 @@ return [
         'stock' => 'Existencias',
         'date' => 'Fecha',
         'sales' => 'Ventas',
-        'views' => 'Vistas'
+        'views' => 'Vistas',
+        'permissions' => 'Permisos',
     ],
     'empty_table' => [
         'reports' => 'Sin reportes para mostrar'

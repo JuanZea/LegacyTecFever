@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Excel;
 
 use App\Imports\ProductsImport;
 use App\User;

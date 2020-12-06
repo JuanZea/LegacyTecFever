@@ -14,7 +14,6 @@ class UserSeeder extends Seeder
         $count = 29;
 
         App\User::create([
-        'is_admin' => true,
         'is_enabled' => true,
         'name' => 'Juan David',
         'surname' => 'Zea Acevedo',
@@ -25,7 +24,7 @@ class UserSeeder extends Seeder
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
-        ]);
+        ])->assignRole('admin'); // Admin Power
 
         factory(App\User::class,$count)->create();
 

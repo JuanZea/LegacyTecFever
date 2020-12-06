@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Products;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->is_admin;
+        return Auth::user()->hasRole('admin');
     }
 
     /**

@@ -29,7 +29,7 @@ class ReportController extends Controller
     public function generate(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:10'
+            'name' => 'required|string|max:25'
         ]);
 
         $date = now()->format('d-m-Y');

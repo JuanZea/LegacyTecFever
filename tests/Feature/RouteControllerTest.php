@@ -12,6 +12,21 @@ class RouteControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+//    public function setUp(): void
+//    {
+//        // first include all the normal setUp operations
+//        parent::setUp();
+//
+//        // now re-register all the roles and permissions (clears cache and reloads relations)
+//        $this->app->make(\Spatie\Permission\PermissionRegistrar::class)->registerPermissions();
+//    }TestHelpers::activeRoles();
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        TestHelpers::activeRoles();
+    }
+
     /**
      * Check if the route is allowed for guest
      * @test
@@ -143,9 +158,8 @@ class RouteControllerTest extends TestCase
      */
     public function RouteIsAllowedForAdmin(string $route) : void
     {
-        $this->withoutExceptionHandling();
          // Arrange
-        $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
+        $admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
 
         // Act
@@ -167,7 +181,7 @@ class RouteControllerTest extends TestCase
     public function RouteIsForbiddenForAdmin(string $route) : void
     {
          // Arrange
-        $admin = factory(User::class)->create(['is_admin' => true,'is_enabled' => true]);
+        $admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
 
         // Act

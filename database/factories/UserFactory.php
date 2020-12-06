@@ -19,7 +19,6 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     $return = [
-        'is_admin' => false,
         'is_enabled' => $faker->boolean($chanceOfGettingTrue = 70),
         'name' => $faker->firstName,
         'document' => rand(1000000000, 9999999999),

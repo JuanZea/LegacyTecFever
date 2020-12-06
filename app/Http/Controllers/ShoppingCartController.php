@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SaveShoppingCartRequest;
+use App\Http\Requests\Products\Products\SaveShoppingCartRequest;
 use App\Product;
 use App\ShoppingCart;
 use Illuminate\Http\RedirectResponse;
@@ -16,28 +16,8 @@ class ShoppingCartController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('is_enabled');
         $this->middleware('verified');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
+        $this->middleware('is_enabled');
     }
 
     /**
@@ -78,6 +58,8 @@ class ShoppingCartController extends Controller
      */
     public function show(ShoppingCart $shoppingCart) : view
     {
+        $this->authorize('view', $shoppingCart);
+
         return view('shoppingCarts.show',compact('shoppingCart'));
     }
 
@@ -89,7 +71,7 @@ class ShoppingCartController extends Controller
      */
     public function edit(ShoppingCart $shoppingCart, Request $request) : view
     {
-//        dd($shoppingCart->products->where('id',$request->product_id));
+        $this->authorize('edit', $shoppingCart);
         return view('shoppingCarts.edit', ['shoppingCart'=>$shoppingCart, 'product_id'=>$request->product_id]);
     }
 
@@ -102,6 +84,7 @@ class ShoppingCartController extends Controller
      */
     public function update(Request $request, ShoppingCart $shoppingCart) : RedirectResponse
     {
+        $this->authorize('view', $shoppingCart);
         if ($request->amount < 0) {
             return back()->with('error',__('Negative numbers are invalid'));
         }
