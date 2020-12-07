@@ -14,12 +14,13 @@ class StoreProductAction
 
     /**
      * @param array $request
+     * @return Product|\Illuminate\Database\Eloquent\Model
      */
     public function execute(array $request)
     {
         $request = $this->saveImage($request);
 
-        Product::create($request);
+        return Product::create($request);
     }
 
     /**

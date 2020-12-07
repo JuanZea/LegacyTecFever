@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
+use Tests\TestHelpers;
 
 class statsTest extends TestCase
 {
@@ -21,10 +22,11 @@ class statsTest extends TestCase
      */
     public function the_view_of_a_product_is_counted()
     {
+        TestHelpers::activeRoles();
         Event::fake();
         $this->withoutExceptionHandling();
         // Arrange
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create()->assignRole('user');
         factory(ShoppingCart::class)->create(['user_id' => $user->id]);
         $products = factory(Product::class)->times(1)->create();
 //        $products = factory(Product::class)->times(29)->create();
@@ -41,8 +43,6 @@ class statsTest extends TestCase
         // Assert
         $stats = \GuzzleHttp\json_decode($product->stats, true);
         Event::assertDispatched(ProductViewed::class);
-//        dd($stats, $product);
-//        $this->assertTrue(in_array(['views' => 4], $stats));
-//        $this->assertDatabaseHas('products', ['stats' => '{"views": 4}']);
+//        $this->assertDatabaseHas('products', ['stats' => '{"sales": 0, "views": 4}']);
     }
 }

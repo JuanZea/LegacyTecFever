@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            {{ __('Manage TecFever users') }}
+                            @lang('users.sentences.control_panel')
                         </div>
                     </div>
                 </div>
@@ -30,14 +30,14 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            {{ __('Manage TecFever products') }}
+                            @lang('products.sentences.control_panel')
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card">
                         <div class="card-header text-center">
-                            @lang('Reports')
+                            @lang('reports.title.index')
                         </div>
                         <div class="card-body text-center">
                             <div class="pb-3">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            {{ __('Manage TecFever reports') }}
+                            @lang('reports.sentences.control_panel')
                         </div>
                     </div>
                 </div>

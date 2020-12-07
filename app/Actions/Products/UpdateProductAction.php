@@ -15,9 +15,11 @@ class UpdateProductAction
 
     }
 
+
     /**
      * @param array $request
      * @param Product $product
+     * @return Product
      */
     public function execute(array $request, Product $product)
     {
@@ -25,6 +27,8 @@ class UpdateProductAction
         $request = $this->toEnableOrDisable($request);
 
         $product->update($request);
+
+        return $product;
     }
 
     /**

@@ -21,56 +21,55 @@ class TestHelpers{
         'is_admin' => false,
         'is_enabled' => true
     ];
-    public const VALIDREQUESTFORPRODUCT = [
-        'name' => 'Acer Aspire 5 Slim Laptop',
-        'is_enabled' => true,
-        'description' => '15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver',
-        'category' => 'computer',
-        'image' => null,
-        'price' => '2900000',
-        'stock' => '29',
-    ];
 
     public static function activeRoles()
     {
         // Permission list
 
         // Users
-        Permission::create(['name' => 'display_users']);
+        Permission::create(['name' => 'viewAny_users']);
         Permission::create(['name' => 'edit_users']);
-        Permission::create(['name' => 'show_users']);
+        Permission::create(['name' => 'update_users']);
+        Permission::create(['name' => 'view_users']);
         Permission::create(['name' => 'create_users']);
+        Permission::create(['name' => 'store_users']);
         Permission::create(['name' => 'destroy_users']);
 
         // Products
-        Permission::create(['name' => 'display_products']);
+        Permission::create(['name' => 'viewAny_products']);
         Permission::create(['name' => 'edit_products']);
-        Permission::create(['name' => 'show_products']);
+        Permission::create(['name' => 'update_products']);
+        Permission::create(['name' => 'view_products']);
         Permission::create(['name' => 'create_products']);
+        Permission::create(['name' => 'store_products']);
         Permission::create(['name' => 'destroy_products']);
 
         // Admin - Role
         Role::create(['name' => 'admin'])
             ->givePermissionTo([
             // Users
-            'display_users',
+            'viewAny_users',
             'edit_users',
-            'show_users',
+            'update_users',
+            'view_users',
             'create_users',
+            'store_users',
             'destroy_users',
 
             // Products
-            'display_products',
+            'viewAny_products',
             'edit_products',
-            'show_products',
+            'update_products',
+            'view_products',
             'create_products',
+            'store_products',
             'destroy_products'
         ]);
 
         // User - Role
         Role::create(['name' => 'user'])
             ->givePermissionTo([
-            'show_products'
+            'view_products'
         ]);
     }
 

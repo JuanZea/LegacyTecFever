@@ -24,6 +24,7 @@ Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 Route::get('/control_panel', 'RouteController@control_panel')->name('control_panel');
 
 // Users Routes
+Route::put('users/update_roles/{user}', 'UserController@update_roles')->name('users.update_roles');
 Route::resource('users', 'UserController');
 
 // Products Routes

@@ -3,12 +3,25 @@
 namespace Tests\Feature\Api\Products;
 
 use App\Product;
+use App\ShoppingCart;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Tests\TestHelpers;
 
 class ListProductTest extends TestCase
 {
     use RefreshDatabase;
+
+    private $admin;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        TestHelpers::activeRoles();
+        $this->admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
+        factory(ShoppingCart::class)->create(['user_id' => $this->admin->id]);
+    }
 
     /**
      * @test
@@ -19,7 +32,7 @@ class ListProductTest extends TestCase
         $product = factory(Product::class)->create(['is_enabled' => rand(0, 1)]);
 
         // Act
-        $response = $this->getJson(route('api.products.show', $product));
+        $response = $this->getJson(route('api.products.show', [$product, 'api_token' => $this->admin->api_token]));
 
         // Assert
         $response->assertExactJson([
@@ -53,7 +66,7 @@ class ListProductTest extends TestCase
         $products = factory(Product::class)->times(3)->create(['is_enabled' => rand(0, 1)]);
 
         // Act
-        $response = $this->getJson(route('api.products.index'));
+        $response = $this->getJson(route('api.products.index', ['api_token' => $this->admin->api_token]));
 
         // Assert
         $response->assertJson([

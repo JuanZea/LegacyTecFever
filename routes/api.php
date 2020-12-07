@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 // ESTO PARA QUE? middleware('auth:api')->
 
-Route::apiResource('products','Api\ProductController')->names([
+Route::apiResource('products','Api\ProductController')->middleware('auth:api')->names([
     'store' => 'api.products.store',
     'index' => 'api.products.index',
     'destroy' => 'api.products.destroy',

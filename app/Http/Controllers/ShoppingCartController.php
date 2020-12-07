@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Products\SaveShoppingCartRequest;
+use App\Http\Requests\SaveShoppingCartRequest;
 use App\Product;
 use App\ShoppingCart;
 use Illuminate\Http\RedirectResponse;

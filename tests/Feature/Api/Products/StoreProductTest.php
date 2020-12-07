@@ -3,8 +3,10 @@
 namespace Tests\Feature\Api\Products;
 
 use App\Product;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Tests\TestHelpers;
 
 class StoreProductTest extends TestCase
 {
@@ -15,13 +17,13 @@ class StoreProductTest extends TestCase
      */
     public function can_store_products()
     {
-        $this->withoutExceptionHandling();
-
         // Arrange
+        TestHelpers::activeRoles();
+        $admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
         $product = factory(Product::class)->raw(['is_enabled' => 1]);
 
         // Act
-        $response = $this->postJson(route('api.products.store'), $product);
+        $response = $this->postJson(route('api.products.store', ['api_token' => $admin->api_token,]), $product);
 
         // Assert
         $response->assertStatus(201);
