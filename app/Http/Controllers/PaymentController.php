@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Events\PaymentCompleted;
-use App\ImmutableProduct;
 use App\Payment;
 use App\Product;
 use App\ShoppingCart;
 use App\User;
 use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 class PaymentController extends Controller

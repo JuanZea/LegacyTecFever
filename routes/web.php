@@ -24,6 +24,7 @@ Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 Route::get('/control_panel', 'RouteController@control_panel')->name('control_panel');
 
 // Users Routes
+Route::put('users/update_roles/{user}', 'UserController@update_roles')->name('users.update_roles');
 Route::resource('users', 'UserController');
 
 // Products Routes
@@ -37,7 +38,6 @@ Route::post('/payment', 'PaymentController@payment')->name('payment');
 
 
 // Reports Routes
-Route::get('reports/specifics', 'ReportController@specifics')->name('reports.specifics');
 Route::post('reports/generate', 'ReportController@generate')->name('reports.generate');
 Route::get('reports/download/{report}', 'ReportController@download')->name('reports.download');
 Route::delete('reports/delete/{report}', 'ReportController@destroy')->name('reports.destroy');

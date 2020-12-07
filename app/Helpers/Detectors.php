@@ -2,8 +2,6 @@
 
 namespace App\Helpers;
 
-use App\Product;
-use Illuminate\Database\Eloquent\Collection;
 
 class Detectors {
 
@@ -11,6 +9,7 @@ class Detectors {
      * Detect of most viewed
      * @param array $products
      * @param array|null $max_stats
+     * @param $stats
      * @return array|null $most_viewed_product
      */
     public static function max_products_stats(array $products, array $max_stats, $stats) : ?array
@@ -51,7 +50,7 @@ class Detectors {
      * @param array $products
      * @return array
      */
-    public static function most_stock(array $products)
+    public static function most_stock(array $products): array
     {
         $most_stock = [];
         for ($idx = 0; $idx < 5; $idx++) {

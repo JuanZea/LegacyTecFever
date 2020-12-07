@@ -24,9 +24,6 @@
                 <a class="nav-link active" href="{{ route('reports.summary') }}">@lang('Summary')</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('reports.specifics') }}">@lang('Specific reports')</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('exports.index') }}">@lang('Exports')</a>
             </li>
             <li class="nav-item">
@@ -83,7 +80,7 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col text-center">
-                                                <p class="mb-0">@lang('common.empty_table.reports')</p>
+                                                <p class="mb-0">@lang('common.empty_table', ['model' => trans('common.fields.reports')])</p>
                                             </div>
                                         </div>
                                         <div class="row mb-2 py-2 bg-cloud">

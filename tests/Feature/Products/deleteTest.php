@@ -13,50 +13,13 @@ class deleteTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Check if an admin can delete a product
-     *
-     * @test
-     */
-    public function anAdminCanDeleteAProduct()
+    private $product;
+
+    public function setUp(): void
     {
-        $this->withoutExceptionHandling();
-        // Arrange
-        $admin = factory(User::class)->create(['is_admin' => true]);
-        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
-        $product = factory(Product::class)->create();
-        $data = TestHelpers::removeTimeKeys($product->toArray());
-
-        // Act
-        $this->actingAs($admin);
-        $response = $this->delete(route('products.destroy', $product));
-
-        // Assert
-        $response->assertRedirect(route('products.index'));
-        $this->assertDatabaseMissing('products', $data);
-    }
-
-    /**
-     * Verify that an user cannot delete a product
-     *
-     * @test
-     */
-    public function anUserCannotDeleteAProduct()
-    {
-        // Arrange
-        $user = factory(User::class)->create();
-        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
-        $product = factory(Product::class)->create();
-        $data = TestHelpers::removeTimeKeys($product->toArray());
-        unset($data['stats']);
-
-        // Act
-        $this->actingAs($user);
-        $response = $this->delete(route('products.destroy', $product));
-
-        // Assert
-        $response->assertRedirect();
-        $this->assertDatabaseHas('products', $data);
+        parent::setUp();
+        TestHelpers::activeRoles();
+        $this->product = factory(Product::class)->create();
     }
 
     /**
@@ -67,15 +30,58 @@ class deleteTest extends TestCase
     public function aGuestCannotDeleteAProduct()
     {
         // Arrange
-        $product = factory(Product::class)->create();
-        $data = TestHelpers::removeTimeKeys($product->toArray());
+        $data = TestHelpers::removeTimeKeys($this->product->toArray());
         unset($data['stats']);
 
         // Act
-        $response = $this->delete(route('products.destroy', $product));
+        $response = $this->delete(route('products.destroy', $this->product));
 
         // Assert
         $response->assertRedirect('login');
         $this->assertDatabaseHas('products', $data);
+    }
+
+    /**
+     * Verify that an user cannot delete a product
+     *
+     * @test
+     */
+    public function anUserCannotDeleteAProduct()
+    {
+        // Arrange
+        $user = factory(User::class)->create()->assignRole('user');
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
+        $data = TestHelpers::removeTimeKeys($this->product->toArray());
+        unset($data['stats']);
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->delete(route('products.destroy', $this->product));
+
+        // Assert
+        $response->assertStatus(403); // Forbidden
+        $this->assertDatabaseHas('products', $data);
+    }
+
+    /**
+     * Check if an admin can delete a product
+     *
+     * @test
+     */
+    public function anAdminCanDeleteAProduct()
+    {
+        $this->withoutExceptionHandling();
+        // Arrange
+        $admin = factory(User::class)->create()->assignRole('admin');
+        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
+        $data = TestHelpers::removeTimeKeys($this->product->toArray());
+
+        // Act
+        $this->actingAs($admin);
+        $response = $this->delete(route('products.destroy', $this->product));
+
+        // Assert
+        $response->assertRedirect(route('products.index'));
+        $this->assertDatabaseMissing('products', $data);
     }
 }

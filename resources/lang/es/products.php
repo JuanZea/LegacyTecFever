@@ -9,7 +9,11 @@ return [
         'export' => 'Exportar producto',
         'report' => 'Reporte de productos'
     ],
+    'sentences' => [
+        'control_panel' => 'Gestione los productos de TecFever',
+    ],
     'messages' => [
+        'created' => 'Se creó un producto con éxito',
         'import' => 'La importación de :count productos comenzó con éxito',
         'export' => 'La exportación de productos comenzó con éxito'
     ],

@@ -1,8 +1,13 @@
 <?php
 return [
-    'title' => 'Reporte :name de TecFever',
+    'title' => [
+        'index' => 'Gestión de reports',
+    ],
     'message' => [
         'generate' => 'El reporte comenzó su generación correctamente'
+    ],
+    'sentences' => [
+        'control_panel' => 'Gestione los reportes de TecFever',
     ],
     'pdf' => [
         'intro' => 'A partir de la recogida de datos importantes sobre los productos de TecFever como sus visualizaciones, sus compras, sus existencias, etc. Se ha generado el siguiente reporte con datos relevantes para la empresa.',

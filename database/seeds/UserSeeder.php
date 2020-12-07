@@ -26,7 +26,16 @@ class UserSeeder extends Seeder
         'remember_token' => Str::random(10),
         ])->assignRole('admin'); // Admin Power
 
-        factory(App\User::class,$count)->create();
+        $users = factory(App\User::class)->times($count)->create();
+
+        // Assign roles
+        foreach ($users as $user) {
+            if (rand(0, 9) == 0) {
+                $user->assignRole('admin');
+            } else {
+                $user->assignRole('user');
+            }
+        }
 
         // Assign shopping carts
         for ($idx = 1; $idx <= $count; $idx++) {

@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Users\UpdateRequest;
+use App\Actions\RefreshRolesAction;
+use App\Actions\Users\UpdateUserAction;
+use App\Http\Requests\Users\UpdateUsersRequest;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('is_admin')->except('update');
     }
 
     /**
@@ -24,29 +26,9 @@ class UserController extends Controller
      */
     public function index() : View
     {
+        $this->authorize('viewAny', new User());
         $users = User::paginate();
         return view('users.index',compact('users'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -57,7 +39,9 @@ class UserController extends Controller
      */
     public function show(User $user) : View
     {
-        return view('users.show',compact('user'));
+        $this->authorize('view', new User());
+        $roles = $user->getRoleNames();
+        return view('users.show',compact(['user', 'roles']));
     }
 
     /**
@@ -68,47 +52,43 @@ class UserController extends Controller
      */
     public function edit(User $user) : View
     {
-        return view('users.edit',compact('user'));
+        $this->authorize('edit', new User());
+        $roles = Role::pluck('name','id');
+        return view('users.edit', compact(['user', 'roles']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateRequest $request
+     * @param UpdateUsersRequest $request
      * @param User $user
+     * @param UpdateUserAction $updateUserAction
      * @return RedirectResponse
      */
-    public function update(UpdateRequest $request, User $user) : RedirectResponse
+    public function update(UpdateUsersRequest $request, User $user, UpdateUserAction $updateUserAction) : RedirectResponse
     {
-        $permission = $request['permission'];
-        if ($permission) {
-            $admin = $request['is_admin'] == '1';
-            $enabled = $request['is_enabled'] == '1';
-            $request = $request->validated();
-            if ($admin) {
-                $request += ['is_admin' => true];
-                $request += ['is_enabled' => true];
-            } else {
-                $request += ['is_admin' => false];
-                $request += ['is_enabled' => $enabled];
-            }
-            $user->update($request);
-            return redirect()->route('users.show', compact('user'));
-        } else {
-            $request = $request->validated();
-            $user->update($request);
-            return redirect()->route('account')->with('status', 'Successful edition');
-        }
+        $updateUserAction->execute($request->validated(), $user);
+        return redirect()->route('users.show', compact('user'))->with('message', trans('users.messages.updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param User $user
+     * @param Request $request
+     * @param RefreshRolesAction $refreshRolesAction
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
-    public function destroy($id)
+    public function update_roles(User $user, Request $request, RefreshRolesAction $refreshRolesAction): RedirectResponse
     {
-        //
+        $this->authorize('update', new User());
+        $roles = Role::all();
+        if ($roles->contains($request['rol'])) {
+            $refreshRolesAction->execute($user, $request['rol']);
+        } else {
+            return back()->with('error', 'The role does not exist');
+        }
+        return redirect()->route('users.show', compact('user'));
     }
 }

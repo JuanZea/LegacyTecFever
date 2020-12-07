@@ -14752,6 +14752,10 @@ a.text-dark:focus {
   background: none;
 }
 
+.headband-yellow {
+  background-color: rgba(255, 255, 0, 0.5);
+}
+
 .ani-grow {
   -webkit-animation-name: hvr-pulse-grow;
   animation-name: hvr-pulse-grow;

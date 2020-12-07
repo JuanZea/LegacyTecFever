@@ -4,11 +4,9 @@ namespace App\Imports;
 
 use App\Helpers\Formatters;
 use App\Product;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -54,7 +52,7 @@ class ProductsImport implements ToModel, WithHeadingRow, WithValidation, WithUps
     /**
      * @return array
      */
-    public function customValidationMessages()
+    public function customValidationMessages(): array
     {
         return [
             'name.required' => trans('products.error_messages.name.required'),
