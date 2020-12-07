@@ -4,10 +4,7 @@
 namespace App\Actions;
 
 
-use App\Product;
 use App\User;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Storage;
 
 class RefreshRolesAction
 {
@@ -18,8 +15,8 @@ class RefreshRolesAction
     }
 
     /**
-     * @param array $request
-     * @param Product $product
+     * @param User $user
+     * @param int $rol_id
      */
     public function execute(User $user, int $rol_id)
     {

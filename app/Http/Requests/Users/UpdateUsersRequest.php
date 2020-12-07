@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests\Users;
 
-use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
 class UpdateUsersRequest extends FormRequest
 {
@@ -14,7 +12,7 @@ class UpdateUsersRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return Auth::user()->hasPermissionTo('update_users');
     }
@@ -24,7 +22,7 @@ class UpdateUsersRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'bail|required|min:2|max:25',

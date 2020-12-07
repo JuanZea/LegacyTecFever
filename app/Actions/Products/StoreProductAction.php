@@ -3,6 +3,7 @@
 namespace App\Actions\Products;
 
 use App\Product;
+use Illuminate\Database\Eloquent\Model;
 
 class StoreProductAction
 {
@@ -14,7 +15,7 @@ class StoreProductAction
 
     /**
      * @param array $request
-     * @return Product|\Illuminate\Database\Eloquent\Model
+     * @return Product|Model
      */
     public function execute(array $request)
     {
@@ -27,7 +28,7 @@ class StoreProductAction
      * @param array $request
      * @return array
      */
-    public function saveImage(array $request)
+    public function saveImage(array $request): array
     {
         $has_image_path = isset($request['image_path']);
         $has_image = isset($request['image']);

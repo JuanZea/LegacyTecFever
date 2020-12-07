@@ -13,7 +13,7 @@ class ProductResource extends JsonResource
      * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'type' => 'products',

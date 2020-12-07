@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -25,7 +26,7 @@ class ProductsExport implements FromQuery, ShouldQueue, WithHeadings, WithMappin
     /**
      * @return Builder;
      */
-    public function query()
+    public function query(): Builder
     {
         return Product::query();
     }
@@ -47,8 +48,9 @@ class ProductsExport implements FromQuery, ShouldQueue, WithHeadings, WithMappin
     }
 
     /**
-    * @var Product $product
-    */
+     * @return array
+     * @var Product $product
+     */
     public function map($product): array
     {
         return [
@@ -93,15 +95,16 @@ class ProductsExport implements FromQuery, ShouldQueue, WithHeadings, WithMappin
 
     /**
      * @param Worksheet $sheet
+     * @return array[]
      */
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet): array
     {
         return [
             1    => [
                 'font' => ['bold' => true],
                 'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
                 'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+                    'fillType' => Fill::FILL_GRADIENT_LINEAR,
                     'rotation' => 90,
                     'startColor' => [
                         'argb' => 'FFA0A0A0',

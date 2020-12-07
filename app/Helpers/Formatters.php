@@ -2,9 +2,6 @@
 
 namespace App\Helpers;
 
-use phpDocumentor\Reflection\Types\Nullable;
-use function _HumbugBoxbde535255540\RingCentral\Psr7\str;
-
 class Formatters {
 
     /**

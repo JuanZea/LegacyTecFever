@@ -7,7 +7,6 @@ use App\Exports\ProductsExport;
 use App\Jobs\EnableDownloadButton;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;

@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Export;
-use App\Helpers\Detectors;
 use App\Jobs\GenerateReport;
 use App\Product;
 use App\Report;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use function App\View\Components\render;
 
 class ReportController extends Controller
 {
@@ -24,9 +21,10 @@ class ReportController extends Controller
     }
 
     /**
-     *
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function generate(Request $request)
+    public function generate(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:25'
@@ -52,7 +50,7 @@ class ReportController extends Controller
     }
 
     /**
-     * @param Export $export
+     * @param Report $report
      * @return StreamedResponse
      */
     public function download(Report $report) : StreamedResponse
@@ -70,9 +68,11 @@ class ReportController extends Controller
     }
 
     /**
-     *
-    */
-    public function destroy(Report $report)
+     * @param Report $report
+     * @return RedirectResponse
+     * @throws Exception
+     */
+    public function destroy(Report $report): RedirectResponse
     {
         Storage::disk('reports')->delete($report->get_path);
         $report->delete();

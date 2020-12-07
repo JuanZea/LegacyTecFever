@@ -16,6 +16,7 @@ class UpdateUserAction
 
     /**
      * @param array $request
+     * @param User $user
      */
     public function execute(array $request, User $user)
     {
@@ -23,7 +24,7 @@ class UpdateUserAction
         $user->update($request);
     }
 
-    private function refreshStatus(array $request)
+    private function refreshStatus(array $request): array
     {
         if (!isset($request['is_enabled'])) {
             array_push($request, ['is_Enabled' => 0]);

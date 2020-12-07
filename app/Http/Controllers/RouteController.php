@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
 use App\Product;
-use App\ShoppingCart;
-use Dnetix\Redirection\PlacetoPay;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use PhpParser\Node\Expr\Cast\Object_;
 
 class RouteController extends Controller
 {
@@ -58,6 +53,7 @@ class RouteController extends Controller
     /**
      * Display a shop view.
      *
+     * @param Request $request
      * @return View
      */
     public function shop(Request $request) : View
@@ -104,7 +100,7 @@ class RouteController extends Controller
      * @param Request $request
      * @return View
      */
-    public function account(Request $request)
+    public function account(Request $request): View
     {
         if (!isset($request->section)) {
             $section = 0;

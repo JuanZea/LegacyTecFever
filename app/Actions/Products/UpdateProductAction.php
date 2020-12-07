@@ -21,7 +21,7 @@ class UpdateProductAction
      * @param Product $product
      * @return Product
      */
-    public function execute(array $request, Product $product)
+    public function execute(array $request, Product $product): Product
     {
         $request = $this->refreshImage($request, $product, new StoreProductAction());
         $request = $this->toEnableOrDisable($request);

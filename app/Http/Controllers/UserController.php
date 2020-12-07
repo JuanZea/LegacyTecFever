@@ -6,10 +6,9 @@ use App\Actions\RefreshRolesAction;
 use App\Actions\Users\UpdateUserAction;
 use App\Http\Requests\Users\UpdateUsersRequest;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
@@ -30,27 +29,6 @@ class UserController extends Controller
         $this->authorize('viewAny', new User());
         $users = User::paginate();
         return view('users.index',compact('users'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -84,6 +62,7 @@ class UserController extends Controller
      *
      * @param UpdateUsersRequest $request
      * @param User $user
+     * @param UpdateUserAction $updateUserAction
      * @return RedirectResponse
      */
     public function update(UpdateUsersRequest $request, User $user, UpdateUserAction $updateUserAction) : RedirectResponse
@@ -95,9 +74,13 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param User $user
+     * @param Request $request
+     * @param RefreshRolesAction $refreshRolesAction
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
-    public function update_roles(User $user, Request $request, RefreshRolesAction $refreshRolesAction)
+    public function update_roles(User $user, Request $request, RefreshRolesAction $refreshRolesAction): RedirectResponse
     {
         $this->authorize('update', new User());
         $roles = Role::all();
@@ -107,16 +90,5 @@ class UserController extends Controller
             return back()->with('error', 'The role does not exist');
         }
         return redirect()->route('users.show', compact('user'));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

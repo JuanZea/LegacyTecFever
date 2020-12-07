@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Products\ImportProductRequest;
 use App\Imports\ProductsImport;
+use Illuminate\Http\RedirectResponse;
 
 class ImportController extends Controller
 {
-    public function import(ImportProductRequest $request)
+    public function import(ImportProductRequest $request): RedirectResponse
     {
         $import = new ProductsImport();
         $import->import($request->file('import_file'));

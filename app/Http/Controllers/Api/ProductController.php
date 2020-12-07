@@ -6,14 +6,13 @@ use App\Actions\Products\StoreProductAction;
 use App\Actions\Products\UpdateProductAction;
 use App\Events\ProductViewed;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Products\Products\StoreRequest;
 use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Product;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -23,7 +22,7 @@ class ProductController extends Controller
      *
      * @return ProductCollection
      */
-    public function index()
+    public function index(): ProductCollection
     {
         $this->authorize('viewAny', new Product());
         return ProductCollection::make(Product::query()->paginate($perPage = request('page.size'), $columns = ['*'], $pageName = 'page[number]', $page = request('page.number'))->appends(request()->except('page.number')));
@@ -33,9 +32,11 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreProductRequest $request
+     * @param StoreProductAction $storeProductAction
      * @return ProductResource
+     * @throws AuthorizationException
      */
-    public function store(StoreProductRequest $request, StoreProductAction $storeProductAction)
+    public function store(StoreProductRequest $request, StoreProductAction $storeProductAction): ProductResource
     {
         $this->authorize('store', new Product());
         $product = $storeProductAction->execute($request->validated());
@@ -48,7 +49,7 @@ class ProductController extends Controller
      * @param Product $product
      * @return ProductResource
      */
-    public function show(Product $product)
+    public function show(Product $product): ProductResource
     {
         $this->authorize('show', new Product());
         ProductViewed::dispatch($product);
@@ -58,11 +59,12 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateProductRequest $request
      * @param Product $product
+     * @param UpdateProductAction $updateProductAction
      * @return ProductResource
      */
-    public function update(UpdateProductRequest $request, Product $product, UpdateProductAction $updateProductAction)
+    public function update(UpdateProductRequest $request, Product $product, UpdateProductAction $updateProductAction): ProductResource
     {
         $product = $updateProductAction->execute($request->validated(), $product);
         return ProductResource::make($product);
@@ -74,7 +76,7 @@ class ProductController extends Controller
      * @param Product $product
      * @return JsonResponse
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product): JsonResponse
     {
         $this->authorize('delete', $product);
         Storage::disk('public')->delete($product->image);

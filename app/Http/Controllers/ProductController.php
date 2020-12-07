@@ -8,7 +8,6 @@ use App\Events\ProductViewed;
 use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
 use App\Product;
-use App\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +95,7 @@ class ProductController extends Controller
      *
      * @param UpdateProductRequest $request
      * @param Product $product
+     * @param UpdateProductAction $updateProductAction
      * @return RedirectResponse
      */
     public function update(UpdateProductRequest $request, Product $product, UpdateProductAction $updateProductAction) : RedirectResponse

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveShoppingCartRequest;
 use App\Product;
 use App\ShoppingCart;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,7 +67,9 @@ class ShoppingCartController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param ShoppingCart $shoppingCart
+     * @param Request $request
      * @return View
+     * @throws AuthorizationException
      */
     public function edit(ShoppingCart $shoppingCart, Request $request) : view
     {
@@ -77,9 +80,10 @@ class ShoppingCartController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param ShoppingCart $shoppingCart
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $request, ShoppingCart $shoppingCart) : RedirectResponse
     {

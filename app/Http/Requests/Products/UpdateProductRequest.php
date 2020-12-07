@@ -12,7 +12,7 @@ class UpdateProductRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return Auth::user()->hasPermissionTo('update_products');
     }
