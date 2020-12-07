@@ -24,9 +24,6 @@
                 <a class="nav-link" href="{{ route('reports.summary') }}">@lang('Summary')</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('reports.specifics') }}">@lang('Specific reports')</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link active" href="{{ route('exports.index') }}">@lang('Exports')</a>
             </li>
             <li class="nav-item">

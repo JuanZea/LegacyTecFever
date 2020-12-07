@@ -32,6 +32,7 @@ return [
         'stock' => 'Existencias',
 
         // Reportes
+        'reports' => 'reportes',
         'date' => 'Fecha',
         'sales' => 'Ventas',
         'views' => 'Vistas',

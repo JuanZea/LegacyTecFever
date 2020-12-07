@@ -32,6 +32,7 @@ return [
         'stock' => 'Stock',
 
         // Reports
+        'reports' => 'reportes',
         'date' => 'Date',
         'sales' => 'Sales',
         'views' => 'Views',

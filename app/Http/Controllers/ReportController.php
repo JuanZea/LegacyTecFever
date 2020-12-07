@@ -59,15 +59,6 @@ class ReportController extends Controller
     }
 
     /**
-     * @return View
-     */
-    public function specifics() : View
-    {
-        $products = Product::query()->orderBy('id','DESC')->paginate();
-        return view('reports.specifics',compact('products'));
-    }
-
-    /**
      * @param Report $report
      * @return RedirectResponse
      * @throws Exception

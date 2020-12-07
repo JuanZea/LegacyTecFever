@@ -38,7 +38,6 @@ Route::post('/payment', 'PaymentController@payment')->name('payment');
 
 
 // Reports Routes
-Route::get('reports/specifics', 'ReportController@specifics')->name('reports.specifics');
 Route::post('reports/generate', 'ReportController@generate')->name('reports.generate');
 Route::get('reports/download/{report}', 'ReportController@download')->name('reports.download');
 Route::delete('reports/delete/{report}', 'ReportController@destroy')->name('reports.destroy');

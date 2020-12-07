@@ -1,8 +1,13 @@
 <?php
 return [
-    'title' => 'TecFever :name report',
+    'title' => [
+        'index' => 'Reports Management',
+    ],
+    'sentences' => [
+        'control_panel' => 'Gestione los reportes de TecFever',
+    ],
     'message' => [
-        'generate' => 'The report started its generation correctly'
+        'generate' => 'Manage TecFever reports'
     ],
     'pdf' => [
         'intro' => 'From the collection of important data about TecFever products such as their views, their purchases, their stocks, etc. The following report has been generated with relevant data for the company.',

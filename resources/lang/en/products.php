@@ -9,6 +9,9 @@ return [
         'export' => 'Export product',
         'report' => 'Products report'
     ],
+    'sentences' => [
+        'control_panel' => 'Manage TecFever products',
+    ],
     'messages' => [
         'created' => 'A product was created successfully',
         'import' => 'Import of :count products started successfully',
