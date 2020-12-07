@@ -19,8 +19,7 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     $return = [
-        'isAdmin' => false,
-        'isEnabled' => $faker->boolean($chanceOfGettingTrue = 70),
+        'is_enabled' => $faker->boolean($chanceOfGettingTrue = 70),
         'name' => $faker->firstName,
         'document' => rand(1000000000, 9999999999),
         'documentType' => 'CC',
@@ -29,6 +28,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
+        'api_token' => Str::random(60),
     ];
     if (rand(0,1) == 1) {
         $surname = $faker->lastName;

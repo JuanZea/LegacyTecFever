@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Product;
+use App\ShoppingCart;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -12,13 +12,29 @@ class RouteControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+//    public function setUp(): void
+//    {
+//        // first include all the normal setUp operations
+//        parent::setUp();
+//
+//        // now re-register all the roles and permissions (clears cache and reloads relations)
+//        $this->app->make(\Spatie\Permission\PermissionRegistrar::class)->registerPermissions();
+//    }TestHelpers::activeRoles();
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        TestHelpers::activeRoles();
+    }
+
     /**
      * Check if the route is allowed for guest
      * @test
      * @dataProvider validRouteForGuestDataProvider
      * @param string $route
+     * @retrun void
      */
-    public function RouteIsAllowedForGuest($route)
+    public function RouteIsAllowedForGuest(string $route) : void
     {
         // Act
         $response = $this->get(route($route));
@@ -36,14 +52,15 @@ class RouteControllerTest extends TestCase
      * @test
      * @dataProvider invalidRouteForGuestDataProvider
      * @param string $route
+     * @retrun void
      */
-    public function RouteIsForbiddenForGuest($route)
+    public function RouteIsForbiddenForGuest(string $route) : void
     {
         // Act
         $response = $this->get(route($route));
 
         // Assert
-        $response->assertRedirect();
+        $response->assertRedirect('login');
     }
 
     /**
@@ -51,11 +68,14 @@ class RouteControllerTest extends TestCase
      * @test
      * @dataProvider validRouteForEnabledUserDataProvider
      * @param string $route
+     * @retrun void
      */
-    public function RouteIsAllowedForEnabledUser($route)
+    public function RouteIsAllowedForEnabledUser(string $route) : void
     {
-         // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $this->withoutExceptionHandling();
+        // Arrange
+        $user = factory(User::class)->create(['is_enabled' => true]);
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
 
         // Act
         $this->actingAs($user);
@@ -71,11 +91,12 @@ class RouteControllerTest extends TestCase
      * @test
      * @dataProvider invalidRouteForEnabledUserDataProvider
      * @param string $route
+     * @retrun void
      */
-    public function RouteIsForbiddenForEnabledUser($route)
+    public function RouteIsForbiddenForEnabledUser(string $route) : void
     {
          // Arrange
-        $user = factory(User::class)->create(['isEnabled' => true]);
+        $user = factory(User::class)->create(['is_enabled' => true]);
 
         // Act
         $this->actingAs($user);
@@ -90,11 +111,13 @@ class RouteControllerTest extends TestCase
      * @test
      * @dataProvider validRouteForDisabledUserDataProvider
      * @param string $route
+     * @retrun void
      */
-    public function RouteIsAllowedForDisabledUser($route)
+    public function RouteIsAllowedForDisabledUser(string $route) : void
     {
          // Arrange
-        $user = factory(User::class)->create(['isEnabled' => false]);
+        $user = factory(User::class)->create(['is_enabled' => false]);
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
 
         // Act
         $this->actingAs($user);
@@ -110,11 +133,13 @@ class RouteControllerTest extends TestCase
      * @test
      * @dataProvider invalidRouteForDisabledUserDataProvider
      * @param string $route
+     * @retrun void
      */
-    public function RouteIsForbiddenForDisabledUser($route)
+    public function RouteIsForbiddenForDisabledUser(string $route) : void
     {
          // Arrange
-        $user = factory(User::class)->create(['isEnabled' => false]);
+        $user = factory(User::class)->create(['is_enabled' => false]);
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
 
         // Act
         $this->actingAs($user);
@@ -129,11 +154,13 @@ class RouteControllerTest extends TestCase
      * @test
      * @dataProvider validRouteForAdminDataProvider
      * @param string $route
+     * @retrun void
      */
-    public function RouteIsAllowedForAdmin($route)
+    public function RouteIsAllowedForAdmin(string $route) : void
     {
          // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
+        $admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
+        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
 
         // Act
         $this->actingAs($admin);
@@ -149,11 +176,13 @@ class RouteControllerTest extends TestCase
      * @test
      * @dataProvider invalidRouteForAdminDataProvider
      * @param string $route
+     * @retrun void
      */
-    public function RouteIsForbiddenForAdmin($route)
+    public function RouteIsForbiddenForAdmin(string $route) : void
     {
          // Arrange
-        $admin = factory(User::class)->create(['isAdmin' => true,'isEnabled' => true]);
+        $admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
+        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
 
         // Act
         $this->actingAs($admin);
@@ -162,6 +191,8 @@ class RouteControllerTest extends TestCase
         // Assert
         $response->assertRedirect();
     }
+
+    // PROVIDERS
 
     /**
      * Group of routes allowed for a guest

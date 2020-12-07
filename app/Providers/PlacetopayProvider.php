@@ -37,10 +37,6 @@ class PlacetopayProvider extends ServiceProvider
 
             $nonceBase64 = base64_encode($nonce);
 
-            $secretKey = config('placetopay.secretkey');
-
-            $tranKey = base64_encode(sha1($nonce . $seed . $secretKey, true));
-
             return new PlacetoPay([
                 'login' => config('placetopay.login'),
                 'seed' => $seed,
@@ -48,14 +44,6 @@ class PlacetopayProvider extends ServiceProvider
                 'tranKey' => config('placetopay.secretkey'),
                 'url' => config('placetopay.url'),
             ]);
-
-//            return new PlacetoPay([
-//                'login' => config('placetopay.login'),
-//                'seed' => $seed,
-//                'nonce' => $nonceBase64,
-//                'tranKey' => $tranKey,
-//                'url' => config('placetopay.url'),
-//            ]);
         });
     }
 }

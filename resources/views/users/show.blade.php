@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <section id="users-show">
+    <section id="users-show" class="scene-wall">
         <div class="container">
+
             {{-- Header --}}
             <div class="s-header row py-4 d-flex align-items-center justify-content-between">
                 <div>
                     <a href="{{ route('users.index') }}"><img src="{{ asset('images/main/BackIcon.png') }}" alt="Back icon"></a>
                 </div>
                 <div>
-                    <h1 class="title-tec"><i class="far fa-user px-2"></i>{{ __('User Information') }}</h1>
+                    <h1 class="title-tec"><i class="far fa-user px-2"></i>@lang('users.titles.show')</h1>
                 </div>
                 <div>
                     <a href="{{ route('users.edit',$user) }}"><i class="fas fa-pencil-alt"></i></a>
@@ -18,67 +19,115 @@
             {{-- /Header --}}
 
             {{-- UserInfo--}}
-            <div class="s-userInfo row my-5">
-                <div class="col-12 col-sm-6 col-md">
-                    <div class="card bg-primary text-white">
-                        <div class="card-header d-flex justify-content-center align-items-center">
-                            <h4 class="mb-0">{{ __('Name') }}</h4>
+            <div class="row my-5">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-6 headband-yellow rounded mx-4 p-4">
+                            <div class="row mb-2">
+                                <div class="col text-center">
+                                    <h2><b>@lang('Personal information')</b></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span><b>@lang('Name'):</b></span>
+                                </div>
+                                <div class="col">
+                                    <span>{{ $user->name }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span><b>@lang('Surname'):</b></span>
+                                </div>
+                                <div class="col">
+                                    @if ($user->surname != null)
+                                        <span>{{ $user->surname }}</span>
+                                    @else
+                                        <span>---</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span><b>@lang('Document type'):</b></span>
+                                </div>
+                                <div class="col">
+                                    @if ($user->documentType != null)
+                                        <span>{{ $user->documentType }}</span>
+                                    @else
+                                        <span>---</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span><b>@lang('Document'):</b></span>
+                                </div>
+                                <div class="col">
+                                    @if ($user->document != null)
+                                        <span>{{ $user->document }}</span>
+                                    @else
+                                        <span>---</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span><b>@lang('Mobile'):</b></span>
+                                </div>
+                                <div class="col">
+                                    @if ($user->mobile != null)
+                                        <span>{{ $user->mobile }}</span>
+                                    @else
+                                        <span>---</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span><b>@lang('Email'):</b></span>
+                                </div>
+                                <div class="col">
+                                    <span>{{ $user->email }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span><b>@lang('Registered in TecFever'):</b></span>
+                                </div>
+                                <div class="col">
+                                    <span>{{ $user->created_at->diffForHumans() }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body d-flex justify-content-center align-items-center text-uppercase">
-                            <p>{{ $user->name }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md">
-                    <div class="card bg-primary text-white">
-                        <div class="card-header card-header d-flex justify-content-center align-items-center">
-                            <h4 class="mb-0">{{ __('Email') }}</h4>
-                        </div>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <p>{{ $user->email }}</p>
-                            @if ($user->email_verified_at != null)
-                                <span class="rounded-pill bg-success p-2">{{ __('Verified') }}</span>
-                            @else
-                                <span class="rounded-pill bg-danger p-2">{{ __('Unverified') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md">
-                    <div class="card text-white
-                    @if ($user->isAdmin)
-                        bg-warning
-                    @else
-                        bg-primary
-                    @endif">
-                        <div class="card-header card-header d-flex justify-content-center align-items-center">
-                            <h4 class="mb-0">{{ __('Rank') }}</h4>
-                        </div>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            @if ($user->isAdmin)
-                                <p>{{ __('Administrator') }}</p>
-                            @else
-                                {{ __('Common User') }}
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md">
-                    <div class="card text-white
-                    @if ($user->isEnabled)
-                        bg-success
-                    @else
-                        bg-danger
-                    @endif">
-                        <div class="card-header card-header d-flex justify-content-center align-items-center">
-                            <h4 class="mb-0">{{ __('Status') }}</h4>
-                        </div>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            @if ($user->isEnabled)
-                                <p>{{ __('Enabled') }}</p>
-                            @else
-                                <p>{{ __('Disabled') }}</p>
-                            @endif
+                        <div class="col-3 headband-yellow rounded mx-4 p-4">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h2><b>@lang('Roles')</b></h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <ul>
+                                        @foreach($roles as $rol)
+                                            <li>
+                                                @lang($rol)
+                                            </li>
+                                    @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h2><b>@lang('Status')</b></h2>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col text-center">
+                                    <span class="rounded-pill text-white {{ $user->is_enabled == 1? 'bg-success' : 'bg-danger' }} p-2">{{ $user->is_enabled == 1? trans('Enabled') : trans('Disabled') }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

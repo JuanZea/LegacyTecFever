@@ -20,7 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('shopping-car-component', require('./components/ShoppingCart.vue').default);
+Vue.component('shopping-cart-link-component', require('./components/ShoppingCartLink.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,14 +31,14 @@ Vue.component('shopping-car-component', require('./components/ShoppingCart.vue')
 const app = new Vue({
     el: '#app',
     data: {
-        name: 'Juan Zea',
-        articles: 0,
-        amount: '',
+        amount: 0,
+        quantity: 0
     },
     methods: {
         addToCar() {
-            this.articles = this.articles + parseInt(this.amount);
-            this.amount = 0;
+            // axios
+            // .post('http://tecfever.test/api/user/'+this.user)
+            // .then(response => (this.info = response))
         }
-    }
+    },
 });

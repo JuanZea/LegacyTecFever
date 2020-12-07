@@ -13,7 +13,7 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'reference', 'status', 'requestId', 'message', 'amount', 'url'
+        'user_id', 'reference', 'status', 'requestId', 'message', 'invoice', 'amount', 'url'
     ];
 
     /**
@@ -25,25 +25,9 @@ class Payment extends Model
         if ($this->status != 'OK' && $this->status != 'PENDING') {
             return;
         }
-        $seed = date('c');
 
-        if (function_exists('random_bytes')) {
-            $nonce = bin2hex(random_bytes(16));
-        } elseif (function_exists('openssl_random_pseudo_bytes')) {
-            $nonce = bin2hex(openssl_random_pseudo_bytes(16));
-        } else {
-            $nonce = mt_rand();
-        }
+        $placetoPay = resolve(PlacetoPay::class);
 
-        $nonceBase64 = base64_encode($nonce);
-
-        $placetoPay = new PlacetoPay([
-            'login' => config('placetopay.login'),
-            'seed' => $seed,
-            'nonce' => $nonceBase64,
-            'tranKey' => config('placetopay.secretkey'),
-            'url' => config('placetopay.url'),
-        ]);
         $response = $placetoPay->query($this->requestId);
         $this->status = $response->status()->status();
         $this->message = $response->status()->message();
@@ -51,10 +35,6 @@ class Payment extends Model
     }
 
     // Relations
-
-    public function products() {
-        return $this->hasMany(ImmutableProduct::class);
-    }
 
     public function user() {
         return $this->belongsTo(User::class);

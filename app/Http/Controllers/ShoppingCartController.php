@@ -5,33 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveShoppingCartRequest;
 use App\Product;
 use App\ShoppingCart;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ShoppingCartController extends Controller
 {
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function __construct()
     {
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
+        $this->middleware('auth');
+        $this->middleware('verified');
+        $this->middleware('is_enabled');
     }
 
     /**
@@ -72,32 +58,38 @@ class ShoppingCartController extends Controller
      */
     public function show(ShoppingCart $shoppingCart) : view
     {
-        return view('shopping-carts.show',compact('shoppingCart'));
+        $this->authorize('view', $shoppingCart);
+
+        return view('shoppingCarts.show',compact('shoppingCart'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param ShoppingCart $shoppingCart
+     * @param Request $request
      * @return View
+     * @throws AuthorizationException
      */
     public function edit(ShoppingCart $shoppingCart, Request $request) : view
     {
-//        dd($shoppingCart->products->where('id',$request->product_id));
-        return view('shopping-carts.edit', ['shoppingCart'=>$shoppingCart, 'product_id'=>$request->product_id]);
+        $this->authorize('edit', $shoppingCart);
+        return view('shoppingCarts.edit', ['shoppingCart'=>$shoppingCart, 'product_id'=>$request->product_id]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param ShoppingCart $shoppingCart
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $request, ShoppingCart $shoppingCart) : RedirectResponse
     {
+        $this->authorize('view', $shoppingCart);
         if ($request->amount < 0) {
-            return back()->with('error','Numeros negativos son invalidos');
+            return back()->with('error',__('Negative numbers are invalid'));
         }
         $product = Product::find($request->product_id);
         $amount = 0;
@@ -106,7 +98,22 @@ class ShoppingCartController extends Controller
         }
         $shoppingCart->change($product, $amount);
         $shoppingCart->save();
-        return redirect()->route('shopping-cart.router');
+        return redirect()->route('shoppingCarts.show', $shoppingCart);
+    }
+
+    /**
+     * Remove all products from the shopping cart
+     *
+     * @param  ShoppingCart $shoppingCart
+     * @return RedirectResponse
+     */
+    public function clean(ShoppingCart $shoppingCart) : RedirectResponse
+    {
+        if (!isset($shoppingCart)) {
+            return back();
+        }
+        $shoppingCart->clean();
+        return redirect()->route('shoppingCarts.show', $shoppingCart);
     }
 
     /**

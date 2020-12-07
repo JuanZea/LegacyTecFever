@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
 use App\Product;
-use App\ShoppingCart;
-use Dnetix\Redirection\PlacetoPay;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use PhpParser\Node\Expr\Cast\Object_;
 
 class RouteController extends Controller
 {
@@ -18,8 +13,8 @@ class RouteController extends Controller
 	{
 		$this->middleware('auth')->except('welcome');
     	$this->middleware('verified')->except('welcome');
-    	$this->middleware('isAdmin')->only('controlPanel');
-    	$this->middleware('isEnabled')->except('welcome','disabled');
+    	$this->middleware('is_admin')->only('control_panel');
+    	$this->middleware('is_enabled')->except('welcome','disabled');
 	}
 
     /**
@@ -50,14 +45,15 @@ class RouteController extends Controller
      *
      * @return View
      */
-    public function controlPanel() : View
+    public function control_panel() : View
     {
-        return view('controlPanel');
+        return view('control_panel');
     }
 
     /**
      * Display a shop view.
      *
+     * @param Request $request
      * @return View
      */
     public function shop(Request $request) : View
@@ -68,11 +64,11 @@ class RouteController extends Controller
         ->paginate();
         $empty = true;
         foreach ($products as $product) {
-            if ($product->isEnabled) {
+            if ($product->is_enabled) {
                 $empty=false;
             }
         }
-        return view('products.shop',['products'=>$products,'name'=>$name,'empty'=>$empty]);
+        return view('shop',['products'=>$products,'name'=>$name,'empty'=>$empty]);
     }
 
     /**
@@ -86,11 +82,11 @@ class RouteController extends Controller
 
         // Initialize shoppingCart
         if (!$shoppingCart) {
-            return view('shopping-carts.empty');
+            return view('shoppingCarts.empty');
         } else {
             if ($shoppingCart->amount == 0) {
                 $shoppingCart->delete();
-                return view('shopping-carts.empty');
+                return view('shoppingCarts.empty');
             }
         }
 
@@ -101,11 +97,16 @@ class RouteController extends Controller
     /**
      * Display a account view.
      *
-     * @param int $section
+     * @param Request $request
      * @return View
      */
-    public function account(int $section)
+    public function account(Request $request): View
     {
+        if (!isset($request->section)) {
+            $section = 0;
+        } else {
+            $section = $request->section;
+        }
         $user = Auth::user();
         $payments = $user->payments;
         foreach ($payments as $payment) {
@@ -113,13 +114,13 @@ class RouteController extends Controller
         }
         switch ($section) {
             case 0: {
-                return view('account.profile', ['section'=>$section, 'user' =>$user]);
+                return view('account.profile', compact('user', 'section'));
             }
             case 1: {
-                return view('account.shoppingHistory', ['section'=>$section, 'user' =>$user]);
+                return view('account.shopping_history', compact('user', 'section'));
             }
             case 2: {
-                return view('account.configuration', ['section'=>$section, 'user' =>$user]);
+                return view('account.configuration', compact('user', 'section'));
             }
             default : {
                 abort(404);
@@ -130,23 +131,11 @@ class RouteController extends Controller
     /**
      * Display a disabled view.
      *
-     * @param Payment $payment
-     * @return Object
-     */
-    public function paymentHistory(Request $request) : Object
-    {
-        $payment = Payment::find($request->payment_id);
-        return view('account.paymentHistory', compact('payment'));
-    }
-
-    /**
-     * Display a disabled view.
-     *
      * @return Object
      */
     public function disabled() : Object
     {
-        if (Auth::user()->isEnabled) {
+        if (Auth::user()->is_enabled) {
             return redirect()->route('home');
         }
         return view('disabled');

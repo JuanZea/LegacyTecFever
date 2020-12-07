@@ -11,13 +11,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
+    use \Staudenmeir\LaravelUpsert\Eloquent\HasUpsertQueries;
 	/**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name','isEnabled', 'description', 'category', 'image', 'price',
+        'id', 'name','is_enabled', 'description', 'category', 'image', 'price', 'stock'
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'stats' => '{"views":0,"sales":0}'
     ];
 
     /**
@@ -53,10 +63,5 @@ class Product extends Model
     public function shoppingCarts() : Object
     {
         return $this->belongsToMany(ShoppingCart::class);
-    }
-
-    public function immutableProducts() : Object
-    {
-        return $this->hasMany(ImmutableProduct::class);
     }
 }

@@ -15,8 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->boolean('isAdmin')->default(false);
-            $table->boolean('isEnabled')->default(true);
+            $table->string('api_token', 60)->unique()->nullable()->default(null);
+            $table->boolean('is_enabled')->default(true);
             $table->string('name');
             $table->string('surname')->nullable();
             $table->string('document')->nullable();

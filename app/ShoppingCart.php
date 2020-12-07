@@ -18,6 +18,17 @@ class ShoppingCart extends Model
     // Functions
 
     /**
+     * Remove all products from the shopping cart
+     *
+     */
+    public function clean() {
+        $this->products()->detach();
+        $this->amount = 0;
+        $this->totalPrice = 0;
+        $this->save();
+    }
+
+    /**
      * Mount products to cart
      * @param Product $product
      * @param int $amount
@@ -59,41 +70,29 @@ class ShoppingCart extends Model
     /**
      * Generates immutable products from the originals for registration in the payment
      * @param int $payment_id
+     * @return string
     */
-    public function immortalize(int $payment_id) {
+    public function invoice() : String {
         $products = $this->products;
+
+        $invoice = [];
+
         foreach ($products as $product) {
-            ImmutableProduct::create([
+            $invoice = array_merge($invoice,[
+                [
                 'name' => $product->name,
                 'description' => $product->description,
                 'amount' => $product->pivot->amount,
                 'category' => $product->category,
-                'image' => substr_replace($product->image, 'immutableProducts', 7, 8),
                 'price' => $product->price,
-                'payment_id' => $payment_id,
                 'product_id' => $product->id
+                ]
             ]);
         }
-    }
 
-//    /**
-//     * Mount products to cart
-//     * @param Product $product
-//     * @param int $amount
-//     * @return void
-//     */
-//    public function updateDescription() : void {
-//        $products = $this->products->where('category','computer');
-//        if ($products != null) {
-//            if (count($products) == 1) {
-//                $this->description = 'Purchase of computer';
-//            } else {
-//                $this->description = 'Purchase of computers';
-//            }
-//        }
-//
-//        dd(count($products), $this);
-//    }
+        $jsonInvoice = \GuzzleHttp\json_encode($invoice);
+        return  $jsonInvoice;
+    }
 
     // Relations
 
