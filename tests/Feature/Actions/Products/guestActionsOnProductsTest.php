@@ -11,7 +11,6 @@ class guestActionsOnProductsTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Check if the admin actions are forbidden on products
      * @test
      * @dataProvider invalidActionsProvider
      * @param string $route
@@ -34,10 +33,10 @@ class guestActionsOnProductsTest extends TestCase
     public function invalidActionsProvider() : array
     {
         return [
-            'index' => ['products.index'],
-            'create' => ['products.create'],
-            'show' => ['products.show'],
-            'edit' => ['products.edit'],
+            'ViewAny' => ['products.index'],
+            'Create' => ['products.create'],
+            'Show' => ['products.show'],
+            'Edit' => ['products.edit'],
         ];
     }
 }

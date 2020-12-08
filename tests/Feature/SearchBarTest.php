@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Helpers\Detectors;
 use App\Product;
 use App\ShoppingCart;
 use App\User;

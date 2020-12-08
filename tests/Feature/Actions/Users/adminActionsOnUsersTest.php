@@ -13,7 +13,6 @@ class adminActionsOnUsersTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Check if the admin actions are allowed on users
      * @test
      * @dataProvider validActionsProvider
      * @param string $route
@@ -55,10 +54,10 @@ class adminActionsOnUsersTest extends TestCase
     public function validActionsProvider() : array
     {
         return [
-            'index' => ['users.index'],
-            // 'create' => ['users.create'],
-            'show' => ['users.show'],
-            'edit' => ['users.edit'],
+            'ViewAny' => ['users.index'],
+            // 'Create' => ['users.create'],
+            'Show' => ['users.show'],
+            'Edit' => ['users.edit'],
         ];
     }
 }

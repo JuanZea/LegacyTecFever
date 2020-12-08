@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Events\JobDone;
 use App\Events\PaymentCompleted;
 use App\Events\ProductViewed;
-use App\Listeners\AddAView;
+use App\Listeners\AssignView;
 use App\Listeners\AssignSale;
 use App\Listeners\AssignShoppingCart;
 use App\Listeners\DoSome;
@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
             AssignShoppingCart::class,
         ],
         ProductViewed::class => [
-            AddAView::class,
+            AssignView::class,
         ],
         PaymentCompleted::class => [
             AssignSale::class,

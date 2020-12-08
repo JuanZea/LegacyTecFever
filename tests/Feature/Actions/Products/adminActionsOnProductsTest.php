@@ -14,7 +14,6 @@ class adminActionsOnProductsTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Check if the admin actions are allowed on products
      * @test
      * @dataProvider validActionsProvider
      * @param string $route

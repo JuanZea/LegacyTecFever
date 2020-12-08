@@ -14,7 +14,7 @@ class UpdateUsersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user()->hasPermissionTo('update_users');
+        return true;
     }
 
     /**
@@ -35,11 +35,4 @@ class UpdateUsersRequest extends FormRequest
             'password' => 'bail|nullable|min:8|max:20',
         ];
     }
-
-    // public function messages()
-    // {
-    //     'name' => 'bail|required|min:3|max:40',
-    //     'email' => 'bail|required|email|max:60|unique:users',
-    //     'password' => 'bail|nullable|min:8|max:20',
-    // }
 }

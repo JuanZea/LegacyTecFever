@@ -26,8 +26,6 @@ class storeProductsTest extends TestCase
     }
 
     /**
-     * Verify that a guest cannot create products
-     *
      * @test
      */
     public function aGuestCannotStoreAProduct()
@@ -41,8 +39,24 @@ class storeProductsTest extends TestCase
     }
 
     /**
-     * Verify that an admin can create products with valid information
-     *
+     * @test
+     */
+    public function anUserCannotStoreAProduct()
+    {
+        // Arrange
+        $user = factory(User::class)->create();
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->post(route('products.store', $this->valid_product_request));
+
+        // Assert
+        $response->assertStatus(403);
+        $this->assertDatabaseMissing('products', $this->valid_product_request);
+    }
+
+    /**
      * @test
      */
     public function anAdminCanStoreAProductWithValidProductInputs()
@@ -80,29 +94,9 @@ class storeProductsTest extends TestCase
         $this->assertDatabaseMissing('products', $invalidRequest);
     }
 
-    /**
-     * Verify that an user cannot create products
-     *
-     * @test
-     */
-    public function anUserCannotStoreAProduct()
-    {
-        // Arrange
-        $user = factory(User::class)->create();
-        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
-
-        // Act
-        $this->actingAs($user);
-        $response = $this->post(route('products.store', $this->valid_product_request));
-
-        // Assert
-        $response->assertStatus(403);
-        $this->assertDatabaseMissing('products', $this->valid_product_request);
-    }
-
     // PROVIDERS
 
-    public function invalidProductInputDataProvider()
+    public function invalidProductInputDataProvider(): array
     {
         return [
             // Not input

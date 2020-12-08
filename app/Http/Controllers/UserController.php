@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
@@ -67,7 +68,11 @@ class UserController extends Controller
      */
     public function update(UpdateUsersRequest $request, User $user, UpdateUserAction $updateUserAction) : RedirectResponse
     {
+        $this->authorize('update', $user);
         $updateUserAction->execute($request->validated(), $user);
+        if (Auth::id() == $user->id) {
+            return redirect()->back()->with('message', trans('users.messages.updated'));
+        }
         return redirect()->route('users.show', compact('user'))->with('message', trans('users.messages.updated'));
     }
 

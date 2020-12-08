@@ -2,12 +2,8 @@
 
 namespace Tests\Feature\Excel;
 
-use App\Imports\ProductsImport;
-use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class ImportTest extends TestCase
@@ -20,34 +16,20 @@ class ImportTest extends TestCase
     }
 
     /**
-    *
+    * @test
     */
-    public function admin_can_import_products()
+    public function adminCanImportProducts()
     {
-        $this->withExceptionHandling();
         // Arrange
-        Excel::fake();
-
-        $admin = factory(User::class)->create(['is_admin' => true]);
-        $file = Storage::disk('test_files')->get('valid_file.xlsx');
+        $path = base_path('tests/stubs/valid_file.xlsx');
+        $importFile = new UploadedFile($path, 'valid_file.xlsx', null, null, true);
 
         // Act
-        $this->actingAs($admin);
-        $response = $this->post(route('import', ['import_file' => $file]));
+        $response = $this->post(route('import'), ['import_file' => $importFile]);
 
         // Asserts
-        $response->assertRedirect();
-//        $response->assertSessionHas('message');
-
-//        Excel::assertImported('valid_file.xlsx', function(ProductsImport $import) {
-//            return true;
-//        });
-
-//        Excel::assertImported('valid_file.xlsx', 'reports');
-
-//        Excel::assertImported('valid_file.xlsx', 'reports', function(ProductsImport $import) {
-//            return true;
-//        });
-
+        $response->assertSessionHas('message');
+        $response->assertRedirect(route('products.index'));
+        $this->assertDatabaseHas('products', ['name' => 'El primero', 'stock' => 29]);
     }
 }

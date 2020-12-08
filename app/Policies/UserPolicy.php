@@ -55,16 +55,16 @@ class UserPolicy
         return $user->hasPermissionTo('create_users');
     }
 
-    /**
-     * Determine whether the user can store models.
-     *
-     * @param User $user
-     * @return mixed
-     */
-    public function store(User $user)
-    {
-        return $user->hasPermissionTo('store_users');
-    }
+//    /**
+//     * Determine whether the user can store models.
+//     *
+//     * @param User $user
+//     * @return mixed
+//     */
+//    public function store(User $user)
+//    {
+//        return $user->hasPermissionTo('store_users');
+//    }
 
     /**
      * Determine whether the user can see edit form.
@@ -86,7 +86,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->hasPermissionTo('update_users');
+        return $user->hasPermissionTo('update_users') || $user->id == $model->id;
     }
 
     /**

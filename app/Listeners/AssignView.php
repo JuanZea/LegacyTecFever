@@ -6,7 +6,7 @@ use App\Events\ProductViewed;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class AddAView
+class AssignView
 {
     /**
      * Create the event listener.

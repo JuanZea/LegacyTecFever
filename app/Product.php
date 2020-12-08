@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
-    use \Staudenmeir\LaravelUpsert\Eloquent\HasUpsertQueries;
+    use \Staudenmeir\LaravelUpsert\Eloquent\HasUpsertQueries; // Gratefulness to Alexander
 	/**
      * The attributes that are mass assignable.
      *
