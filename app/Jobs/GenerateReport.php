@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Helpers\Detectors;
-use App\Payment;
 use App\Product;
 use App\Report;
 use Dompdf\Dompdf;

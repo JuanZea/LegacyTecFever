@@ -13,11 +13,11 @@ class ShoppingCartPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\ShoppingCart  $shoppingCart
+     * @param User $user
+     * @param ShoppingCart $shoppingCart
      * @return mixed
      */
-    public function view(User $user, ShoppingCart $shoppingCart)
+    public function view(User $user, ShoppingCart $shoppingCart): bool
     {
         return $user->id === $shoppingCart->user_id;
     }
@@ -25,11 +25,11 @@ class ShoppingCartPolicy
     /**
      * Determine whether the user can edit the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\ShoppingCart  $shoppingCart
+     * @param User $user
+     * @param ShoppingCart $shoppingCart
      * @return mixed
      */
-    public function edit(User $user, ShoppingCart $shoppingCart)
+    public function edit(User $user, ShoppingCart $shoppingCart): bool
     {
         return $user->id === $shoppingCart->user_id;
     }
@@ -37,11 +37,11 @@ class ShoppingCartPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\ShoppingCart  $shoppingCart
+     * @param User $user
+     * @param ShoppingCart $shoppingCart
      * @return mixed
      */
-    public function update(User $user, ShoppingCart $shoppingCart)
+    public function update(User $user, ShoppingCart $shoppingCart): bool
     {
         return $user->id === $shoppingCart->user_id;
     }

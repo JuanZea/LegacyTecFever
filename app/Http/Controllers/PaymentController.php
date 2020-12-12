@@ -11,7 +11,7 @@ use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class PaymentController extends Controller
+class PaymentController extends Controller // Gratefulness to Valeria Granada
 {
     public function __construct()
 	{
@@ -56,7 +56,7 @@ class PaymentController extends Controller
                 'surname' => $user->surname,
                 'email' => $user->email,
                 'document' => $user->document,
-                'documentType' => $user->documentType,
+                'documentType' => $user->document_type,
                 'mobile' => $user->mobile
             ],
             'payment' => [

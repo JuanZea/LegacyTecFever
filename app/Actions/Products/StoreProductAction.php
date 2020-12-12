@@ -21,7 +21,7 @@ class StoreProductAction
     {
         $request = $this->saveImage($request);
 
-        return Product::create($request);
+        return (new Product)->create($request);
     }
 
     /**

@@ -4,14 +4,16 @@ namespace App\Imports;
 
 use App\Helpers\Formatters;
 use App\Product;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ProductsImport implements ToModel, WithHeadingRow, WithValidation, WithUpserts
+class ProductsImport implements ToModel, WithHeadingRow, WithValidation, WithUpserts, ShouldQueue, WithChunkReading
 {
     use Importable;
     /**

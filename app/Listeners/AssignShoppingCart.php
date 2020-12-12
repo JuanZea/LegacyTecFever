@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\ShoppingCart;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class AssignShoppingCart
 {

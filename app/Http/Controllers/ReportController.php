@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\GenerateReport;
-use App\Product;
 use App\Report;
 use Exception;
 use Illuminate\Http\RedirectResponse;

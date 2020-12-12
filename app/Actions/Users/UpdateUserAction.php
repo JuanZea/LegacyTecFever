@@ -9,16 +9,11 @@ use App\User;
 class UpdateUserAction
 {
 
-    public function __construct()
-    {
-
-    }
-
     /**
      * @param array $request
      * @param User $user
      */
-    public function execute(array $request, User $user)
+    public function execute(array $request, User $user) : void
     {
         $request = $this->refreshStatus($request);
         $user->update($request);

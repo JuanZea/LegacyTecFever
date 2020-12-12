@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ProductViewed;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class AssignView
 {

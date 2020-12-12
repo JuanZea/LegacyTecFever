@@ -1,3 +1,4 @@
+dist: bionic
 language: php
 php:
   - 7.4
@@ -8,5 +9,12 @@ cache:
   directories:
     - node_modules
     - vendor
+before_script:
+  - cp .env.travis .env
+  - sudo mysql -e 'create database homestead;'
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+  - php artisan key:generate
+  - php artisan migrate
 script:
   - vendor/bin/phpunit

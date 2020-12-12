@@ -83,7 +83,7 @@
             <div class="row pt-4 pb-4">
                 <div class="col">
                     @if($payment->status != 'PENDING' && $payment->status != 'APPROVED')
-                        <a class="btn btn-block btn-danger" href="{{ route('payment.retry', ['payment_id' => $payment->id]) }}">{{ __('Retry payment') }}</a>
+                        <a class="btn btn-block btn-danger" href="{{ route('payment.retry', ['payment_id' => $payment->id]) }}">{{ ucfirst(trans('retry payment')) }}</a>
                     @else
                         @if ($payment->status != 'APPROVED')
                             <a class="btn btn-block btn-primary" href="{{ $payment->url }}">{{ ucfirst(trans('resume payment')) }}</a>

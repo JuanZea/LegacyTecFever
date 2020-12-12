@@ -2,6 +2,9 @@
 
 @section('content')
 <section id="account">
+    <form id="information_email_form" action="{{ route('information_email', $user) }}" method="POST">
+        @csrf
+    </form>
     {{--Main--}}
     <div class="container-fluid">
         <div class="row">
@@ -45,7 +48,7 @@
                                         <p>{{ $error }}</p>
                                     @endforeach
                                     @endif
-                                <form action="{{ route('users.update', $user) }}" method="POST">
+                                <form id="update_form" action="{{ route('users.update', $user) }}" method="POST">
                                     @csrf @method('PUT')
                                     <div class="row pb-3">
                                         <div class="col">
@@ -91,7 +94,7 @@
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col">
-                                                    <label for="documentType" >{{ ucfirst(trans('document type')).':' }}</label>
+                                                    <label for="document_type" >{{ ucfirst(trans('document type')).':' }}</label>
                                                 </div>
                                                 <div class="col">
                                                     <label for="document" >{{ ucfirst(trans('document')).':' }}</label>
@@ -99,36 +102,36 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <select id="document-type" name="documentType" class="form-control">
-                                                        <option @if($user->documentType == null) selected @endif>Selecciona el tipo de documento</option>
+                                                    <select id="document-type" name="document_type" class="form-control">
+                                                        <option @if($user->document_type == null) selected @endif>Selecciona el tipo de documento</option>
                                                         <optgroup label="Colombia">
-                                                            <option value="CC" @if($user->documentType == 'CC') selected @endif>Cédula de ciudadanía</option>
-                                                            <option value="CE" @if($user->documentType == 'CE') selected @endif>Cédula de extranjería</option>
-                                                            <option value="TI" @if($user->documentType == 'TI') selected @endif>Tarjeta identidad</option>
-                                                            <option value="NIT" @if($user->documentType == 'NIT') selected @endif>NIT</option>
-                                                            <option value="RUT" @if($user->documentType == 'RUT') selected @endif>RUT</option>
+                                                            <option value="CC" @if($user->document_type == 'CC') selected @endif>Cédula de ciudadanía</option>
+                                                            <option value="CE" @if($user->document_type == 'CE') selected @endif>Cédula de extranjería</option>
+                                                            <option value="TI" @if($user->document_type == 'TI') selected @endif>Tarjeta identidad</option>
+                                                            <option value="NIT" @if($user->document_type == 'NIT') selected @endif>NIT</option>
+                                                            <option value="RUT" @if($user->document_type == 'RUT') selected @endif>RUT</option>
                                                         </optgroup>
                                                         <optgroup label="Internacional">
-                                                            <option value="PPN" @if($user->documentType == 'PPN') selected @endif>Pasaporte</option>
-                                                            <option value="TAX" @if($user->documentType == 'TAX') selected @endif>TAX</option>
-                                                            <option value="LIC" @if($user->documentType == 'LIC') selected @endif>LIC</option>
+                                                            <option value="PPN" @if($user->document_type == 'PPN') selected @endif>Pasaporte</option>
+                                                            <option value="TAX" @if($user->document_type == 'TAX') selected @endif>TAX</option>
+                                                            <option value="LIC" @if($user->document_type == 'LIC') selected @endif>LIC</option>
                                                         </optgroup>
                                                         <optgroup label="Estados Unidos">
-                                                            <option value="SSN" @if($user->documentType == 'SSN') selected @endif>Social security number</option>
+                                                            <option value="SSN" @if($user->document_type == 'SSN') selected @endif>Social security number</option>
                                                         </optgroup> <optgroup label="Panamá">
-                                                            <option value="CIP" @if($user->documentType == 'CIP') selected @endif>Cédula de identidad personal</option>
+                                                            <option value="CIP" @if($user->document_type == 'CIP') selected @endif>Cédula de identidad personal</option>
                                                         </optgroup> <optgroup label="Brasil">
-                                                            <option value="CPF" @if($user->documentType == 'CPF') selected @endif>Cadastro de Pessoas Físicas</option>
+                                                            <option value="CPF" @if($user->document_type == 'CPF') selected @endif>Cadastro de Pessoas Físicas</option>
                                                         </optgroup> <optgroup label="Ecuador">
-                                                            <option value="CI" @if($user->documentType == 'CI') selected @endif>Cédula de identidad</option>
-                                                            <option value="RUC" @if($user->documentType == 'RUC') selected @endif>Registro único de contribuyente</option>
+                                                            <option value="CI" @if($user->document_type == 'CI') selected @endif>Cédula de identidad</option>
+                                                            <option value="RUC" @if($user->document_type == 'RUC') selected @endif>Registro único de contribuyente</option>
                                                         </optgroup> <optgroup label="Perú">
-                                                            <option value="DNI" @if($user->documentType == 'DNI') selected @endif>DNI</option>
+                                                            <option value="DNI" @if($user->document_type == 'DNI') selected @endif>DNI</option>
                                                         </optgroup> <optgroup label="Costa Rica">
-                                                            <option value="CRCPF" @if($user->documentType == 'CRCPF') selected @endif>Cédula personal física</option>
-                                                            <option value="CPJ" @if($user->documentType == 'CPJ') selected @endif>Cedula personal juridica</option>
-                                                            <option value="DIMEX" @if($user->documentType == 'DIMEX') selected @endif>DIMEX - Documento de identificación de Migración y Extranjería</option>
-                                                            <option value="DIDI" @if($user->documentType == 'DIDI') selected @endif>DIDI - Documento de identificación de diplomáticos</option>
+                                                            <option value="CRCPF" @if($user->document_type == 'CRCPF') selected @endif>Cédula personal física</option>
+                                                            <option value="CPJ" @if($user->document_type == 'CPJ') selected @endif>Cedula personal juridica</option>
+                                                            <option value="DIMEX" @if($user->document_type == 'DIMEX') selected @endif>DIMEX - Documento de identificación de Migración y Extranjería</option>
+                                                            <option value="DIDI" @if($user->document_type == 'DIDI') selected @endif>DIDI - Documento de identificación de diplomáticos</option>
                                                         </optgroup></select>
                                                 </div>
                                                 <div class="col">
@@ -139,8 +142,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-8 pt-4">
-                                            <button class="btn btn-block btn-lg btn-outline-danger">{{ ucwords(trans('save changes')) }}</button>
+                                            <button form="update_form" class="btn btn-block btn-lg btn-outline-danger">{{ ucwords(trans('save changes')) }}</button>
                                             <p class="pt-4">{{ ucfirst(trans('dic.confidential_info')).'.' }}</p>
+                                            <button form="information_email_form" class="btn btn-lg btn-outline-warning" >{{ ucfirst(trans('request personal information')) }}</button>
                                         </div>
                                         <div class="col text-right">
                                             <img class="img-fluid" src="{{ asset('images/main/TfLogo.png') }}" alt="@lang('dic.tf_lg')">

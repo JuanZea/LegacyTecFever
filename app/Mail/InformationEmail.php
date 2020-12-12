@@ -3,11 +3,10 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TestEmail extends Mailable
+class InformationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,7 +19,6 @@ class TestEmail extends Mailable
      */
     public function __construct($data)
     {
-        //
         $this->data = $data;
     }
 
@@ -29,18 +27,18 @@ class TestEmail extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): InformationEmail
     {
         $address = 'info@tecfever.com';
-        $subject = 'This is a demo!';
         $name = 'TecFever';
+        $subject = ucfirst(trans('personal information'));
 
-        return $this->view('emails.test')
+        return $this->view('emails.information')
                     ->from($address, $name)
                     ->cc($address, $name)
                     ->bcc($address, $name)
                     ->replyTo($address, $name)
                     ->subject($subject)
-                    ->with([ 'test_message' => $this->data['message'] ]);
+                    ->with([ 'user' => $this->data['user'] ]);
     }
 }

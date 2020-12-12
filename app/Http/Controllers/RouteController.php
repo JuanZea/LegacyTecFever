@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\TestEmail;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class RouteController extends Controller
@@ -18,15 +16,6 @@ class RouteController extends Controller
     	$this->middleware('is_admin')->only('control_panel');
     	$this->middleware('is_enabled')->except('welcome','disabled');
 	}
-
-	public function send_mail()
-    {
-        $data = ['message' => 'This is a test!'];
-
-        Mail::to('juandavi1111@gmail.com')->send(new TestEmail($data));
-
-        return redirect()->route('home');
-    }
 
     /**
      * Display a welcome view.
@@ -108,7 +97,6 @@ class RouteController extends Controller
     /**
      * Display a account view.
      *
-     * @param Request $request
      * @return View
      */
     public function account(): View
@@ -124,7 +112,6 @@ class RouteController extends Controller
     /**
      * Display a account view.
      *
-     * @param Request $request
      * @return View
      */
     public function shopping_history(): View

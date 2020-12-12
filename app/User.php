@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -21,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'document', 'document_type', 'mobile', 'email', 'password', 'is_enabled'
+        'name', 'surname', 'document', 'document_type', 'mobile', 'email', 'password', 'is_enabled', 'api_token'
     ];
 
     /**
@@ -47,7 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Indicates if a user has pending payments
     */
-    public function pendingpayment() {
+    public function pendingpayment(): bool
+    {
         $payments = $this->payments->where('status','PENDING');
         $payments = $payments->merge($this->payments->where('status','OK'));
         return count($payments) != 0;
@@ -56,17 +59,20 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Indicates if a user has payments history that are not pending
     */
-    public function hasHistory() {
+    public function hasHistory(): bool
+    {
         return count($this->payments->where('status', '!=', 'PENDING')) != 0;
     }
 
     // Reltaions
 
-    public function shoppingCart() {
+    public function shoppingCart(): HasOne
+    {
         return $this->hasOne(ShoppingCart::class);
     }
 
-    public function payments() {
+    public function payments(): HasMany
+    {
         return $this->hasMany(Payment::class);
     }
 }

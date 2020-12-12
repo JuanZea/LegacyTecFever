@@ -21,7 +21,9 @@ Route::get('/home', 'RouteController@home')->name('home');
 Route::get('/shop', 'RouteController@shop')->name('shop');
 Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 Route::get('/control_panel', 'RouteController@control_panel')->name('control_panel');
-Route::get('/send_mail', 'RouteController@send_mail')->name('send_mail');
+
+// Emails Routes
+Route::post('/information_email/{user}', 'EmailController@information')->name('information_email');
 
 // Account Routes
 Route::get('/account', 'RouteController@account')->name('account');
