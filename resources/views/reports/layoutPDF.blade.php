@@ -6,13 +6,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Report</title>
 </head>
 <body class="pdf-bg">
 <div class="container mt-3">
     <div class="row">
         <div class="col">
-            <p><b>@lang('Date'):</b> {{ now()->format('d-m-Y') }}</p>
+            <p><b>{{ ucfirst(trans('date')).': ' }}</b> {{ now()->format('d-m-Y') }}</p>
         </div>
     </div>
     <div class="row mt-3">
@@ -40,9 +40,9 @@
                 <table class="table table-info">
                   <thead>
                     <tr>
-                        <th scope="col">@lang('common.fields.id')</th>
-                        <th scope="col">@lang('common.fields.name')</th>
-                        <th scope="col">@lang('common.fields.views')</th>
+                        <th scope="col">{{ ucfirst(trans('id')) }}</th>
+                        <th scope="col">{{ ucfirst(trans('name')) }}</th>
+                        <th scope="col">{{ ucfirst(trans('views')) }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -76,9 +76,9 @@
                 <table class="table table-info">
                   <thead>
                     <tr>
-                        <th scope="col">@lang('common.fields.id')</th>
-                        <th scope="col">@lang('common.fields.name')</th>
-                        <th scope="col">@lang('common.fields.sales')</th>
+                        <th scope="col">{{ ucfirst(trans('id')) }}</th>
+                        <th scope="col">{{ ucfirst(trans('name')) }}</th>
+                        <th scope="col">{{ ucfirst(trans('sales')) }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -112,9 +112,9 @@
                 <table class="table table-info">
                   <thead>
                     <tr>
-                        <th scope="col">@lang('common.fields.id')</th>
-                        <th scope="col">@lang('common.fields.name')</th>
-                        <th scope="col">@lang('common.fields.stock')</th>
+                        <th scope="col">{{ ucfirst(trans('id')) }}</th>
+                        <th scope="col">{{ ucfirst(trans('name')) }}</th>
+                        <th scope="col">{{ ucfirst(trans('stock')) }}</th>
                     </tr>
                   </thead>
                   <tbody>

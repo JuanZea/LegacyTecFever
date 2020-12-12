@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         'name' => 'Juan David',
         'surname' => 'Zea Acevedo',
         'document' => '1007238750',
-        'documentType' => 'CC',
+        'document_type' => 'CC',
         'mobile' => '3218876733',
         'email' => 'j@admin.com',
         'email_verified_at' => now(),

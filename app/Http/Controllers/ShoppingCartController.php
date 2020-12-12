@@ -47,7 +47,7 @@ class ShoppingCartController extends Controller
         $shoppingCart->save();
 
 
-        return back()->with('status',__('Added to cart'));
+        return back()->with('message', trans('added to cart'));
     }
 
     /**

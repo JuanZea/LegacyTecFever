@@ -2,19 +2,17 @@
 
 return [
     'titles' => [
-        'index' => 'Gestión de usuarios',
-        'show' => 'Información de usuario',
-        'edit' => 'Edición usuario',
+        'index' => 'gestión de usuarios',
+        'show' => 'información de usuario',
+        'edit' => 'edición usuario',
     ],
     'sentences' => [
-        'control_panel' => 'Gestiona los usuarios de TecFever',
+        'control_panel' => 'gestiona los usuarios de TecFever',
     ],
-    'fields' => [
-        'name' => 'Nombre de usuario',
-        'surname' => 'Apellido de usuario',
-        'email' => 'Correo electrónico de usuario',
-        'mobile' => 'Celular de usuario',
-        'document' => 'Documento de usuario',
-        'dt' => 'Tipo de documento de usuario',
+    'messages' => [
+        'updated' => 'usuario actualizado'
+    ],
+    'errors' => [
+        'updated' => 'el usuario no se actualizó'
     ]
 ];

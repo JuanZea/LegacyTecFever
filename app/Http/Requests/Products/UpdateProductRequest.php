@@ -45,19 +45,19 @@ class UpdateProductRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'name.required' => __("Your product needs a name"),
-            'name.min' => __("A good name has a minimum of 3 characters"),
-            'name.max' => __("Do not exceed 80 characters and keep calm"),
-            'description.required' => __("The description is very important, don't forget it"),
-            'description.min' => __("Push yourself and get at least 10 characters"),
-            'description.max' => __("Don't tell me your life, maximum 1000 characters for the description"),
-            'category.required' => __("No cheating, choose one of the 3 categories"),
-            'category.in' => __("No cheating, choose one of the 3 categories"),
-            'image.image' => __("Verify that what you are uploading is an image"),
-            'price.required' => __("The most important thing is missing"),
-            'price.digits_between' => __("The minimum price is 4 digits and the maximum is 9"),
-            'stock.required' => trans('products.error_messages.stock.required'),
-            'stock.digits_between' => trans('products.error_messages.stock.digits_between')
+            'name.required' => trans('products.errors.name.required'),
+            'name.min' => trans('products.errors.name.min'),
+            'name.max' => trans('products.errors.name.max'),
+            'description.required' => trans('products.errors.description.required'),
+            'description.min' => trans('products.errors.description.min'),
+            'description.max' => trans('products.errors.description.max'),
+            'category.required' => trans('products.errors.category.required'),
+            'category.in' => trans('products.errors.category.required'),
+            'image.image' => trans('products.errors.image.image'),
+            'price.required' => trans('products.errors.price.required'),
+            'price.digits_between' => trans('products.errors.price.digits_between'),
+            'stock.required' => trans('products.errors.stock.required'),
+            'stock.digits_between' => trans('products.errors.stock.digits_between')
         ];
     }
 

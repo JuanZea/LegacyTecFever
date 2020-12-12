@@ -29,7 +29,7 @@ class UpdateUsersRequest extends FormRequest
             'surname' => 'bail|nullable|min:2|max:25',
             'is_enabled' => 'nullable',
             'document' => 'bail|string|nullable|min:4|max:25',
-            'documentType' => 'bail|string|nullable|min:2|max:5',
+            'document_type' => 'bail|string|nullable|min:2|max:5',
             'mobile' => 'bail|numeric|nullable|digits_between: 8 , 15',
             'email' => 'bail|required|email|max:60|unique:users,email,'.$this->user->id,
             'password' => 'bail|nullable|min:8|max:20',

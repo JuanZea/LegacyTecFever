@@ -19,9 +19,13 @@ Auth::routes(['verify' => true]);
 Route::get('/','RouteController@welcome')->name('welcome');
 Route::get('/home', 'RouteController@home')->name('home');
 Route::get('/shop', 'RouteController@shop')->name('shop');
-Route::get('/account', 'RouteController@account')->name('account');
 Route::get('/disabled', 'RouteController@disabled')->name('disabled');
 Route::get('/control_panel', 'RouteController@control_panel')->name('control_panel');
+Route::get('/send_mail', 'RouteController@send_mail')->name('send_mail');
+
+// Account Routes
+Route::get('/account', 'RouteController@account')->name('account');
+Route::get('/account/shopping_history', 'RouteController@shopping_history')->name('account.shopping_history');
 
 // Users Routes
 Route::put('users/update_roles/{user}', 'UserController@update_roles')->name('users.update_roles');

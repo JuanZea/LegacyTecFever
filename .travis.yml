@@ -1,0 +1,12 @@
+language: php
+php:
+  - 7.4
+  - 7.4.9
+services:
+  - mysql
+cache:
+  directories:
+    - node_modules
+    - vendor
+script:
+  - vendor/bin/phpunit

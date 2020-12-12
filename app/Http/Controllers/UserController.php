@@ -70,10 +70,12 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
         $updateUserAction->execute($request->validated(), $user);
-        if (Auth::id() == $user->id) {
+        if (strpos(request()->session()->previousUrl(), 'users')) {
+
+            return redirect()->route('users.show', compact('user'))->with('message', trans('users.messages.updated'));
+        } else {
             return redirect()->back()->with('message', trans('users.messages.updated'));
         }
-        return redirect()->route('users.show', compact('user'))->with('message', trans('users.messages.updated'));
     }
 
     /**
@@ -94,6 +96,6 @@ class UserController extends Controller
         } else {
             return back()->with('error', 'The role does not exist');
         }
-        return redirect()->route('users.show', compact('user'));
+        return redirect()->route('users.show', compact('user'))->with('message', trans('users.messages.updated'));
     }
 }

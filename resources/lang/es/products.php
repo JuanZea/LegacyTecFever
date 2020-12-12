@@ -7,17 +7,17 @@ return [
         'update' => 'Actualización de producto',
         'import' => 'Importar producto',
         'export' => 'Exportar producto',
-        'report' => 'Reporte de productos'
     ],
     'sentences' => [
         'control_panel' => 'Gestione los productos de TecFever',
     ],
     'messages' => [
         'created' => 'Se creó un producto con éxito',
+        'updated' => 'El producto se actualizó correctamente',
         'import' => 'La importación de :count productos comenzó con éxito',
         'export' => 'La exportación de productos comenzó con éxito'
     ],
-    'error_messages' => [
+    'errors' => [
         'name' => [
             'required' => 'Su producto necesita un nombre',
             'min' => 'El nombre debe tener al menos 3 letras',
@@ -52,7 +52,6 @@ return [
         ]
     ],
     'reports_messages' => [
-        'intro' => 'Aquí puede generar un informe basado en la información recopilada de todos los productos TecFever hasta la fecha.',
         'most_viewed' => 'Entre todos los productos se ha detectado que el más visto es <strong>:most_viewed</strong> con <strong>:views</strong> vistas.'
     ]
 ];

@@ -15,23 +15,23 @@
                             <div class="col text-right">
                                 <ul class="list-group">
                                     <li class="list-group-item list-group-item-warning list-group-item-action d-flex justify-content-between align-items-center">
-                                        <span>{{ __('Status').":" }}</span>
+                                        <span>{{ ucfirst(trans('status')).":" }}</span>
                                         <span>{{ __($payment->status) }}</span>
                                     </li>
                                     <li class="list-group-item list-group-item-warning list-group-item-action d-flex justify-content-between align-items-center">
-                                        <span>{{ __('Message').":" }}</span>
+                                        <span>{{ ucfirst(trans('message')).":" }}</span>
                                         <span>{{ $payment->message }}</span>
                                     </li>
                                     <li class="list-group-item list-group-item-warning list-group-item-action d-flex justify-content-between align-items-center">
-                                        <span>{{ __('Date').":" }}</span>
+                                        <span>{{ ucfirst(trans('date')).":" }}</span>
                                         <span>{{ $payment->updated_at->format('d/m/Y') }}</span>
                                     </li>
                                     <li class="list-group-item list-group-item-warning list-group-item-action d-flex justify-content-between align-items-center">
-                                        <span>{{ __('Hour').":" }}</span>
+                                        <span>{{ ucfirst(trans('hour')).":" }}</span>
                                         <span>{{ $payment->updated_at->format('H:i:s A').' ('.$payment->updated_at->diffForHumans().') ' }}</span>
                                     </li>
                                     <li class="list-group-item list-group-item-warning list-group-item-action d-flex justify-content-between align-items-center">
-                                        <span>{{ __('Total').":" }}</span>
+                                        <span>{{ ucfirst(trans('total')).":" }}</span>
                                         <span>{{ App\Helpers\Formatters::priceFormatter($payment->amount) }}</span>
                                     </li>
                                 </ul>
@@ -40,16 +40,16 @@
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col text-left">
-                                                        <b>{{ __('Name') }}</b>
+                                                        <b>{{ ucfirst(trans('name')) }}</b>
                                                     </div>
                                                     <div class="col-2 text-center">
-                                                        <b>{{ __('Amount') }}</b>
+                                                        <b>{{ ucfirst(trans('amount')) }}</b>
                                                     </div>
                                                     <div class="col-3 text-center">
-                                                        <b>{{ __('Price') }}</b>
+                                                        <b>{{ ucfirst(trans('price')) }}</b>
                                                     </div>
                                                     <div class="col-3">
-                                                        <b>{{ __('Total') }}</b>
+                                                        <b>{{ ucfirst(trans('total')) }}</b>
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,12 +86,12 @@
                         <a class="btn btn-block btn-danger" href="{{ route('payment.retry', ['payment_id' => $payment->id]) }}">{{ __('Retry payment') }}</a>
                     @else
                         @if ($payment->status != 'APPROVED')
-                            <a class="btn btn-block btn-primary" href="{{ $payment->url }}">{{ __('Resume payment') }}</a>
+                            <a class="btn btn-block btn-primary" href="{{ $payment->url }}">{{ ucfirst(trans('resume payment')) }}</a>
                         @endif
                     @endif
                 </div>
                 <div class="col">
-                    <a class="btn btn-block btn-outline-warning" href="{{ route('account', 1) }}">{{ __('Go to shopping history') }}</a>
+                    <a class="btn btn-block btn-outline-warning" href="{{ route('account.shopping_history') }}">{{ ucfirst(trans('go to shopping history')) }}</a>
                 </div>
             </div>
         </div>

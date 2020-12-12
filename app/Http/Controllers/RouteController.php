@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TestEmail;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class RouteController extends Controller
@@ -16,6 +18,15 @@ class RouteController extends Controller
     	$this->middleware('is_admin')->only('control_panel');
     	$this->middleware('is_enabled')->except('welcome','disabled');
 	}
+
+	public function send_mail()
+    {
+        $data = ['message' => 'This is a test!'];
+
+        Mail::to('juandavi1111@gmail.com')->send(new TestEmail($data));
+
+        return redirect()->route('home');
+    }
 
     /**
      * Display a welcome view.
@@ -100,32 +111,30 @@ class RouteController extends Controller
      * @param Request $request
      * @return View
      */
-    public function account(Request $request): View
+    public function account(): View
     {
-        if (!isset($request->section)) {
-            $section = 0;
-        } else {
-            $section = $request->section;
-        }
         $user = Auth::user();
         $payments = $user->payments;
         foreach ($payments as $payment) {
             $payment->check();
         }
-        switch ($section) {
-            case 0: {
-                return view('account.profile', compact('user', 'section'));
-            }
-            case 1: {
-                return view('account.shopping_history', compact('user', 'section'));
-            }
-            case 2: {
-                return view('account.configuration', compact('user', 'section'));
-            }
-            default : {
-                abort(404);
-            }
+        return view('account.profile', compact('user'));
+    }
+
+    /**
+     * Display a account view.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function shopping_history(): View
+    {
+        $user = Auth::user();
+        $payments = $user->payments;
+        foreach ($payments as $payment) {
+            $payment->check();
         }
+        return view('account.shopping_history', compact('user'));
     }
 
     /**

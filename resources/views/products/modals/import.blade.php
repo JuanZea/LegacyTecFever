@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header justify-content-center">
-        <h3 class="modal-title font-weight-bold">@lang('products.titles.import')</h3>
+        <h3 class="modal-title"><b>@lang('products.titles.import')</b></h3>
       </div>
       <div class="modal-body">
           <div class="container">
@@ -20,10 +20,10 @@
           <div class="container">
               <div class="row">
                   <div class="col">
-                    <button type="submit" form="import_form" class="btn btn-block btn-success">@lang('common.actions.import')</button>
+                    <button type="submit" form="import_form" class="btn btn-block btn-success">{{ ucfirst(trans('import')) }}</button>
                   </div>
                   <div class="col">
-                    <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">@lang('common.actions.cancel')</button>
+                    <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">{{ ucfirst(trans('cancel')) }}</button>
                   </div>
               </div>
           </div>

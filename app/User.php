@@ -10,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * @property mixed isAdmin
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use HasRoles;
@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'document', 'documentType', 'mobile', 'email', 'password', 'is_enabled'
+        'name', 'surname', 'document', 'document_type', 'mobile', 'email', 'password', 'is_enabled'
     ];
 
     /**

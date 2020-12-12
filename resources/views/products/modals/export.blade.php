@@ -10,8 +10,8 @@
                   <div class="col">
                       <form id="export_form" action="{{ route('export') }}" method="POST" enctype="multipart/form-data">
                           @csrf
-                          <label for="name">@lang('Enter the name of the export'):</label>
-                          <input id="name" name="name" type="text" class="form-control" placeholder="@lang('Name')">
+                          <label for="name">{{ ucfirst(trans('enter the export name')).':' }}</label>
+                          <input id="name" name="name" type="text" class="form-control" placeholder="{{ ucfirst(trans('name')) }}">
                       </form>
                   </div>
               </div>
@@ -21,10 +21,10 @@
           <div class="container">
               <div class="row">
                   <div class="col">
-                    <button type="submit" form="export_form" class="btn btn-block btn-success">@lang('common.actions.export')</button>
+                    <button type="submit" form="export_form" class="btn btn-block btn-success">{{ ucfirst(trans('export')) }}</button>
                   </div>
                   <div class="col">
-                    <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">@lang('common.actions.cancel')</button>
+                    <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">{{ ucfirst(trans('cancel')) }}</button>
                   </div>
               </div>
           </div>
