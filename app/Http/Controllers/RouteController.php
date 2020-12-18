@@ -97,35 +97,31 @@ class RouteController extends Controller
     /**
      * Display a account view.
      *
-     * @param Request $request
      * @return View
      */
-    public function account(Request $request): View
+    public function account(): View
     {
-        if (!isset($request->section)) {
-            $section = 0;
-        } else {
-            $section = $request->section;
-        }
         $user = Auth::user();
         $payments = $user->payments;
         foreach ($payments as $payment) {
             $payment->check();
         }
-        switch ($section) {
-            case 0: {
-                return view('account.profile', compact('user', 'section'));
-            }
-            case 1: {
-                return view('account.shopping_history', compact('user', 'section'));
-            }
-            case 2: {
-                return view('account.configuration', compact('user', 'section'));
-            }
-            default : {
-                abort(404);
-            }
+        return view('account.profile', compact('user'));
+    }
+
+    /**
+     * Display a account view.
+     *
+     * @return View
+     */
+    public function shopping_history(): View
+    {
+        $user = Auth::user();
+        $payments = $user->payments;
+        foreach ($payments as $payment) {
+            $payment->check();
         }
+        return view('account.shopping_history', compact('user'));
     }
 
     /**

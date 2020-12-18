@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Helpers\Detectors;
-use App\Payment;
 use App\Product;
 use App\Report;
 use Dompdf\Dompdf;
@@ -30,7 +29,6 @@ class GenerateReport implements ShouldQueue
      */
     public function __construct($date, $name)
     {
-        //
         $this->date = $date;
         $this->name = $name;
     }
@@ -44,9 +42,9 @@ class GenerateReport implements ShouldQueue
     {
         // Stats
         $products = Product::query()->orderBy('stock','DESC')->get()->toArray();
-        $most_viewed_products = Detectors::max_products_stats($products, [], 'views');
-        $best_sellers = Detectors::max_products_stats($products, [], 'sales');
-        $most_stock = Detectors::most_stock($products);
+        $mostViewedProducts = Detectors::maxProductsStats($products, [], 'views');
+        $bestSellers = Detectors::maxProductsStats($products, [], 'sales');
+        $mostStock = Detectors::mostStock($products);
 
         // PDF
         $options = new Options();
@@ -56,9 +54,9 @@ class GenerateReport implements ShouldQueue
         $dompdf->loadHtml(view('reports.layoutPDF', [
             'date' => $this->date,
             'name' => $this->name,
-            'most_viewed_products' => $most_viewed_products,
-            'best_sellers' => $best_sellers,
-            'most_stock' => $most_stock,
+            'mostViewedProducts' => $mostViewedProducts,
+            'bestSellers' => $bestSellers,
+            'mostStock' => $mostStock,
         ]));
         $dompdf->setPaper('A4');
         $dompdf->render();

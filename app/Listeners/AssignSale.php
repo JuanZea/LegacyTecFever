@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\PaymentCompleted;
 use App\Product;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class AssignSale
 {
@@ -22,7 +20,7 @@ class AssignSale
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param PaymentCompleted $event
      * @return void
      */
     public function handle(PaymentCompleted $event)

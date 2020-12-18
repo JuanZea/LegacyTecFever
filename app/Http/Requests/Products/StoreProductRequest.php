@@ -43,19 +43,19 @@ class StoreProductRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'name.required' => trans('products.error_messages.name.required'),
-            'name.min' => trans('products.error_messages.name.min'),
-            'name.max' => trans('products.error_messages.name.max'),
-            'description.required' => trans('products.error_messages.description.required'),
-            'description.min' => trans('products.error_messages.description.min'),
-            'description.max' => trans('products.error_messages.description.max'),
-            'category.required' => trans('products.error_messages.category.required'),
-            'category.in' => trans('products.error_messages.category.in'),
-            'image.image' => trans('products.error_messages.image.image'),
-            'price.required' => trans('products.error_messages.price.required'),
-            'price.digits_between' => trans('products.error_messages.price.digits_between'),
-            'stock.required' => trans('products.error_messages.stock.required'),
-            'stock.digits_between' => trans('products.error_messages.stock.digits_between')
+            'name.required' => trans('products.errors.name.required'),
+            'name.min' => trans('products.errors.name.min'),
+            'name.max' => trans('products.errors.name.max'),
+            'description.required' => trans('products.errors.description.required'),
+            'description.min' => trans('products.errors.description.min'),
+            'description.max' => trans('products.errors.description.max'),
+            'category.required' => trans('products.errors.category.required'),
+            'category.in' => trans('products.errors.category.in'),
+            'image.image' => trans('products.errors.image.image'),
+            'price.required' => trans('products.errors.price.required'),
+            'price.digits_between' => trans('products.errors.price.digits_between'),
+            'stock.required' => trans('products.errors.stock.required'),
+            'stock.digits_between' => trans('products.errors.stock.digits_between')
         ];
     }
 

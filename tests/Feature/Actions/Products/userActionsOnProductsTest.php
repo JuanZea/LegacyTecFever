@@ -29,7 +29,6 @@ class userActionsOnProductsTest extends TestCase
     }
 
     /**
-     * Check if the admin actions are allowed on products
      * @test
      * @dataProvider validActionsProvider
      * @param string $route

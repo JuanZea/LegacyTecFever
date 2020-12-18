@@ -28,11 +28,15 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col my-2">
-                        <a href="/"><img style="height: 50px;" src="{{ asset('images/main/BackIcon.png') }}" alt="Back"></a>
+                        <a href="/"><img class="img-fluid stamp hvr-grow" src="{{ asset('images/main/back_icon.png') }}" alt="@lang('back icon')"></a>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <img src="{{ asset('images/main/LoginTitle.png') }}" alt="Logo de TecFever">
+                    @if (config('app.locale') == 'en')
+                        <img src="{{ asset('images/main/login.png') }}" alt="@lang('tf_lg')">
+                    @else
+                        <img src="{{ asset('images/main/ingreso.png') }}" alt="@lang('tf_lg')">
+                    @endif
                 </div>
             </div>
             {{-- /Header --}}
@@ -46,7 +50,7 @@
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ ucfirst(trans('email')) }}</label>
                                         <div class="col-md-6">
                                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                             @error('email')
@@ -57,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ ucfirst(trans('password')) }}</label>
                                         <div class="col-md-6">
                                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                             @error('password')
@@ -72,7 +76,7 @@
                                             <div class="custom-control custom-switch">
                                                 <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="remember">
-                                                    {{ __('Remember Me') }}
+                                                    {{ ucwords(trans('remember me')) }}
                                                 </label>
                                             </div>
                                         </div>
@@ -80,14 +84,14 @@
                                     <div class="form-group row mb-0">
                                         <div class="col-md-8 offset-md-2">
                                             <button type="submit" class="btn btn-dark btn-lg btn-block form-control">
-                                                {{ __('Login') }}
+                                                {{ ucfirst(trans('login')) }}
                                             </button>
                                         </div>
                                     </div>
                                     @if (Route::has('password.request'))
                                     <div class="form-group row mb-0 mt-3 d-flex justify-content-center">
                                         <a class="link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
+                                            {{ ucwords(trans('forgot your password')).'?' }}
                                         </a>
                                     </div>
                                     @endif

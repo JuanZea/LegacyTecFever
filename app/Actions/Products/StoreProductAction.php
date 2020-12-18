@@ -8,11 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class StoreProductAction
 {
 
-    public function __construct()
-    {
-
-    }
-
     /**
      * @param array $request
      * @return Product|Model
@@ -21,7 +16,7 @@ class StoreProductAction
     {
         $request = $this->saveImage($request);
 
-        return Product::create($request);
+        return (new Product)->create($request);
     }
 
     /**

@@ -23,7 +23,6 @@ class userActionsOnUsersTest extends TestCase
     }
 
     /**
-     * Check if the user actions are forbidden on users
      * @test
      * @dataProvider invalidActionsProvider
      * @param string $route
@@ -49,7 +48,7 @@ class userActionsOnUsersTest extends TestCase
     {
         return [
             'ViewAny' => ['users.index'],
-//            'create' => ['users.create'],
+//            'Create' => ['users.create'],
             'View' => ['users.show'],
             'Edit' => ['users.edit'],
         ];

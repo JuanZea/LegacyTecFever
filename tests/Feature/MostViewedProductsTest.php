@@ -34,7 +34,7 @@ class MostViewedProductsTest extends TestCase
         $products = Product::all()->toArray();
 
         // Acts
-        $max_products_stats = Detectors::max_products_stats($products, [],'views');
+        $max_products_stats = Detectors::maxProductsStats($products, [],'views');
 
         // Asserts
         $this->assertEquals($max_products_stats, [
@@ -65,7 +65,7 @@ class MostViewedProductsTest extends TestCase
         $products = Product::all()->toArray();
 
         // Acts
-        $max_products_stats = Detectors::max_products_stats($products, [], 'views');
+        $max_products_stats = Detectors::maxProductsStats($products, [], 'views');
 
         // Asserts
         $this->assertEquals($max_products_stats, [

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ShoppingCart extends Model
 {
@@ -69,9 +71,8 @@ class ShoppingCart extends Model
 
     /**
      * Generates immutable products from the originals for registration in the payment
-     * @param int $payment_id
      * @return string
-    */
+     */
     public function invoice() : String {
         $products = $this->products;
 
@@ -96,11 +97,13 @@ class ShoppingCart extends Model
 
     // Relations
 
-    public function user() {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function products() {
+    public function products(): BelongsToMany
+    {
         return $this->belongsToMany(Product::class)->withPivot('amount');
     }
 }

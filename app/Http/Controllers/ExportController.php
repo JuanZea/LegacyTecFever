@@ -34,11 +34,11 @@ class ExportController extends Controller
 
     public function export(Request $request) : RedirectResponse
     {
-        $products_export = new ProductsExport();
+        $productsExport = new ProductsExport();
         $name = $request->name;
         $date = now()->format('d-m-Y');
         $export = Export::create(['date' => $date, 'name' => $name]);
-        $products_export->store($export->get_real_name,'exports')->chain([
+        $productsExport->store($export->get_real_name,'exports')->chain([
             new EnableDownloadButton($export)
         ]);
 

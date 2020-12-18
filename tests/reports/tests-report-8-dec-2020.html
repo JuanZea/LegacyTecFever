@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Test Documentation</title>
+        <style>
+            body {
+                text-rendering: optimizeLegibility;
+                font-variant-ligatures: common-ligatures;
+                font-kerning: normal;
+                margin-left: 2em;
+            }
+
+            body > ul > li {
+                font-family: Source Serif Pro, PT Sans, Trebuchet MS, Helvetica, Arial;
+                font-size: 2em;
+            }
+
+            h2 {
+                font-family: Tahoma, Helvetica, Arial;
+                font-size: 3em;
+            }
+
+            ul {
+                list-style: none;
+                margin-bottom: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 id="Tests\Unit\FormattersTest">Formatters (Tests\Unit\Formatters)</h2>
+        <ul>
+            <li style="color: #555753;">✓ A price is formatted successful</li>
+            <li style="color: #555753;">✓ A image path is formatted successful</li>
+        </ul>
+        <h2 id="Tests\Feature\Actions\Products\adminActionsOnProductsTest">admin Actions On Products (Tests\Feature\Actions\Products\adminActionsOnProducts)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An admin can with data set "ViewAny"</li>
+            <li style="color: #555753;">✓ An admin can with data set "Create"</li>
+            <li style="color: #555753;">✓ An admin can with data set "View"</li>
+            <li style="color: #555753;">✓ An admin can with data set "Edit"</li>
+        </ul>
+        <h2 id="Tests\Feature\Actions\Products\guestActionsOnProductsTest">guest Actions On Products (Tests\Feature\Actions\Products\guestActionsOnProducts)</h2>
+        <ul>
+            <li style="color: #555753;">✓ A guest cannot with data set "ViewAny"</li>
+            <li style="color: #555753;">✓ A guest cannot with data set "Create"</li>
+            <li style="color: #555753;">✓ A guest cannot with data set "Show"</li>
+            <li style="color: #555753;">✓ A guest cannot with data set "Edit"</li>
+        </ul>
+        <h2 id="Tests\Feature\Actions\Products\userActionsOnProductsTest">user Actions On Products (Tests\Feature\Actions\Products\userActionsOnProducts)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An user can with data set "ViewEnabledProduct"</li>
+            <li style="color: #555753;">✓ An user cannot with data set "ViewAny"</li>
+            <li style="color: #555753;">✓ An user cannot with data set "Create"</li>
+            <li style="color: #555753;">✓ An user cannot with data set "ViewDisabledProduct"</li>
+            <li style="color: #555753;">✓ An user cannot with data set "Edit"</li>
+        </ul>
+        <h2 id="Tests\Feature\Actions\Users\adminActionsOnUsersTest">admin Actions On Users (Tests\Feature\Actions\Users\adminActionsOnUsers)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An admin can with data set "ViewAny"</li>
+            <li style="color: #555753;">✓ An admin can with data set "Show"</li>
+            <li style="color: #555753;">✓ An admin can with data set "Edit"</li>
+        </ul>
+        <h2 id="Tests\Feature\Actions\Users\guestActionsOnUsersTest">guest Actions On Users (Tests\Feature\Actions\Users\guestActionsOnUsers)</h2>
+        <ul>
+            <li style="color: #555753;">✓ A guest cannot with data set "ViewAny"</li>
+            <li style="color: #555753;">✓ A guest cannot with data set "Show"</li>
+            <li style="color: #555753;">✓ A guest cannot with data set "Edit"</li>
+        </ul>
+        <h2 id="Tests\Feature\Actions\Users\userActionsOnUsersTest">user Actions On Users (Tests\Feature\Actions\Users\userActionsOnUsers)</h2>
+        <ul>
+            <li style="color: #555753;">✓ A user cannot with data set "ViewAny"</li>
+            <li style="color: #555753;">✓ A user cannot with data set "View"</li>
+            <li style="color: #555753;">✓ A user cannot with data set "Edit"</li>
+        </ul>
+        <h2 id="Tests\Feature\Api\Products\ListProductTest">List Product (Tests\Feature\Api\Products\ListProduct)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Can fetch single product</li>
+            <li style="color: #555753;">✓ Can fetch all product</li>
+        </ul>
+        <h2 id="Tests\Feature\Api\Products\PaginateProductTest">Paginate Product (Tests\Feature\Api\Products\PaginateProduct)</h2>
+        <ul>
+            <li style="color: #555753;">✓ </li>
+        </ul>
+        <h2 id="Tests\Feature\Api\Products\StoreProductTest">Store Product (Tests\Feature\Api\Products\StoreProduct)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Can store products</li>
+        </ul>
+        <h2 id="Tests\Feature\Excel\ImportTest">Import (Tests\Feature\Excel\Import)</h2>
+        <ul>
+            <li style="color: #555753;">✓ </li>
+            <li style="color: #555753;">✓ Admin can import products</li>
+        </ul>
+        <h2 id="Tests\Feature\MostViewedProductsTest">Most Viewed Products (Tests\Feature\MostViewedProducts)</h2>
+        <ul>
+            <li style="color: #555753;">✓ The 5 most viewed are selected with winner</li>
+            <li style="color: #555753;">✓ The 5 most viewed are selected without winner</li>
+        </ul>
+        <h2 id="Tests\Feature\Products\deleteTest">delete (Tests\Feature\Products\delete)</h2>
+        <ul>
+            <li style="color: #555753;">✓ A guest cannot delete a product</li>
+            <li style="color: #555753;">✓ An user cannot delete a product</li>
+            <li style="color: #555753;">✓ An admin can delete a product</li>
+        </ul>
+        <h2 id="Tests\Feature\Products\statsTest">stats (Tests\Feature\Products\stats)</h2>
+        <ul>
+            <li style="color: #555753;">✓ The view of a product is counted</li>
+        </ul>
+        <h2 id="Tests\Feature\Products\storeProductsTest">store Products (Tests\Feature\Products\storeProducts)</h2>
+        <ul>
+            <li style="color: #555753;">✓ A guest cannot store a product</li>
+            <li style="color: #555753;">✓ An user cannot store a product</li>
+            <li style="color: #555753;">✓ An admin can store a product with valid product inputs</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "No name"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "No price"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "No category"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "No description"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A name too short"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A name too large"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A negative price"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A price equal to zero"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A price too large"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A invalid category"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A description too short"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A description too large"</li>
+            <li style="color: #555753;">✓ An admin cannot store a product with invalid product inputs with data set "A invalid image"</li>
+        </ul>
+        <h2 id="Tests\Feature\Products\updateProductsTest">update Products (Tests\Feature\Products\updateProducts)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An guest cannot update products</li>
+            <li style="color: #555753;">✓ An user cannot update products</li>
+            <li style="color: #555753;">✓ An admin can update products with valid product inputs with data set "New data"</li>
+            <li style="color: #555753;">✓ An admin can update products with valid product inputs with data set "Same data"</li>
+            <li style="color: #555753;">✓ An admin can update products with valid product inputs with data set "Same name"</li>
+            <li style="color: #555753;">✓ An admin can update products with valid product inputs with data set "Same description"</li>
+            <li style="color: #555753;">✓ An admin can update products with valid product inputs with data set "Same category"</li>
+            <li style="color: #555753;">✓ An admin can update products with valid product inputs with data set "Same image"</li>
+            <li style="color: #555753;">✓ An admin can update products with valid product inputs with data set "Same price"</li>
+            <li style="color: #555753;">✓ An admin can update products with valid product inputs with data set "Same stock"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "No name"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A name too short"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A name too large"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "No description"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A description too short"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A description too large"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A invalid category"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A invalid image"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "No price"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A negative price"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A price equal to zero"</li>
+            <li style="color: #555753;">✓ An admin cannot update product with invalid product inputs with data set "A price too large"</li>
+        </ul>
+        <h2 id="Tests\Feature\RouteControllerTest">Route Controller (Tests\Feature\RouteController)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Route is allowed for guest with data set "welcome"</li>
+            <li style="color: #555753;">✓ Route is allowed for guest with data set "login"</li>
+            <li style="color: #555753;">✓ Route is allowed for guest with data set "register"</li>
+            <li style="color: #555753;">✓ Route is forbidden for guest with data set "home"</li>
+            <li style="color: #555753;">✓ Route is forbidden for guest with data set "shop"</li>
+            <li style="color: #555753;">✓ Route is forbidden for guest with data set "disabled"</li>
+            <li style="color: #555753;">✓ Route is forbidden for guest with data set "control_panel"</li>
+            <li style="color: #555753;">✓ Route is allowed for enabled user with data set "home"</li>
+            <li style="color: #555753;">✓ Route is allowed for enabled user with data set "shop"</li>
+            <li style="color: #555753;">✓ Route is forbidden for enabled user with data set "welcome"</li>
+            <li style="color: #555753;">✓ Route is forbidden for enabled user with data set "login"</li>
+            <li style="color: #555753;">✓ Route is forbidden for enabled user with data set "register"</li>
+            <li style="color: #555753;">✓ Route is forbidden for enabled user with data set "control_panel"</li>
+            <li style="color: #555753;">✓ Route is forbidden for enabled user with data set "reports.summary"</li>
+            <li style="color: #555753;">✓ Route is forbidden for enabled user with data set "disabled"</li>
+            <li style="color: #555753;">✓ Route is allowed for disabled user with data set "disabled"</li>
+            <li style="color: #555753;">✓ Route is forbidden for disabled user with data set "login"</li>
+            <li style="color: #555753;">✓ Route is forbidden for disabled user with data set "register"</li>
+            <li style="color: #555753;">✓ Route is forbidden for disabled user with data set "welcome"</li>
+            <li style="color: #555753;">✓ Route is forbidden for disabled user with data set "home"</li>
+            <li style="color: #555753;">✓ Route is forbidden for disabled user with data set "shop"</li>
+            <li style="color: #555753;">✓ Route is forbidden for disabled user with data set "control_panel"</li>
+            <li style="color: #555753;">✓ Route is allowed for admin with data set "home"</li>
+            <li style="color: #555753;">✓ Route is allowed for admin with data set "shop"</li>
+            <li style="color: #555753;">✓ Route is allowed for admin with data set "control_panel"</li>
+            <li style="color: #555753;">✓ Route is forbidden for admin with data set "welcome"</li>
+            <li style="color: #555753;">✓ Route is forbidden for admin with data set "login"</li>
+            <li style="color: #555753;">✓ Route is forbidden for admin with data set "register"</li>
+            <li style="color: #555753;">✓ Route is forbidden for admin with data set "disabled"</li>
+        </ul>
+        <h2 id="Tests\Feature\SearchBarTest">Search Bar (Tests\Feature\SearchBar)</h2>
+        <ul>
+            <li style="color: #555753;">✓ A guest cannot search a product</li>
+            <li style="color: #555753;">✓ A enabled user can search a product</li>
+            <li style="color: #555753;">✓ A admin can search a product</li>
+        </ul>
+        <h2 id="Tests\Feature\ShoppingCarts\cleanTest">clean (Tests\Feature\ShoppingCarts\clean)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An user can clean their shopping cart</li>
+        </ul>
+        <h2 id="Tests\Feature\ShoppingCarts\showTest">show (Tests\Feature\ShoppingCarts\show)</h2>
+        <ul>
+            <li style="color: #555753;">✓ A guest cannot a shopping cart</li>
+            <li style="color: #555753;">✓ An user can show their shopping cart</li>
+        </ul>
+        <h2 id="Tests\Feature\Users\updateUsersTest">update Users (Tests\Feature\Users\updateUsers)</h2>
+        <ul>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "New data"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "Same data"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "Same name"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "same email"</li>
+            <li style="color: #555753;">✓ An admin can update users with valid user inputs with data set "Same is_enabled status"</li>
+            <li style="color: #555753;">✓ An admin cannot update user with invalid user inputs with data set "No name"</li>
+            <li style="color: #555753;">✓ An admin cannot update user with invalid user inputs with data set "A name too short"</li>
+            <li style="color: #555753;">✓ An admin cannot update user with invalid user inputs with data set "A name too large"</li>
+            <li style="color: #555753;">✓ An admin cannot update user with invalid user inputs with data set "No email"</li>
+            <li style="color: #555753;">✓ An admin cannot update user with invalid user inputs with data set "A email too large"</li>
+            <li style="color: #555753;">✓ An admin cannot update user with invalid user inputs with data set "Email is not an email"</li>
+            <li style="color: #555753;">✓ An user can update their information with valid information</li>
+            <li style="color: #555753;">✓ An user cannot update other users</li>
+            <li style="color: #555753;">✓ An guest cannot update users</li>
+        </ul>
+    </body>
+</html>

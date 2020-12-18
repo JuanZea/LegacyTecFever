@@ -23,8 +23,6 @@ class deleteTest extends TestCase
     }
 
     /**
-     * Verify that a guest cannot delete a product
-     *
      * @test
      */
     public function aGuestCannotDeleteAProduct()
@@ -42,8 +40,6 @@ class deleteTest extends TestCase
     }
 
     /**
-     * Verify that an user cannot delete a product
-     *
      * @test
      */
     public function anUserCannotDeleteAProduct()
@@ -64,13 +60,10 @@ class deleteTest extends TestCase
     }
 
     /**
-     * Check if an admin can delete a product
-     *
      * @test
      */
     public function anAdminCanDeleteAProduct()
     {
-        $this->withoutExceptionHandling();
         // Arrange
         $admin = factory(User::class)->create()->assignRole('admin');
         factory(ShoppingCart::class)->create(['user_id' => $admin->id]);

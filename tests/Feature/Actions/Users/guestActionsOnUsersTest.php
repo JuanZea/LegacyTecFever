@@ -13,7 +13,6 @@ class guestActionsOnUsersTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Check if the guest actions are forbidden on users
      * @test
      * @dataProvider invalidActionsProvider
      * @param string $route
@@ -38,10 +37,10 @@ class guestActionsOnUsersTest extends TestCase
     public function invalidActionsProvider() : array
     {
         return [
-            'index' => ['users.index'],
-//            'create' => ['users.create'],
-            'show' => ['users.show'],
-            'edit' => ['users.edit'],
+            'ViewAny' => ['users.index'],
+//            'Create' => ['users.create'],
+            'Show' => ['users.show'],
+            'Edit' => ['users.edit'],
         ];
     }
 }

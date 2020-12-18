@@ -13,31 +13,38 @@ class updateUsersTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $valid_users_request;
+    private $admin;
+    private $user;
+    private $valid_user_request;
 
     public function setUp(): void
     {
         parent::setUp();
         TestHelpers::activeRoles();
-        $this->valid_users_request = factory(User::class)->raw();
+        $this->valid_user_request = factory(User::class)->raw();
+        unset($this->valid_user_request['email_verified_at']);
+        unset($this->valid_user_request['remember_token']);
+        unset($this->valid_user_request['api_token']);
+        unset($this->valid_user_request['password']);
+        unset($this->valid_user_request['document']);
+        $this->admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
+        factory(ShoppingCart::class)->create(['user_id' => $this->admin->id]);
+        $this->user = factory(User::class)->create(['is_enabled' => true])->assignRole('user');
+        factory(ShoppingCart::class)->create(['user_id' => $this->user->id]);
     }
 
     /**
-     * Verify that an admin can update users with valid information
-     *
-     * @test
      * @dataProvider validUserInputDataProvider
+     * @test
      * @param string $data
+     * @return void
      */
     public function anAdminCanUpdateUsersWithValidUserInputs(string $data)
     {
         // Arrange
-        $admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
-        factory(ShoppingCart::class)->create(['user_id' => $admin->id]);
-        $user = factory(User::class)->create();
-        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
-        $oldData = TestHelpers::removeTimeKeys($user->toArray());
-        $validRequest = $this->valid_users_request;
+        $oldData = TestHelpers::removeTimeKeys($this->user->toArray());
+        $validRequest = $this->valid_user_request;
+        unset($oldData['roles']);
 
         if($data == 'same') {
             $validRequest = $oldData;
@@ -47,10 +54,10 @@ class updateUsersTest extends TestCase
         }
 
         // Act
-        $this->actingAs($admin);
-        $response = $this->put(route('users.update', $user), $validRequest);
+        $this->actingAs($this->admin);
+        $response = $this->put(route('users.update', $this->user), $validRequest);
 
-        // Assert
+        // Asserts
         $response->assertRedirect();
         $this->assertDatabaseHas('users', $validRequest);
         // Asserts - New Data
@@ -60,59 +67,75 @@ class updateUsersTest extends TestCase
     }
 
     /**
-     * Verify that a user can update their information with valid information
-     *
-     * @test
-     */
-    public function anUserCanUpdateTheirInformationWithValidInformation()
-    {
-        $this->withoutExceptionHandling();
-        // Arrange
-        $user = factory(User::class)->create(['is_enabled' => true]);
-        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
-        $validRequest = $this->valid_users_request;
-
-        // Act
-        $this->actingAs($user);
-        $response = $this->patch(route('users.update', $user), $validRequest);
-
-        // Assert
-        $response->assertRedirect(route('account'));
-        $this->assertDatabaseHas('users', $validRequest);
-    }
-
-    /**
-     * Verify that an admin cannot update users with invalid information
-     *
      * @test
      * @dataProvider invalidUserInputDataProvider
      * @param string $field
      * @param string|null $value
      */
-    public function anAdminCannotUpdateUsersWithInvalidUserInputs(string $field, ?string $value)
+    public function anAdminCannotUpdateUserWithInvalidUserInputs(string $field, ?string $value)
     {
         // Arrange
-        $admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
-        $user = factory(User::class)->create();
+        $invalidRequest = $this->valid_user_request;
+        $invalidRequest[$field] = $value;
 
         // Act
-        $this->actingAs($admin);
-        $invalidRequest = TestHelpers::VALIDREQUESTFORUSER;
-        $invalidRequest[$field] = $value;
-        if($value == 'nixon@admin.com'){
-            $invalidRequest[$field] = $admin->email;
-        }
-        $response = $this->put(route('users.update',$user),$invalidRequest);
+        $this->actingAs($this->admin);
+        $response = $this->put(route('users.update', $this->user), $invalidRequest);
 
         // Assert
         $response->assertRedirect();
         $response->assertSessionHasErrors();
-        $this->assertDatabaseMissing('users',$invalidRequest);
+        $this->assertDatabaseMissing('users', $invalidRequest);
+    }
+
+    /**
+     * @test
+     */
+    public function anUserCanUpdateTheirInformationWithValidInformation()
+    {
+        // Act
+        $this->actingAs($this->user);
+        $response = $this->put(route('users.update', $this->user), $this->valid_user_request);
+
+        // Asserts
+        $response->assertRedirect();
+        $this->assertDatabaseHas('users', $this->valid_user_request);
+    }
+
+    /**
+     * @test
+     */
+    public function anUserCannotUpdateOtherUsers()
+    {
+        // Arrange
+        $user = factory(User::class)->create()->assignRole('user');
+        factory(ShoppingCart::class)->create(['user_id' => $user->id]);
+
+        // Act
+        $this->actingAs($this->user);
+        $response = $this->put(route('users.update', $user), $this->valid_user_request);
+
+        // Asserts
+        $response->assertStatus(403);
+        $this->assertDatabaseMissing('users', $this->valid_user_request);
+    }
+
+    /**
+     * @test
+     */
+    public function anGuestCannotUpdateUsers()
+    {
+        // Act
+        $response = $this->put(route('users.update', $this->user), $this->valid_user_request);
+
+        // Asserts
+        $response->assertRedirect('login');
+        $this->assertDatabaseMissing('users', $this->valid_user_request);
     }
 
     //PROVIDERS
 
-    public function validUserInputDataProvider()
+    public function validUserInputDataProvider(): array
     {
         return [
             'New data' => ['new'],
@@ -123,7 +146,7 @@ class updateUsersTest extends TestCase
         ];
     }
 
-    public function invalidUserInputDataProvider()
+    public function invalidUserInputDataProvider(): array
     {
         return [
             'No name' => ['name', null],
@@ -131,7 +154,6 @@ class updateUsersTest extends TestCase
             'A name too large' => ['name', Str::random(41)],
             'No email' => ['name', null],
             'A email too large' => ['email', Str::random(60) . '@test.com'],
-            'A repeated email' => ['email', 'nixon@admin.com'],
             'Email is not an email' => ['email', Str::random(29)]
         ];
     }

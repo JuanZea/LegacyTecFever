@@ -4,7 +4,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header justify-content-center">
-        <h3 class="modal-title font-weight-bold">@lang('Actions')</h3>
+        <h3 class="modal-title"><b>{{ strtoupper(trans('actions')) }}</b></h3>
       </div>
       <div class="modal-body d-flex justify-content-around">
         <a class="text-dark" data-dismiss="modal" data-toggle="modal" data-target="#importModal"><i class="fas fa-3x fa-upload sel hvr-grow" data-toggle="tooltip" data-placement="bottom" title="@lang('products.titles.import')"></i></a>
@@ -13,7 +13,7 @@
         <a class="text-dark" href="{{ route('products.create') }}"><i class="fas fa-3x fa-plus-circle sel hvr-grow" data-toggle="tooltip" data-placement="bottom" title="@lang('products.titles.create')"></i></a>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">@lang('common.actions.cancel')</button>
+        <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">{{ ucfirst(trans('cancel')) }}</button>
       </div>
     </div>
   </div>

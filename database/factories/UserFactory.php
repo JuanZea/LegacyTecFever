@@ -22,7 +22,7 @@ $factory->define(User::class, function (Faker $faker) {
         'is_enabled' => $faker->boolean($chanceOfGettingTrue = 70),
         'name' => $faker->firstName,
         'document' => rand(1000000000, 9999999999),
-        'documentType' => 'CC',
+        'document_type' => 'CC',
         'mobile' => rand(3210000000, 32199999999),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),

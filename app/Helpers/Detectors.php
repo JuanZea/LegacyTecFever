@@ -12,7 +12,7 @@ class Detectors {
      * @param $stats
      * @return array|null $most_viewed_product
      */
-    public static function max_products_stats(array $products, array $max_stats, $stats) : ?array
+    public static function maxProductsStats(array $products, array $max_stats, $stats) : ?array
     {
         if (count($products) == 0 && count($max_stats) != 5) {
             return null;
@@ -43,14 +43,14 @@ class Detectors {
             array_push($new_products, $product);
         }
 
-        return self::max_products_stats($new_products, $max_stats, $stats);
+        return self::maxProductsStats($new_products, $max_stats, $stats);
     }
 
     /**
      * @param array $products
      * @return array
      */
-    public static function most_stock(array $products): array
+    public static function mostStock(array $products): array
     {
         $most_stock = [];
         for ($idx = 0; $idx < 5; $idx++) {

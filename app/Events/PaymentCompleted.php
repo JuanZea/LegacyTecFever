@@ -21,7 +21,6 @@ class PaymentCompleted
      */
     public function __construct($payment)
     {
-        //
         $this->payment = $payment;
     }
 

@@ -14,10 +14,11 @@ return [
     ],
     'messages' => [
         'created' => 'A product was created successfully',
+        'updated' => 'The product was updated successfully',
         'import' => 'Import of :count products started successfully',
         'export' => 'The export of products started successfully'
     ],
-    'error_messages' => [
+    'errors' => [
         'name' => [
             'required' => 'Your product needs a name',
             'min' => 'The name must have at least 3 letters',
@@ -52,7 +53,6 @@ return [
         ]
     ],
     'reports_messages' => [
-        'intro' => 'Here you can generate a report based on the information collected from all TecFever products to date.',
         'most_viewed' => 'Among all the products it has been detected that the most viewed is <strong>:most_viewed</strong> with <strong>:views</strong> views.'
     ]
 ];

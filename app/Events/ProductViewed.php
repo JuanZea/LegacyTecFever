@@ -21,7 +21,6 @@ class ProductViewed
      */
     public function __construct($product)
     {
-        //
         $this->product = $product;
     }
 

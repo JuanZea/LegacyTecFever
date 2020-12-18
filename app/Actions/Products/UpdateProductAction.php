@@ -10,12 +10,6 @@ use Illuminate\Support\Facades\Storage;
 class UpdateProductAction
 {
 
-    public function __construct()
-    {
-
-    }
-
-
     /**
      * @param array $request
      * @param Product $product

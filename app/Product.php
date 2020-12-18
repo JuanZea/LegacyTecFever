@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\LaravelUpsert\Eloquent\HasUpsertQueries;
 
 /**
  * @property mixed image
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
-    use \Staudenmeir\LaravelUpsert\Eloquent\HasUpsertQueries;
+    use HasUpsertQueries; // Gratefulness to Alexander
 	/**
      * The attributes that are mass assignable.
      *

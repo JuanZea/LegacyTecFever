@@ -3,7 +3,6 @@
 namespace Tests\Feature\Products;
 
 use App\Product;
-use App\ShoppingCart;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -16,6 +15,7 @@ class updateProductsTest extends TestCase
 
     private $admin;
     private $valid_product_request;
+    private $product;
 
     public function setUp(): void
     {
@@ -23,6 +23,37 @@ class updateProductsTest extends TestCase
         TestHelpers::activeRoles();
         $this->valid_product_request = factory(Product::class)->raw();
         $this->admin = factory(User::class)->create(['is_enabled' => true])->assignRole('admin');
+        $this->product = factory(Product::class)->create();
+    }
+
+    /**
+     * @test
+     */
+    public function anGuestCannotUpdateProducts()
+    {
+        // Act
+        $response = $this->put(route('products.update', $this->product), $this->valid_product_request);
+
+        // Asserts
+        $response->assertRedirect('login');
+        $this->assertDatabaseMissing('products', $this->valid_product_request);
+    }
+
+    /**
+     * @test
+     */
+    public function anUserCannotUpdateProducts()
+    {
+        // Arrange
+        $user = factory(User::class)->create(['is_enabled' => true])->assignRole('user');
+
+        // Act
+        $this->actingAs($user);
+        $response = $this->put(route('products.update', $this->product), $this->valid_product_request);
+
+        // Asserts
+        $response->assertStatus(403); // Forbidden
+        $this->assertDatabaseMissing('products', $this->valid_product_request);
     }
 
     /**
@@ -34,10 +65,8 @@ class updateProductsTest extends TestCase
      */
     public function anAdminCanUpdateProductsWithValidProductInputs(string $data)
     {
-        $this->withoutExceptionHandling();
         // Arrange
-        $product = factory(Product::class)->create();
-        $oldData = TestHelpers::removeTimeKeys($product->toArray());
+        $oldData = TestHelpers::removeTimeKeys($this->product->toArray());
         unset($oldData['stats']);
         unset($oldData['is_enabled']);
 
@@ -53,7 +82,7 @@ class updateProductsTest extends TestCase
 
         // Act
         $this->actingAs($this->admin);
-        $response = $this->put(route('products.update', $product), $validRequest);
+        $response = $this->put(route('products.update', $this->product), $validRequest);
 
         // Asserts
         $response->assertRedirect();
@@ -65,14 +94,12 @@ class updateProductsTest extends TestCase
     }
 
      /**
-     * Verify that an admin cannot update products with invalid information
-     *
      * @test
      * @dataProvider invalidProductInputDataProvider
      * @param string $field
      * @param string|null $value
      */
-    public function anAdminCannotUpdateProductWithInvalidUserInputs(string $field, ?string $value)
+    public function anAdminCannotUpdateProductWithInvalidProductInputs(string $field, ?string $value)
     {
         // Arrange
         $invalidRequest = $this->valid_product_request;
@@ -80,7 +107,7 @@ class updateProductsTest extends TestCase
 
         // Act
         $this->actingAs($this->admin);
-        $response = $this->post(route('products.store', $invalidRequest));
+        $response = $this->put(route('products.update', $this->product), $invalidRequest);
 
         // Assert
         $response->assertRedirect();
@@ -90,7 +117,7 @@ class updateProductsTest extends TestCase
 
     // PROVIDERS
 
-    public function validProductInputDataProvider()
+    public function validProductInputDataProvider(): array
     {
         return [
             // All Data
@@ -107,7 +134,7 @@ class updateProductsTest extends TestCase
         ];
     }
 
-    public function invalidProductInputDataProvider()
+    public function invalidProductInputDataProvider(): array
     {
         return [
             'No name' => ['name', null],
@@ -116,7 +143,6 @@ class updateProductsTest extends TestCase
             'No description' => ['description', null],
             'A description too short' => ['description', Str::random(2)],
             'A description too large' => ['description', Str::random(1001)],
-            'No category' => ['category', null],
             'A invalid category' => ['category', 'invalid'],
              'A invalid image' => ['image', 'invalid'],
             'No price' => ['price', null],
