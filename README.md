@@ -6,9 +6,9 @@
 
 Necesita **php 7.4.x** en su sistema, encuentre las instrucciones de instalación haciendo [click aquí](https://www.php.net/downloads).
 
-Necesita el framework **Laravel** en su version **7.x** para ejecutar este proyecto, mire las instrucciones de instalación haciendo [click aquí](https://laravel.com/docs).
+Necesita el framework **Laravel** en su versión **7.x** para ejecutar este proyecto, mire las instrucciones de instalación haciendo [click aquí](https://laravel.com/docs).
 
-Para alojar el proyecto, y cargar una base de datos puede usar Laragon, descarguelo haciendo [click aquí](https://laragon.org/download/).
+Para alojar el proyecto, y cargar una base de datos puede usar Laragon, descárguelo haciendo [click aquí](https://laragon.org/download/).
 
 
 ### Laravel 7.x:
